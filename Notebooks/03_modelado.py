@@ -6,17 +6,23 @@
 #
 # *Rodrigo Ajmac — 22279 · Andres Mazariegos — 21749 · June Herrera — 231038*
 #
-# Este cuaderno cubre los puntos **2, 3, 4 y 5** del enunciado. Parte de las decisiones
-# metodológicas justificadas en el cuaderno `01_EDA_series_tiempo.ipynb`:
+# Este cuaderno cubre los puntos **2, 3, 4 y 5** del enunciado y continúa el trabajo iniciado
+# en `02_Analysis_TimeSeries.ipynb`, respetando las series que allí se construyeron:
 #
-# - La **serie obligatoria** es el total mensual de visitantes medido como
-#   **Turista + Excursionista**, las dos únicas categorías consistentes en los 210 meses
-#   (la categoría `Viajero` sufre un cambio de definición en 2023 y `Cruceristas` desaparece).
-# - Las **dos categorías de análisis** seleccionadas son **Fronteras** (Top 3 acumulado) y
-#   **Regiones geográficas** (`Región dos`, Top 3 acumulado), por ser las únicas cuyas series
-#   existen y son comparables en todo el período.
+# - **Serie obligatoria:** total mensual de viajeros internacionales.
+# - **Categoría i — Países de residencia (Top 3 acumulado):** El Salvador, Guatemala y
+#   Estados Unidos de América.
+# - **Categoría iii — Vías de ingreso:** Aérea, Terrestre y Marítima.
 #
 # En total se analizan **7 series mensuales**.
+#
+# **Nota sobre la definición de la medida.** Las series se construyen sobre el total de
+# viajeros **sin filtrar por tipo**, igual que en el cuaderno 02. El enunciado sugiere usar
+# `Turista + Excursionista` para comparar en todo el rango, pero bajo esa definición la
+# **vía Marítima queda en cero desde 2017** (todo su volumen pasa a registrarse como
+# `Cruceristas`), lo que dejaría sin serie a una de las tres vías que el propio enunciado
+# exige construir. Se usa por tanto la medida completa y el quiebre metodológico de 2023 se
+# documenta y se tiene en cuenta al interpretar los resultados.
 
 # %% [markdown]
 # ## 0. Configuración
@@ -79,8 +85,7 @@ df['Viajero'] = df['Viajero'].astype(int)
 df['fecha'] = pd.to_datetime(
     df['Año'].astype(str) + '-' + df['Mes cod'].astype(str).str.zfill(2) + '-01')
 
-CONSISTENTES = ['Turista', 'Excursionista']
-base = df[df['Tipo de Viajero'].isin(CONSISTENTES)]
+base = df   # medida completa, sin filtrar por tipo de viajero (igual que el cuaderno 02)
 
 IDX = pd.date_range('2009-01-01', '2026-06-01', freq='MS')
 
@@ -89,27 +94,28 @@ def serie_de(mascara):
             .reindex(IDX).fillna(0).astype(float))
 
 # Rankings sobre el acumulado del período completo (criterio del enunciado)
-rank_front = base.groupby('Frontera')['Viajero'].sum().sort_values(ascending=False)
-rank_reg = base.groupby('Región dos')['Viajero'].sum().sort_values(ascending=False)
-top3_front = list(rank_front.head(3).index)
-top3_reg = list(rank_reg.head(3).index)
+rank_pais = base.groupby('País')['Viajero'].sum().sort_values(ascending=False)
+top3_pais = list(rank_pais.head(3).index)
+VIAS = ['Aérea', 'Terrestre', 'Marítima']
 
-print('Top 3 fronteras (acumulado):')
-print((rank_front.head(3) / 1e6).round(2).to_string(), '\n')
-print('Top 3 regiones (acumulado):')
-print((rank_reg.head(3) / 1e6).round(2).to_string())
+print('Top 3 países por total acumulado del período completo (millones):')
+print((rank_pais.head(5) / 1e6).round(2).to_string())
+print(f'\nSeleccionados: {top3_pais}')
+print('\nVías de ingreso (millones):')
+print((base.groupby('Vía')['Viajero'].sum().sort_values(ascending=False) / 1e6).round(2).to_string())
 
 TODO = pd.Series(True, index=base.index)
-MASCARAS = {'Total (Turista+Excursionista)': TODO}
-for f in top3_front:
-    MASCARAS[f'Frontera: {f[3:]}'] = base['Frontera'] == f
-for r in top3_reg:
-    MASCARAS[f'Región: {r}'] = base['Región dos'] == r
+MASCARAS = {'Total de viajeros': TODO}
+for p in top3_pais:
+    MASCARAS[f'País: {p}'] = base['País'] == p
+for v in VIAS:
+    MASCARAS[f'Vía: {v}'] = base['Vía'] == v
 
 SERIES = {n: serie_de(m) for n, m in MASCARAS.items()}
 
-CLAVES = {n: n.replace('Total (Turista+Excursionista)', 'total')
-             .replace('Frontera: ', 'fr_').replace('Región: ', 'rg_')
+CLAVES = {n: n.replace('Total de viajeros', 'total')
+             .replace('País: ', 'pais_').replace('Vía: ', 'via_')
+             .replace('Estados Unidos de América', 'usa')
              .replace(' ', '_').replace('á', 'a').replace('é', 'e').replace('í', 'i')
              .replace('ó', 'o').replace('ú', 'u').lower() for n in SERIES}
 
@@ -619,9 +625,9 @@ cmp5 = pd.DataFrame(filas).set_index('serie')
 print(cmp5.round(3).to_string())
 R['comparativo'] = cmp5.round(3).to_dict('index')
 
-sin_total = cmp5.drop(index='Total (Turista+Excursionista)')
-por_cat = {'Fronteras': [i for i in sin_total.index if i.startswith('Frontera')],
-           'Regiones': [i for i in sin_total.index if i.startswith('Región')]}
+sin_total = cmp5.drop(index='Total de viajeros')
+por_cat = {'Países de residencia': [i for i in sin_total.index if i.startswith('País')],
+           'Vías de ingreso': [i for i in sin_total.index if i.startswith('Vía')]}
 
 print('\n' + '=' * 90)
 print('RESPUESTAS DEL PUNTO 5.a, POR CATEGORÍA')
@@ -650,9 +656,10 @@ R['respuestas_5a'] = respuestas
 
 # %%
 fig, ax = plt.subplots(2, 2, figsize=(13, 7))
-etq = [i.replace('Frontera: ', 'Fr. ').replace('Región: ', 'Rg. ')
-        .replace('Total (Turista+Excursionista)', 'TOTAL') for i in cmp5.index]
-col = [GRIS if 'TOTAL' in e else (AZUL if e.startswith('Fr.') else VERDE) for e in etq]
+etq = [i.replace('País: ', 'País ').replace('Vía: ', 'Vía ')
+        .replace('Estados Unidos de América', 'EE.UU.')
+        .replace('Total de viajeros', 'TOTAL') for i in cmp5.index]
+col = [GRIS if 'TOTAL' in e else (AZUL if e.startswith('País') else VERDE) for e in etq]
 for a, (c, t) in zip(ax.ravel(), [
         ('F_estacional', 'Fuerza de la estacionalidad (0-1)'),
         ('TCAC_09_19_%', 'Crecimiento anual compuesto 2009-2019 (%)'),
@@ -661,7 +668,7 @@ for a, (c, t) in zip(ax.ravel(), [
     a.barh(etq, cmp5[c].values, color=col)
     a.set_title(t, fontsize=9); a.grid(axis='y', alpha=0)
     a.tick_params(labelsize=7)
-fig.suptitle('Comparación entre series — azul: fronteras · verde: regiones · gris: total', y=1.01)
+fig.suptitle('Comparación entre series — azul: países · verde: vías · gris: total', y=1.01)
 plt.tight_layout(); guardar('30_comparativo'); plt.show()
 
 # %% [markdown]

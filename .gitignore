@@ -1,0 +1,8 @@
+# Copia duplicada del dataset en la raiz (el original versionado esta en Datos_Crudos/)
+/Base_Migracion_2009-2026jun.xlsx
+
+# Artefactos de compilacion de LaTeX
+Informe/*.aux
+Informe/*.log
+Informe/*.out
+Informe/*.toc

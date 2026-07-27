@@ -119,10 +119,17 @@ El total agregado aparenta caer un 25\% entre 2022 y 2023, cuando Turista + Excu
 solo se mueve de 3.23~M a 2.92~M.}
 \end{figure}
 
-\textbf{Decisión metodológica.} La \textbf{serie obligatoria} se construye como
-\textbf{Turista + Excursionista}, las dos únicas categorías consistentes en los 210 meses.
-Modelar el total crudo produciría un modelo que confunde un cambio de definición administrativa
-con una caída de demanda turística, y todo pronóstico heredaría ese sesgo.
+\textbf{Decisión metodológica sobre la medida.} El enunciado sugiere usar
+\textit{Turista + Excursionista} para comparar en todo el rango. Sin embargo, bajo esa
+definición la \textbf{vía Marítima queda en cero desde 2017}: a partir de ese año la totalidad
+del ingreso marítimo se registra como \texttt{Cruceristas}, categoría que queda fuera del filtro.
+Como el enunciado exige construir una serie mensual \textbf{para cada una de las tres vías},
+aplicar el filtro dejaría a una de ellas sin serie que analizar.
+
+Por eso las series se construyen sobre la \textbf{medida completa, sin filtrar por tipo de
+viajero}, que es además la definición empleada en el análisis previo del equipo. El quiebre de
+2023 no se ignora: se documenta, se cuantifica y se corrige explícitamente en toda comparación
+que cruce ese año (sección~\ref{sec:homog}).
 
 %======================= 2. EDA =======================
 \seccion{Análisis exploratorio (punto 1)}
@@ -214,15 +221,16 @@ ingresos registrados corresponde a residentes de Guatemala}. El ingreso de extra
 exactamente cero durante el cierre de fronteras. Ese piso de 10--15 mil mensuales no es turismo
 residual: es repatriación.
 
+\label{sec:homog}
 Medida sobre la serie tal como viene en la base, la recuperación parece \textbf{incompleta}:
-2022 llega al 78\% y 2025 ---seis años después--- se queda en el \textbf{81\%} del nivel de
-2019. \textbf{Pero esa cifra es engañosa}, y conviene desactivarla de inmediato porque es el
-error de lectura más fácil de cometer con estos datos.
+2025 ---seis años después--- se queda en el \textbf{76.7\%} del nivel de 2019. \textbf{Pero esa
+cifra es engañosa}, y conviene desactivarla de inmediato porque es el error de lectura más fácil
+de cometer con estos datos.
 
 El 2019 de esa comparación \textbf{sí} contabiliza a los residentes de Guatemala que retornan;
 el 2025 \textbf{no}, porque la metodología dejó de contarlos en 2023. Se está comparando una
-definición ancha contra una estrecha. En 2019 esos residentes eran \textbf{1{,}703{,}434
-personas, el 41\% del total}. Si se los excluye también de 2019, de modo que ambos años queden
+definición ancha contra una estrecha. En 2019 esos residentes eran \textbf{1{,}791{,}156
+personas, el 38.2\% del total}. Si se los excluye también de 2019, de modo que ambos años queden
 bajo la misma definición, el resultado se invierte:
 
 \begin{table}[H]
@@ -232,18 +240,16 @@ bajo la misma definición, el resultado se invierte:
 \toprule
 \textbf{Base de comparación} & \textbf{2019} & \textbf{2025} & \textbf{2025 / 2019} \\
 \midrule
-Cruda (definiciones distintas) & 4{,}128{,}896 & 3{,}351{,}497 & 81.2\% \\
-Homogénea (sin residentes de Guatemala en ambos años) & 2{,}425{,}462 & 3{,}351{,}497 & \textbf{138.2\%} \\
+Cruda (definiciones distintas) & 4{,}687{,}946 & 3{,}596{,}061 & 76.7\% \\
+Homogénea (sin residentes de Guatemala en ambos años) & 2{,}896{,}790 & 3{,}596{,}061 & \textbf{124.1\%} \\
 \bottomrule
 \end{tabular}
-\caption{La ``caída del 19\%'' del turismo es un artefacto del cambio de definición. A
-definición constante, 2025 supera a 2019 en un 38\%.}
+\caption{La ``caída del 23\%'' del turismo es un artefacto del cambio de definición. A
+definición constante, 2025 supera a 2019 en un 24\%.}
 \end{table}
 
-\textbf{El turismo extranjero sí se recuperó y superó el nivel prepandemia}: +38\% sobre 2019,
-equivalente a un 5.5\% anual compuesto en seis años, coherente con el 8.19\% de la etapa
-2009--2019 descontando los dos años perdidos. Lo que no se recuperó ---porque dejó de medirse---
-es el flujo de guatemaltecos retornantes.
+\textbf{El turismo extranjero sí se recuperó y superó el nivel prepandemia}: +24\% sobre 2019.
+Lo que no se recuperó ---porque dejó de medirse--- es el flujo de guatemaltecos retornantes.
 
 Esto no invalida el modelado, pero sí precisa su interpretación: la serie que se modela
 \textbf{sí tiene un cambio de nivel permanente} y el modelo debe absorberlo, solo que su causa
@@ -254,7 +260,12 @@ la serie mide una población más pequeña.
 \subseccion{Países, regiones, vías y fronteras}
 
 Todos los rankings se calculan sobre el \textbf{total acumulado del período completo}, como pide
-el enunciado.
+el enunciado. Esta sección cubre los incisos 1.b, 1.c y 1.d, de modo que explora las cuatro
+dimensiones ---países, regiones, vías y fronteras--- aunque solo dos de ellas se lleven al
+modelado. Las cifras de países y vías corresponden a la medida completa; las de regiones y
+fronteras provienen del cuaderno exploratorio y están calculadas sobre
+\textit{Turista + Excursionista}, por lo que sus porcentajes no son directamente comparables con
+los de las dos primeras.
 
 \begin{figure}[H]
 \centering
@@ -262,10 +273,16 @@ el enunciado.
 \caption{Top 10 países de residencia, acumulado 2009--2026.}
 \end{figure}
 
-\textbf{Países.} El Salvador (14.1~M, 30.1\%), Guatemala (13.9~M, 29.7\%) y Estados Unidos
-(7.0~M, 14.9\%) concentran el \textbf{74.7\%} del flujo; más de 200 países aportan el 25\%
-restante. El perfil del crecimiento es \textbf{regional y terrestre}, no de larga distancia:
+\textbf{Países.} Sobre la medida completa, \textbf{El Salvador (16.21~M, 31.0\%)},
+\textbf{Guatemala (14.79~M, 28.3\%)} y \textbf{Estados Unidos (7.05~M, 13.5\%)} concentran el
+\textbf{72.8\%} del flujo; el cuarto, Honduras, aporta apenas 2.79~M (5.3\%), y más de 200
+países se reparten el resto. \textbf{Estos tres son los que definen la primera categoría de
+análisis.} El perfil del crecimiento es \textbf{regional y terrestre}, no de larga distancia:
 El Salvador y Honduras ganan peso mientras la cuota de Estados Unidos se contrae.
+
+El ranking es idéntico si se calcula sobre \textit{Turista + Excursionista} (El Salvador 14.08~M,
+Guatemala 13.87~M, Estados Unidos 6.96~M), de modo que \textbf{la selección del Top 3 no depende
+de la definición de la medida}.
 
 \begin{figure}[H]
 \centering
@@ -275,8 +292,10 @@ El Salvador y Honduras ganan peso mientras la cuota de Estados Unidos se contrae
 
 \textbf{Regiones.} América Central (33.3~M, 71.3\%), América del Norte (9.2~M, 19.6\%) y
 Europa (2.1~M, 4.6\%) explican el \textbf{95.5\%} del flujo. Los tres perfiles son muy distintos
----vía predominante, amplitud estacional y velocidad de recuperación--- y por eso conviene
-modelarlos por separado en lugar de confiar solo en el agregado.
+en vía predominante, amplitud estacional y velocidad de recuperación. Esta variable no es una de
+las dos categorías seleccionadas para modelar, pero su exploración es parte del inciso 1.c y
+además confirma, desde otro ángulo, el mismo patrón que muestran los países: la concentración
+regional del flujo.
 
 \begin{figure}[H]
 \centering
@@ -284,11 +303,17 @@ modelarlos por separado en lugar de confiar solo en el agregado.
 \caption{Ingreso mensual por vía y composición porcentual por año.}
 \end{figure}
 
-\textbf{Vías.} Medido sobre visitantes, la vía \textbf{terrestre domina con 59.1\%}, seguida de
-la \textbf{aérea (40.7\%)} y una \textbf{marítima residual (0.2\%)}. La composición no es
-estática: la terrestre gana peso hasta 2019, salvo en 2021, cuando la aérea la supera (703 mil
-frente a 395 mil) porque los cierres fronterizos terrestres duraron más que la reapertura del
-aeropuerto. Buen ejemplo de que la pandemia \textbf{no afectó a todas las series por igual}.
+\textbf{Vías.} Sobre la medida completa, la vía \textbf{terrestre domina con 61.2\%}
+(31.97~M), seguida de la \textbf{aérea con 36.5\%} (19.06~M) y una \textbf{marítima residual del
+2.4\%} (1.23~M). \textbf{Estas tres constituyen la segunda categoría de análisis.} La composición
+no es estática: la terrestre gana peso hasta 2019, salvo en 2021, cuando la aérea la supera
+porque los cierres fronterizos terrestres duraron más que la reapertura del aeropuerto. Buen
+ejemplo de que la pandemia \textbf{no afectó a todas las series por igual}.
+
+Aquí es donde la definición de la medida sí resulta decisiva: el \textbf{89.5\%} del volumen
+marítimo histórico son \texttt{Cruceristas}. Si se filtrara a \textit{Turista + Excursionista},
+la serie marítima quedaría en \textbf{cero desde 2017} y no habría nada que modelar. Es la razón
+por la que se trabaja con la medida completa.
 
 \begin{figure}[H]
 \centering
@@ -341,31 +366,40 @@ patrón \textbf{sobrevive intacto a la pandemia; el nivel no}.
 
 \subseccion{Criterio de selección de las categorías}
 
-El enunciado pide elegir \textbf{dos} categorías de análisis. El criterio aplicado fue el único
-defendible a la luz del exploratorio: \textbf{sirve la categoría cuyas series existan y sean
-comparables en los 210 meses}.
+El enunciado pide elegir \textbf{dos} de las cinco categorías propuestas. Se seleccionaron
+\textbf{Países de residencia} y \textbf{Vías de ingreso}, que son las dos de mayor valor
+directo para el INGUAT: una responde a \textit{de dónde viene} el visitante (promoción de
+mercados) y la otra a \textit{cómo entra} (capacidad e infraestructura).
 
 \begin{table}[H]
 \centering
 \small
-\begin{tabularx}{\textwidth}{lcX}
+\begin{tabularx}{\textwidth}{llX}
 \toprule
-\textbf{Categoría} & \textbf{¿Utilizable?} & \textbf{Razón} \\
+\textbf{Categoría} & \textbf{Series} & \textbf{Criterio} \\
 \midrule
-Fronteras & \textbf{Sí} & Definidas físicamente; las tres principales tienen serie completa. \\
-Regiones (\textit{Región dos}) & \textbf{Sí} & Completas; absorben el quiebre de 2023 de forma explicable. \\
-Países de residencia & Con reservas & Cambio de granularidad en 2023; \texttt{Guatemala} termina en 2022. \\
-Vías de ingreso & \textbf{No} & Marítima en cero desde 2017 y cruceros fuera de la base desde 2023: dos quiebres encadenados. \\
-Tipo de viajero & \textbf{No} & \texttt{Cruceristas} desaparece en 2023 y \texttt{Viajero} sufre el quiebre de definición. \\
+\textbf{i. Países de residencia} & El Salvador, Guatemala, Estados Unidos & Top 3 por total
+acumulado del período completo (72.8\% del flujo). \\
+\textbf{iii. Vías de ingreso} & Aérea, Terrestre, Marítima & Las tres vías existentes, como
+exige el enunciado. \\
 \bottomrule
 \end{tabularx}
-\caption{Evaluación de las cinco categorías propuestas por el enunciado.}
+\caption{Categorías seleccionadas y series que las componen.}
 \end{table}
 
-\textbf{Selección:} \textbf{Fronteras} (Top 3 acumulado) y \textbf{Regiones geográficas}
-(Top 3 de \textit{Región dos}). Además de ser las más limpias, son las dos más útiles para el
-INGUAT: una responde a \textit{por dónde entra} la gente (capacidad operativa) y la otra a
-\textit{de dónde viene} (promoción de mercados).
+\textbf{Dos advertencias que se declaran desde ahora}, porque condicionan la lectura de los
+resultados y no se pueden resolver con una elección de modelo:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=3pt]
+  \item \textbf{Guatemala deja de registrarse como país de residencia desde enero de 2023.} Es
+  el segundo país por volumen acumulado, así que entra al Top~3 por derecho propio, pero su
+  serie tiene \textbf{42 de los 63 meses del conjunto de prueba en cero}. Sus métricas de error
+  miden el quiebre administrativo, no la calidad del pronóstico. El primer país con serie
+  continua fuera del Top~3 sería Honduras.
+  \item \textbf{La vía Marítima es residual y discontinua}: 2.4\% del flujo, con el 89.5\% de su
+  volumen en \texttt{Cruceristas}, un colapso en 2020 del que no se recupera y 27 meses en cero.
+  Es la serie más difícil del conjunto y así se reporta.
+\end{itemize}
 
 \subseccion{Las siete series}
 
@@ -376,20 +410,21 @@ INGUAT: una responde a \textit{por dónde entra} la gente (capacidad operativa) 
 \toprule
 \textbf{Serie} & \textbf{Inicio} & \textbf{Fin} & \textbf{Frec.} & \textbf{n} & \textbf{Meses en 0} \\
 \midrule
-Total (Turista + Excursionista) & 2009-01 & 2026-06 & Mensual & 210 & 0 \\
-Frontera: La Aurora             & 2009-01 & 2026-06 & Mensual & 210 & 0 \\
-Frontera: Valle Nuevo           & 2009-01 & 2026-06 & Mensual & 210 & 0 \\
-Frontera: San Cristóbal         & 2009-01 & 2026-06 & Mensual & 210 & 0 \\
-Región: América Del Centro      & 2009-01 & 2026-06 & Mensual & 210 & 0 \\
-Región: América Del Norte       & 2009-01 & 2026-06 & Mensual & 210 & 5 \\
-Región: Europa                  & 2009-01 & 2026-06 & Mensual & 210 & 5 \\
+Total de viajeros               & 2009-01 & 2026-06 & Mensual & 210 & 0 \\
+País: El Salvador              & 2009-01 & 2026-06 & Mensual & 210 & 5 \\
+País: Guatemala                & 2009-01 & 2026-06 & Mensual & 210 & \textbf{42} \\
+País: Estados Unidos           & 2009-01 & 2026-06 & Mensual & 210 & 5 \\
+Vía: Aérea                     & 2009-01 & 2026-06 & Mensual & 210 & 0 \\
+Vía: Terrestre                 & 2009-01 & 2026-06 & Mensual & 210 & 0 \\
+Vía: Marítima                  & 2009-01 & 2026-06 & Mensual & 210 & \textbf{27} \\
 \bottomrule
 \end{tabular}
-\caption{Inciso 4.a: inicio, fin y frecuencia de cada serie. Las tres fronteras del Top~3 son
-La Aurora, Valle Nuevo y San Cristóbal; las tres regiones son América del Centro, América del
-Norte y Europa, todas por total acumulado del período completo. Los 5 meses en cero de América
-del Norte y Europa son abril--agosto de 2020: ceros reales por cierre de fronteras, no datos
-faltantes.}
+\caption{Inciso 4.a: inicio, fin y frecuencia de cada serie. Todas comparten inicio (enero 2009),
+fin (junio 2026) y frecuencia mensual, con 210 observaciones. La columna de meses en cero es el
+diagnóstico rápido de utilizabilidad: los 5 ceros de El Salvador y Estados Unidos son
+abril--agosto de 2020 (cierre total de fronteras, ceros reales y no datos faltantes); los 42 de
+Guatemala son todo el período 2023--2026 (deja de medirse); los 27 de Marítima se reparten entre
+2020--2021 y meses sueltos posteriores.}
 \end{table}
 
 \begin{table}[H]
@@ -399,13 +434,13 @@ faltantes.}
 \toprule
 \textbf{Serie} & \textbf{Media} & \textbf{Desv. est.} & \textbf{CV \%} & \textbf{Mín} & \textbf{Máx} \\
 \midrule
-Total (Turista + Excursionista) & 222{,}341 & 84{,}673 & 38.1 & 9{,}779 & 448{,}790 \\
-Frontera: La Aurora             & 90{,}418  & 27{,}774 & 30.7 & 484 & 158{,}073 \\
-Frontera: Valle Nuevo           & 48{,}292  & 23{,}448 & 48.6 & 80 & 111{,}127 \\
-Frontera: San Cristóbal         & 19{,}916  & 11{,}392 & 57.2 & 14 & 53{,}120 \\
-Región: América Del Centro      & 158{,}467 & 66{,}473 & 41.9 & 9{,}779 & 359{,}152 \\
-Región: América Del Norte       & 43{,}605  & 17{,}880 & 41.0 & 0 & 98{,}361 \\
-Región: Europa                  & 10{,}210  & 4{,}391  & 43.0 & 0 & 22{,}799 \\
+Total de viajeros      & 248{,}868 & 100{,}683 & 40.5 & 9{,}779 & 526{,}190 \\
+País: El Salvador      & 77{,}201  & 45{,}285  & 58.7 & 0 & 201{,}883 \\
+País: Guatemala        & 70{,}430  & 51{,}619  & 73.3 & 0 & 207{,}097 \\
+País: Estados Unidos   & 33{,}552  & 15{,}519  & 46.3 & 0 & 79{,}320 \\
+Vía: Aérea             & 90{,}768  & 27{,}718  & 30.5 & 489 & 158{,}463 \\
+Vía: Terrestre         & 152{,}249 & 74{,}996  & 49.3 & 5{,}715 & 357{,}685 \\
+Vía: Marítima          & 5{,}851   & 6{,}709   & \textbf{114.7} & 0 & 29{,}505 \\
 \bottomrule
 \end{tabular}
 \caption{Estadísticas descriptivas de las siete series (viajeros por mes).}
@@ -481,25 +516,32 @@ pandemia se mide aparte con estadísticos propios.
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
 \textbf{Serie} & $F_T$ & $F_S$ & $F_T$ & $F_S$ \\
 \midrule
-Total (Turista + Excursionista) & 0.941 & 0.795 & 0.348 & 0.047 \\
-Frontera: La Aurora             & 0.926 & 0.874 & 0.145 & 0.049 \\
-Frontera: Valle Nuevo           & 0.672 & 0.421 & 0.485 & 0.059 \\
-Frontera: San Cristóbal         & 0.833 & 0.706 & 0.650 & 0.129 \\
-Región: América Del Centro      & 0.950 & 0.805 & 0.550 & 0.077 \\
-Región: América Del Norte       & 0.701 & 0.882 & 0.119 & 0.009 \\
-Región: Europa                  & 0.600 & 0.880 & 0.281 & 0.076 \\
+Total de viajeros      & 0.958 & 0.836 & 0.497 & 0.005 \\
+País: El Salvador      & 0.920 & 0.677 & 0.227 & 0.000 \\
+País: Guatemala        & 0.971 & 0.861 & 0.889 & 0.000 \\
+País: Estados Unidos   & 0.821 & 0.929 & 0.103 & 0.008 \\
+Vía: Aérea             & 0.926 & 0.875 & 0.297 & 0.000 \\
+Vía: Terrestre         & 0.951 & 0.754 & 0.627 & 0.044 \\
+Vía: Marítima          & \textbf{0.000} & \textbf{0.240} & 0.564 & 0.304 \\
 \bottomrule
 \end{tabular}
 \caption{Fuerza de tendencia y estacionalidad. La caída al incluir 2020--2021 no significa que
 las series pierdan tendencia o estacionalidad: es un artefacto de la varianza del choque.}
 \end{table}
 
-\textbf{Lectura.} Las siete series tienen \textbf{tendencia fuerte} ($F_T \geq 0.60$) y
-\textbf{estacionalidad relevante} ($F_S \geq 0.42$). Que una serie tenga estacionalidad
+\textbf{Lectura.} Seis de las siete series tienen \textbf{tendencia fuerte} ($F_T \geq 0.82$) y
+\textbf{estacionalidad relevante} ($F_S \geq 0.68$). Que una serie tenga estacionalidad
 significa que el mes del año es un predictor por sí mismo, y por tanto que un modelo sin
 términos estacionales está condenado a errar de forma sistemática y repetitiva. Que tenga
 tendencia significa que la media no es constante, y por tanto que la serie no puede ser
 estacionaria en media sin diferenciar.
+
+\textbf{La excepción es la vía Marítima}, con $F_T = 0.00$ y $F_S = 0.24$ incluso en la ventana
+limpia. No es un problema de medición del índice: esa serie sencillamente \textbf{no tiene
+tendencia ni estacionalidad apreciables}. Su comportamiento está dominado por la programación
+irregular de cruceros, que no sigue un ciclo anual estable ni una trayectoria sostenida. Es la
+primera señal de que esta serie va a ser refractaria a cualquier modelo, y conviene tenerla
+presente al leer todas las tablas siguientes.
 
 \subseccion{Estacionariedad en varianza y transformación}
 \label{sec:varianza}
@@ -516,28 +558,30 @@ nivel) y el $\lambda$ de Box-Cox.
 \toprule
 \textbf{Serie} & \textbf{corr(media, sd)} & \textbf{pendiente} & $\boldsymbol{\lambda}$ & \textbf{¿Transformar?} \\
 \midrule
-Total (Turista + Excursionista) & 0.845 & 0.871 & $-0.339$ & Sí \\
-Frontera: La Aurora             & 0.873 & 0.824 & $-0.515$ & Sí \\
-Frontera: Valle Nuevo           & 0.174 & 0.194 & 0.703 & No \\
-Frontera: San Cristóbal         & 0.626 & 0.687 & 0.063 & Sí \\
-Región: América Del Centro      & 0.810 & 0.822 & $-0.225$ & Sí \\
-Región: América Del Norte       & 0.762 & 0.685 & 0.181 & Sí \\
-Región: Europa                  & 0.862 & 1.164 & 0.733 & Sí \\
+Total de viajeros      & 0.933 & 0.920 & $-0.425$ & Sí \\
+País: El Salvador      & 0.947 & 1.240 & $-0.244$ & Sí \\
+País: Guatemala        & 0.898 & 0.682 & $-0.166$ & Sí \\
+País: Estados Unidos   & 0.904 & 0.965 & $-0.034$ & Sí \\
+Vía: Aérea             & 0.873 & 0.825 & $-0.514$ & Sí \\
+Vía: Terrestre         & 0.932 & 1.097 & $-0.312$ & Sí \\
+Vía: Marítima          & 0.958 & 1.121 & 0.393 & Sí \\
 \bottomrule
 \end{tabular}
 \caption{Diagnóstico de estacionariedad en varianza (2009--2019).}
 \end{table}
 
-\textbf{Conclusión.} En seis de las siete series la dispersión crece casi proporcionalmente al
-nivel (pendientes de 0.69 a 1.16) y el $\lambda$ de Box-Cox se sitúa cerca de 0, que es
-exactamente el caso logarítmico. \textbf{Estas series no son estacionarias en varianza y
-requieren transformación.} La única excepción es Valle Nuevo, cuya dispersión es prácticamente
-independiente del nivel.
+\textbf{Conclusión.} En las siete series el diagnóstico es unánime: la correlación entre nivel y
+dispersión está entre \textbf{0.87 y 0.96}, las pendientes van de \textbf{0.68 a 1.24}
+---es decir, la desviación estándar crece de forma prácticamente proporcional al nivel--- y el
+$\lambda$ de Box-Cox se sitúa cerca de 0 en seis de ellas, que es exactamente el caso
+logarítmico. \textbf{Ninguna de las series es estacionaria en varianza, y todas requieren
+transformación.}
 
-\textbf{Se modelaron todas en $\log(1+x)$}, incluida Valle Nuevo, por tres razones: estabiliza
-la varianza donde hace falta, garantiza que las predicciones devueltas a la escala original sean
-no negativas, y mantiene todas las series en una escala común para que la comparación sea
-legítima. El $+1$ evita el $\log(0)$ de los meses de cierre total de fronteras de 2020.
+\textbf{Se modelaron todas en $\log(1+x)$}, por tres razones: estabiliza la varianza, garantiza
+que las predicciones devueltas a la escala original sean no negativas, y mantiene todas las
+series en una escala común para que la comparación sea legítima. El $+1$ es imprescindible aquí
+---más que en cualquier otra especificación--- porque cinco de las siete series tienen meses en
+cero y $\log(0)$ no está definido.
 
 \begin{figure}[H]
 \centering
@@ -574,25 +618,33 @@ es decir NO estacionaria) y la \textbf{KPSS} ($H_0$: SÍ estacionaria).
 \toprule
 \textbf{Serie} & \textbf{ADF original} & \textbf{ADF log} & \textbf{ADF log + 1 dif.} & $\boldsymbol{d}$ \\
 \midrule
-Total (Turista + Excursionista) & 0.0470 & 0.0833 & 0.0001 & 1 \\
-Frontera: La Aurora             & 0.0185 & 0.0077 & 0.0000 & 0 \\
-Frontera: Valle Nuevo           & 0.0344 & 0.0185 & 0.0000 & 0 \\
-Frontera: San Cristóbal         & 0.2330 & 0.0235 & 0.0000 & 0 \\
-Región: América Del Centro      & 0.0448 & 0.0544 & 0.0002 & 1 \\
-Región: América Del Norte       & 0.2196 & 0.0393 & 0.0000 & 0 \\
-Región: Europa                  & 0.0222 & 0.0231 & 0.0000 & 0 \\
+Total de viajeros      & 0.0288 & 0.0258 & 0.0000 & 0 \\
+País: El Salvador      & 0.2678 & 0.0120 & 0.0000 & 0 \\
+País: Guatemala        & 0.3111 & \textbf{0.8409} & 0.0000 & \textbf{1} \\
+País: Estados Unidos   & 0.3698 & 0.0365 & 0.0000 & 0 \\
+Vía: Aérea             & 0.0203 & 0.0142 & 0.0000 & 0 \\
+Vía: Terrestre         & 0.0629 & 0.0303 & 0.0000 & 0 \\
+Vía: Marítima          & 0.7101 & \textbf{0.3033} & 0.0000 & \textbf{1} \\
 \bottomrule
 \end{tabular}
 \caption{Valores $p$ de la prueba de Dickey-Fuller aumentada y número de diferencias regulares
 resultante. Un $p < 0.05$ permite rechazar la raíz unitaria.}
 \end{table}
 
-\textbf{Qué hay que hacer para volverlas estacionarias en media.} \textbf{Diferenciar}. En las
-dos series agregadas (Total y América del Centro) la ADF no permite rechazar la raíz unitaria en
-la escala logarítmica ($p = 0.083$ y $p = 0.054$), y una sola diferencia regular basta para que
-el $p$ caiga a 0.0001 o menos: \textbf{$d = 1$}. En las cinco restantes la ADF ya rechaza la
-raíz unitaria en la serie transformada, de modo que \textbf{$d = 0$} y la estacionariedad en
-media se consigue solo con la transformación logarítmica.
+\textbf{Qué hay que hacer para volverlas estacionarias en media.} \textbf{Diferenciar, pero solo
+donde hace falta.} En \textbf{Guatemala} ($p = 0.841$) y \textbf{Marítima} ($p = 0.303$) la ADF
+no permite rechazar la raíz unitaria ni siquiera tras la transformación logarítmica, y basta una
+diferencia regular para que el $p$ caiga por debajo de 0.0001: \textbf{$d = 1$}. En las cinco
+restantes la ADF ya rechaza la raíz unitaria sobre la serie transformada, de modo que
+\textbf{$d = 0$} y la estacionariedad en media se consigue solo con el logaritmo.
+
+Es revelador que las dos series que exigen diferenciación sean exactamente las dos
+problemáticas: Guatemala, que se corta en 2023, y Marítima, que colapsa en 2020 sin recuperarse.
+En ambas la ADF está detectando el \textbf{cambio de nivel permanente}, no una dinámica
+estocástica ordinaria. Nótese también que en cuatro series la transformación logarítmica por sí
+sola cambia el veredicto (El Salvador pasa de $p = 0.268$ a $p = 0.012$; Estados Unidos, de
+0.370 a 0.037): estabilizar la varianza \textbf{es} parte de conseguir la estacionariedad, no un
+paso independiente.
 
 Este resultado merece una advertencia: la forma en V de la pandemia ---caída brusca seguida de
 recuperación--- hace que la serie \textit{parezca} revertir a la media y vuelve el resultado de
@@ -602,13 +654,13 @@ modelos con diferenciación entre los candidatos: la decisión final se tomó co
 real, no un único valor $p$.
 
 \textbf{Diferenciación estacional.} Se aplicó la prueba \textbf{OCSB} de raíz unitaria
-estacional. Devuelve $D = 0$ para cinco series y $D = 1$ para América del Norte y Europa. Que
-la OCSB devuelva 0 no contradice la fuerte estacionalidad detectada: la prueba busca una raíz
-unitaria \textit{estacional} (una estacionalidad que cambia de forma aleatoria año con año), y
-la de estas series es \textbf{determinista y muy estable}, por lo que se captura mejor con
-términos estacionales AR/MA que diferenciando. Aun así, se incluyó siempre el modelo
-``aerolínea'' $(0,1,1)(0,1,1)_{12}$ con diferenciación estacional forzada, para que fuera la
-comparación empírica y no un supuesto previo la que decidiera.
+estacional. Devuelve $D = 0$ para seis series y $D = 1$ solo para Estados Unidos. Que la OCSB
+devuelva 0 no contradice la fuerte estacionalidad detectada: la prueba busca una raíz unitaria
+\textit{estacional} (una estacionalidad que cambia de forma aleatoria año con año), y la de
+estas series es \textbf{determinista y muy estable}, por lo que se captura mejor con términos
+estacionales AR/MA que diferenciando. Aun así, se incluyó siempre el modelo ``aerolínea''
+$(0,1,1)(0,1,1)_{12}$ con diferenciación estacional forzada, para que fuera la comparación
+empírica y no un supuesto previo la que decidiera.
 
 \subseccion{Selección de $p$, $d$ y $q$}
 
@@ -626,13 +678,13 @@ por AIC.
 \toprule
 \textbf{Serie} & $\boldsymbol{d}$ & $\boldsymbol{D}$ & \textbf{Propuesta de \texttt{auto\_arima}} \\
 \midrule
-Total (Turista + Excursionista) & 1 & 0 & SARIMA$(0,1,0)(2,0,0)_{12}$ \\
-Frontera: La Aurora             & 0 & 0 & SARIMA$(1,0,1)(1,0,1)_{12}$ \\
-Frontera: Valle Nuevo           & 0 & 0 & SARIMA$(1,0,1)(0,0,0)_{12}$ \\
-Frontera: San Cristóbal         & 0 & 0 & SARIMA$(3,0,0)(2,0,0)_{12}$ \\
-Región: América Del Centro      & 1 & 0 & SARIMA$(0,1,0)(2,0,0)_{12}$ \\
-Región: América Del Norte       & 0 & 1 & SARIMA$(3,0,2)(0,1,0)_{12}$ \\
-Región: Europa                  & 0 & 1 & SARIMA$(2,0,2)(0,1,0)_{12}$ \\
+Total de viajeros      & 0 & 0 & SARIMA$(2,0,0)(1,0,1)_{12}$ \\
+País: El Salvador      & 0 & 0 & SARIMA$(3,0,2)(0,0,0)_{12}$ \\
+País: Guatemala        & 1 & 0 & SARIMA$(1,1,2)(2,0,1)_{12}$ \\
+País: Estados Unidos   & 0 & 1 & SARIMA$(3,0,2)(0,1,0)_{12}$ \\
+Vía: Aérea             & 0 & 0 & SARIMA$(1,0,1)(1,0,1)_{12}$ \\
+Vía: Terrestre         & 0 & 0 & SARIMA$(2,0,0)(1,0,0)_{12}$ \\
+Vía: Marítima          & 1 & 0 & SARIMA$(0,1,1)(2,0,0)_{12}$ \\
 \bottomrule
 \end{tabular}
 \caption{Órdenes de diferenciación determinados por ADF y OCSB, y modelo propuesto por
@@ -642,19 +694,25 @@ Región: Europa                  & 0 & 1 & SARIMA$(2,0,2)(0,1,0)_{12}$ \\
 \textbf{¿Tienen sentido los modelos propuestos?} En general sí, y son interpretables:
 
 \begin{itemize}[leftmargin=1.4em,itemsep=3pt]
-  \item Para el \textbf{Total} y \textbf{América del Centro}, \texttt{auto\_arima} propone
-  $(0,1,0)(2,0,0)_{12}$: un paseo aleatorio con deriva más dos términos autorregresivos
-  estacionales. Es coherente con lo observado: el nivel del mes que viene se explica sobre todo
-  por el de este mes (de ahí $p=q=0$ tras diferenciar), y lo que queda por explicar es el patrón
-  anual, capturado por los rezagos 12 y 24.
-  \item Para \textbf{La Aurora}, $(1,0,1)(1,0,1)_{12}$ combina memoria de corto plazo con
-  memoria estacional, razonable para un aeropuerto con reservas anticipadas y temporadas bien
-  definidas.
-  \item Para \textbf{San Cristóbal}, $(3,0,0)(2,0,0)_{12}$ es un AR puro relativamente largo,
-  consistente con una serie de frontera terrestre con inercia mensual alta.
-  \item Para \textbf{América del Norte} y \textbf{Europa}, la diferenciación estacional
-  ($D=1$) domina la especificación, coherente con series cuyo comportamiento está regido casi
-  enteramente por la temporada.
+  \item Para el \textbf{Total}, $(2,0,0)(1,0,1)_{12}$: dos términos autorregresivos de corto
+  plazo ---el nivel de un mes depende de los dos anteriores, que es justo lo que muestra una
+  PACF que se corta en el rezago 2--- más un par de términos estacionales que recogen el ciclo
+  anual. Coherente con una serie de inercia alta y estacionalidad marcada.
+  \item Para la \textbf{vía Aérea}, $(1,0,1)(1,0,1)_{12}$ combina memoria de corto plazo con
+  memoria estacional, razonable para un flujo aeroportuario con reservas anticipadas y
+  temporadas bien definidas.
+  \item Para la \textbf{vía Terrestre}, $(2,0,0)(1,0,0)_{12}$ es un AR puro, consistente con un
+  flujo fronterizo de inercia mensual alta y estacionalidad más difusa ($F_S = 0.75$, la más
+  baja de las series regulares).
+  \item Para \textbf{Estados Unidos}, la diferenciación estacional ($D=1$) domina la
+  especificación, coherente con la serie de mayor fuerza estacional de todas ($F_S = 0.93$):
+  su comportamiento está regido casi enteramente por la temporada.
+  \item Para \textbf{Guatemala} y \textbf{Marítima}, \texttt{auto\_arima} recurre a $d=1$ y a
+  estructuras más largas ($(1,1,2)$ y $(0,1,1)$ con dos términos AR estacionales). No es una
+  señal de dinámica rica sino de que el algoritmo está intentando ajustar un \textbf{quiebre de
+  nivel} con herramientas pensadas para procesos estacionarios. Es un caso de manual de que
+  \textbf{un criterio automático de información no sustituye al diagnóstico}: el modelo minimiza
+  el AIC pero no describe el fenómeno.
 \end{itemize}
 
 \textbf{Advertencia sobre la comparación de AIC y BIC.} Estos criterios \textbf{solo son
@@ -684,13 +742,13 @@ total, diez modelos por serie y setenta en el estudio.
 \toprule
 \textbf{Serie} & \textbf{Mejor modelo (RMSE)} & \textbf{MAPE \%} & \textbf{RMSE} \\
 \midrule
-Total (Turista + Excursionista) & Suav. exponencial simple & 60.6 & 173{,}699 \\
-Frontera: La Aurora             & Suav. exponencial simple & 36.6 & 42{,}064 \\
-Frontera: Valle Nuevo           & Suav. exponencial simple & 80.3 & 46{,}248 \\
-Frontera: San Cristóbal         & Suav. exponencial simple & 81.5 & 23{,}721 \\
-Región: América Del Centro      & Suav. exponencial simple & 61.4 & 120{,}333 \\
-Región: América Del Norte       & Suav. exponencial simple & 53.4 & 36{,}714 \\
-Región: Europa                  & Suav. exponencial simple & 71.4 & 10{,}689 \\
+Total de viajeros      & Suav. exponencial simple & 58.1 & 194{,}772 \\
+País: El Salvador      & Suav. exponencial simple & 74.3 & 104{,}524 \\
+País: Guatemala        & SARIMA$(1,1,1)(1,0,1)_{12}$ & 54.7 & 52{,}947 \\
+País: Estados Unidos   & Suav. exponencial simple & 49.9 & 28{,}946 \\
+Vía: Aérea             & Suav. exponencial simple & 35.6 & 41{,}379 \\
+Vía: Terrestre         & Suav. exponencial simple & 71.8 & 156{,}275 \\
+Vía: Marítima          & Suav. exponencial simple & 100.0 & 1{,}732 \\
 \bottomrule
 \end{tabular}
 \caption{Mejor modelo por RMSE sobre el conjunto de prueba 2021-04 a 2026-06.}
@@ -698,16 +756,30 @@ Región: Europa                  & Suav. exponencial simple & 71.4 & 10{,}689 \\
 
 \textbf{Este resultado hay que leerlo con cuidado, porque es un artefacto de la partición.} El
 suavizamiento exponencial simple ---el modelo \textbf{más pobre} de los diez, incapaz de
-representar tendencia o estacionalidad--- gana en las siete series. La razón es puramente
-estructural: al entrenar hasta marzo de 2021, todos los modelos ``ven'' una serie que termina en
-el piso del colapso. Los modelos con tendencia y estacionalidad proyectan hacia adelante la
-trayectoria deprimida y estacional del período pandémico; el suavizamiento simple proyecta una
-línea plana en el último nivel, y esa línea plana resulta estar accidentalmente más cerca de la
-recuperación que ninguna extrapolación informada.
+representar tendencia o estacionalidad--- gana en seis de las siete series. La razón es
+puramente estructural: al entrenar hasta marzo de 2021, todos los modelos ``ven'' una serie que
+termina en el piso del colapso. Los modelos con tendencia y estacionalidad proyectan hacia
+adelante la trayectoria deprimida y estacional del período pandémico; el suavizamiento simple
+proyecta una línea plana en el último nivel, y esa línea plana resulta estar accidentalmente más
+cerca de la recuperación que ninguna extrapolación informada.
 
 Dicho de otro modo: \textbf{con esta partición no se está midiendo qué modelo captura mejor la
 dinámica de la serie, sino cuál se equivoca menos ante un cambio estructural que ninguno podía
-prever}. Los MAPE de 36\% a 82\% no son una medida de la calidad de los modelos.
+prever}. Los MAPE de 36\% a 100\% no son una medida de la calidad de los modelos.
+
+Dos casos merecen mención aparte:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=3pt]
+  \item \textbf{Guatemala} es la única serie donde gana un SARIMA, pero por el motivo
+  equivocado: como la serie real es \textbf{cero desde 2023}, gana el modelo que predice valores
+  más bajos. Su MAPE de 54.7\% está calculado sobre los únicos 21 meses del test con valor
+  distinto de cero. \textbf{Esta métrica no es interpretable como calidad de pronóstico.}
+  \item \textbf{Marítima} alcanza un \textbf{MAPE del 100\%}, el máximo posible en la práctica:
+  equivale a predecir sistemáticamente un orden de magnitud por encima de lo observado. El
+  entrenamiento termina viendo una serie de decenas de miles de cruceristas al mes y el test
+  contiene una serie que se estabiliza en unos pocos cientos. Ningún modelo de los diez baja del
+  100\%.
+\end{itemize}
 
 \begin{figure}[H]
 \centering
@@ -731,30 +803,36 @@ ejercicio entrenando desde \textbf{julio de 2021} (fronteras ya reabiertas) y de
 & \multicolumn{2}{c|}{\textbf{Partición 70/30}} & \multicolumn{2}{c}{\textbf{Control post-pandemia}} \\
 \textbf{Serie} & \textbf{Mejor modelo} & \textbf{MAPE \%} & \textbf{Mejor modelo} & \textbf{MAPE \%} \\
 \midrule
-Total (Tur.+Exc.)          & Suav. exp. simple & 60.6 & Seasonal naive            & \textbf{6.0} \\
-Frontera: La Aurora        & Suav. exp. simple & 36.6 & SARIMA$(1,0,0)(1,0,0)_{12}$ & \textbf{8.3} \\
-Frontera: Valle Nuevo      & Suav. exp. simple & 80.3 & Seasonal naive            & \textbf{12.7} \\
-Frontera: San Cristóbal    & Suav. exp. simple & 81.5 & Seasonal naive            & \textbf{14.3} \\
-Región: América Del Centro & Suav. exp. simple & 61.4 & Seasonal naive            & \textbf{9.8} \\
-Región: América Del Norte  & Suav. exp. simple & 53.4 & Prophet                   & \textbf{7.2} \\
-Región: Europa             & Suav. exp. simple & 71.4 & SARIMA$(1,0,1)(1,0,1)_{12}$ & \textbf{12.5} \\
+Total de viajeros      & Suav. exp. simple & 58.1 & SARIMA$(1,0,1)(1,0,1)_{12}$ & \textbf{7.2} \\
+País: El Salvador      & Suav. exp. simple & 74.3 & Seasonal naive              & \textbf{10.5} \\
+País: Guatemala        & SARIMA$(1,1,1)(1,0,1)_{12}$ & 54.7 & \textit{no evaluable} & \textit{---} \\
+País: Estados Unidos   & Suav. exp. simple & 49.9 & Prophet                     & \textbf{6.3} \\
+Vía: Aérea             & Suav. exp. simple & 35.6 & SARIMA$(1,0,0)(1,0,0)_{12}$ & \textbf{8.3} \\
+Vía: Terrestre         & Suav. exp. simple & 71.8 & Seasonal naive              & \textbf{10.5} \\
+Vía: Marítima          & Suav. exp. simple & 100.0 & Seasonal naive             & \textbf{11.6} \\
 \bottomrule
 \end{tabular}
-\caption{Comparación de las dos particiones. El error cae de 36--82\% a 6--14\% al eliminar el
-quiebre estructural del conjunto de entrenamiento.}
+\caption{Comparación de las dos particiones. En las seis series evaluables el error cae de
+36--100\% a 6--12\% al eliminar el quiebre estructural del conjunto de entrenamiento. Guatemala
+no es evaluable porque su serie es idénticamente cero en todo el período de prueba del control.}
 \end{table}
 
 \textbf{Este es el hallazgo metodológico central del laboratorio.} El MAPE cae de un rango de
-\textbf{36--82\%} a un rango de \textbf{6--14\%}, una reducción de un orden de magnitud, sin
-cambiar ni un solo modelo ni un solo dato. La conclusión es inequívoca: \textbf{el error de la
-partición 70/30 no mide la calidad de los modelos, mide la magnitud del choque pandémico}.
-Sobre datos homogéneos, estas series son \textbf{muy predecibles}: un error del 6--14\% a un
+\textbf{36--100\%} a un rango de \textbf{6.3--11.6\%}, una reducción de un orden de magnitud,
+sin cambiar ni un solo modelo ni un solo dato. La conclusión es inequívoca: \textbf{el error de
+la partición 70/30 no mide la calidad de los modelos, mide la magnitud del choque pandémico}.
+Sobre datos homogéneos, estas series son \textbf{muy predecibles}: un error del 6--12\% a un
 horizonte de 18 meses es un resultado sólido para planificación turística.
+
+El caso más elocuente es la \textbf{vía Marítima}: pasa de un MAPE del \textbf{100\%} ---el
+peor resultado de todo el estudio--- a un \textbf{11.6\%}. La serie no era impredecible; lo
+impredecible era el colapso de los cruceros. Una vez que el entrenamiento ocurre después del
+colapso, la serie resulta tan modelable como las demás.
 
 Nótese además que en el control cambian los ganadores y aparecen modelos con estructura
 estacional ---seasonal naive, SARIMA con términos estacionales, Prophet---, exactamente lo
-esperable en series con $F_S$ entre 0.42 y 0.88. El suavizamiento exponencial simple desaparece
-del podio, confirmando que su victoria anterior era un accidente de la partición.
+esperable en series con $F_S$ entre 0.68 y 0.93. El suavizamiento exponencial simple desaparece
+por completo del podio, confirmando que su victoria anterior era un accidente de la partición.
 
 \subseccion{Análisis de residuos}
 
@@ -768,34 +846,45 @@ Se evaluaron los residuos del mejor SARIMA de cada serie con la prueba de \textb
 \toprule
 \textbf{Serie} & \textbf{Ljung-Box(12)} & \textbf{Ljung-Box(24)} & \textbf{¿Ruido blanco?} \\
 \midrule
-Total (Turista + Excursionista) & 0.274 & --- & Sí \\
-Frontera: La Aurora             & 0.025 & --- & Marginal \\
-Frontera: Valle Nuevo           & 0.048 & --- & Marginal \\
-Frontera: San Cristóbal         & 0.045 & --- & Marginal \\
-Región: América Del Centro      & 0.285 & --- & Sí \\
-Región: América Del Norte       & 0.000 & 0.000 & \textbf{No} \\
-Región: Europa                  & 0.000 & 0.000 & \textbf{No} \\
+Total de viajeros      & 0.392 & 0.950 & Sí \\
+País: El Salvador      & 0.028 & 0.442 & Marginal \\
+País: Guatemala        & 0.522 & 0.931 & Sí \\
+País: Estados Unidos   & \textbf{0.000} & \textbf{0.000} & \textbf{No} \\
+Vía: Aérea             & 0.084 & 0.717 & Sí \\
+Vía: Terrestre         & 0.017 & 0.377 & Marginal \\
+Vía: Marítima          & \textbf{0.000} & \textbf{0.000} & \textbf{No} \\
 \bottomrule
 \end{tabular}
 \caption{Valores $p$ de Ljung-Box sobre los residuos del mejor SARIMA de cada serie.}
 \end{table}
 
-\textbf{Interpretación honesta de estos resultados.} En las dos series agregadas los residuos
-son ruido blanco: el modelo ha extraído toda la estructura disponible. En las tres fronteras el
-resultado es marginal (valores $p$ entre 0.025 y 0.048), lo que indica algo de autocorrelación
-residual, atribuible en buena medida a la \textbf{Semana Santa}: al ser una fiesta móvil que
-salta entre marzo y abril, un modelo estacional de período fijo 12 no puede capturarla y deja
-residuo sistemático en esos meses.
+\textbf{Interpretación honesta de estos resultados.} En tres series (Total, Guatemala y Aérea)
+los residuos son ruido blanco a los rezagos 12 y 24: el modelo ha extraído toda la estructura
+disponible. En El Salvador y Terrestre el resultado es \textbf{marginal} ($p = 0.028$ y
+$p = 0.017$ al rezago 12, pero holgadamente por encima de 0.05 al rezago 24), lo que indica
+autocorrelación residual concentrada en los primeros rezagos. Una explicación plausible es la
+\textbf{Semana Santa}: al ser una fiesta móvil que salta entre marzo y abril, un modelo
+estacional de período fijo 12 no puede capturarla y deja residuo sistemático en esos meses,
+justamente en las dos series de flujo terrestre regional donde ese feriado pesa más.
 
-En \textbf{América del Norte y Europa el modelo es claramente inadecuado} ($p = 0.000$). La
-causa es identificable: son las dos únicas series con \textbf{cinco meses en cero} (abril a
-agosto de 2020, cuando el ingreso de extranjeros fue literalmente nulo). En escala logarítmica
-ese cero es un salto de magnitud enorme respecto del nivel habitual, y ningún SARIMA lineal
-puede absorberlo. \textbf{El tratamiento correcto sería incorporar variables dummy de
-intervención} para la ventana de cierre (un modelo ARIMAX), o tratar esos meses como
-\textit{no observados} en lugar de como ceros, dado que la frontera cerrada significa que la
-demanda no se midió, no que fuera cero. Se deja explícitamente señalado como la principal
-limitación del modelado de estas dos series.
+En \textbf{Estados Unidos y Marítima el modelo es claramente inadecuado} ($p = 0.000$ a ambos
+rezagos). Las causas son distintas y ambas identificables:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=3pt]
+  \item \textbf{Estados Unidos} tiene cinco meses en cero (abril a agosto de 2020, cuando el
+  ingreso de extranjeros fue literalmente nulo). En escala logarítmica ese cero es un salto de
+  magnitud enorme respecto del nivel habitual, y ningún SARIMA lineal con coeficientes
+  constantes puede absorberlo.
+  \item \textbf{Marítima} acumula 27 meses en cero y, además, carece de tendencia y
+  estacionalidad estables ($F_T = 0.00$, $F_S = 0.24$). No hay estructura que un SARIMA pueda
+  capturar, así que el fallo de Ljung-Box era previsible desde la descomposición.
+\end{itemize}
+
+\textbf{El tratamiento correcto sería incorporar variables dummy de intervención} para la
+ventana de cierre (un modelo ARIMAX), o tratar esos meses como \textit{no observados} en lugar
+de como ceros, dado que la frontera cerrada significa que la demanda no se midió, no que fuera
+cero. Se deja explícitamente señalado como la principal limitación del modelado de estas dos
+series.
 
 En las siete series la prueba de \textbf{Jarque-Bera rechaza la normalidad} ($p < 0.001$), lo
 que era esperable: los residuos de 2020 son valores extremos genuinos. Esto no invalida las
@@ -821,16 +910,16 @@ las seis series restantes siguen el mismo formato y están en el cuaderno de an�
 \toprule
 \textbf{Modelo} & \textbf{AIC} & \textbf{BIC} & $\boldsymbol{n_{\text{ef}}}$ & \textbf{MAE} & \textbf{RMSE} & \textbf{MAPE} \\
 \midrule
-Suav. exponencial simple             & $-326.1$ & $-320.1$ & 147 & 158{,}767 & 173{,}699 & 60.6 \\
-SARIMA$(0,1,1)(0,0,1)_{12}$          & 86.9 & 95.6 & 146 & 163{,}231 & 176{,}622 & 63.5 \\
-Holt-Winters                         & $-354.3$ & $-306.4$ & 147 & 178{,}380 & 192{,}809 & 68.6 \\
-SARIMA$(2,1,0)(1,0,0)_{12}$          & 79.8 & 91.4 & 146 & 197{,}207 & 209{,}470 & 79.6 \\
-Seasonal naive                       & --- & --- & 147 & 207{,}293 & 219{,}634 & 84.9 \\
-SARIMA$(1,1,1)(1,0,1)_{12}$          & 70.9 & 85.3 & 146 & 208{,}232 & 223{,}054 & 82.0 \\
-SARIMA$(1,1,1)(0,1,1)_{12}$          & 70.6 & 81.7 & 134 & 213{,}023 & 227{,}948 & 84.1 \\
-SARIMA$(0,1,1)(0,1,1)_{12}$          & 68.9 & 77.2 & 134 & 213{,}851 & 228{,}724 & 84.5 \\
-SARIMA$(0,1,0)(2,0,0)_{12}$ \small{(auto)} & \textbf{58.8} & \textbf{67.2} & 146 & 217{,}446 & 237{,}176 & 83.0 \\
-Prophet                              & --- & --- & 147 & 240{,}279 & 252{,}691 & 98.2 \\
+Suav. exponencial simple             & $-324.8$ & $-318.9$ & 147 & 175{,}065 & 194{,}772 & 58.1 \\
+Holt-Winters                         & $-348.0$ & $-300.2$ & 147 & 196{,}929 & 216{,}429 & 65.3 \\
+SARIMA$(2,0,0)(1,0,0)_{12}$          & 89.7 & 101.7 & 147 & 228{,}238 & 245{,}678 & 79.4 \\
+Seasonal naive                       & --- & --- & 147 & 235{,}686 & 253{,}159 & 83.9 \\
+SARIMA$(1,0,1)(1,0,1)_{12}$          & 81.1 & 96.1 & 147 & 233{,}789 & 253{,}930 & 79.0 \\
+SARIMA$(2,0,0)(1,0,1)_{12}$ \small{(auto)} & \textbf{81.0} & \textbf{96.0} & 147 & 233{,}998 & 254{,}158 & 79.1 \\
+SARIMA$(1,1,1)(0,1,1)_{12}$          & 76.4 & 88.0 & 134 & 241{,}765 & 260{,}702 & 83.3 \\
+SARIMA$(0,1,1)(0,1,1)_{12}$          & 74.6 & 83.3 & 134 & 242{,}883 & 261{,}746 & 83.7 \\
+Prophet                              & --- & --- & 147 & 274{,}299 & 291{,}039 & 97.4 \\
+SARIMA$(0,0,1)(0,0,1)_{12}$          & 800.1 & 809.1 & 147 & 276{,}573 & 291{,}586 & 100.0 \\
 \bottomrule
 \end{tabular}
 \caption{Serie total: comparación de los diez modelos, ordenados por RMSE sobre el conjunto de
@@ -838,15 +927,25 @@ prueba. Recuérdese que AIC y BIC solo son comparables dentro del mismo $n_{\tex
 \end{table}
 
 \textbf{Lectura de la tabla, y por qué AIC y RMSE apuntan en direcciones opuestas.} Dentro del
-grupo $n_{\text{ef}} = 146$, el mejor modelo por \textbf{AIC y BIC} es
-SARIMA$(0,1,0)(2,0,0)_{12}$, el que propone \texttt{auto\_arima}, y sus residuos son ruido
-blanco ($p = 0.274$). Sin embargo, ese mismo modelo queda \textbf{penúltimo por RMSE}. No hay
-contradicción: \textbf{el AIC mide el ajuste dentro de la muestra de entrenamiento y el RMSE
-mide el error fuera de ella}. El modelo describe muy bien el período 2009--2021 ---incluida la
-pandemia--- y precisamente por eso proyecta hacia adelante un nivel deprimido. El criterio
-correcto para \textbf{seleccionar un modelo de pronóstico es el error fuera de muestra}, pero en
-este caso ese error está dominado por el quiebre estructural, y por eso la decisión final se
-apoya en la partición de control de la sección~\ref{sec:control}.
+grupo $n_{\text{ef}} = 147$, el mejor modelo por \textbf{AIC y BIC} es
+SARIMA$(2,0,0)(1,0,1)_{12}$, el que propone \texttt{auto\_arima}, y sus residuos son ruido
+blanco ($p = 0.392$). Sin embargo, ese mismo modelo queda \textbf{sexto por RMSE}, detrás del
+suavizamiento exponencial simple, que tiene un AIC incomparablemente peor en términos de
+estructura. No hay contradicción: \textbf{el AIC mide el ajuste dentro de la muestra de
+entrenamiento y el RMSE mide el error fuera de ella}. El modelo describe muy bien el período
+2009--2021 ---incluida la pandemia--- y precisamente por eso proyecta hacia adelante un nivel
+deprimido.
+
+El contraste con el último puesto es igual de informativo: SARIMA$(0,0,1)(0,0,1)_{12}$, sin
+ninguna diferenciación ni término autorregresivo, tiene un AIC de \textbf{800} frente a 81 del
+mejor ---una diferencia abrumadora--- y efectivamente es el peor por RMSE. \textbf{Cuando un
+modelo está mal especificado de verdad, AIC y error fuera de muestra coinciden}; la divergencia
+entre ambos criterios en la zona alta de la tabla es precisamente el síntoma del quiebre
+estructural.
+
+El criterio correcto para \textbf{seleccionar un modelo de pronóstico es el error fuera de
+muestra}, pero en este caso ese error está dominado por el cambio de nivel, y por eso la
+decisión final se apoya en la partición de control de la sección~\ref{sec:control}.
 
 %======================= 6. ANALISIS COMPARATIVO =======================
 \seccion{Análisis comparativo (punto 5)}
@@ -879,158 +978,143 @@ Más afectada por la pandemia & Caída del total de 2020 respecto de 2019 y nive
 & & & & & \multicolumn{2}{c}{\textbf{2025 vs 2019 \%}} \\
 \textbf{Serie} & $\boldsymbol{F_S}$ & \textbf{TCAC \%} & \textbf{Volat.} & \textbf{Caída 2020 \%} & \textbf{cruda} & \textbf{homog.} \\
 \midrule
-Total (Turista + Excursionista) & 0.795 & 8.19 & 0.105 & $-74.4$ & 81.2 & 138.2 \\
+Total de viajeros      & 0.836 & 8.74 & 0.096 & $-73.0$ & 76.7 & 124.1 \\
 \midrule
-Frontera: La Aurora      & \textbf{0.874} & 4.74 & 0.074 & $-72.8$ & 80.3 & 147.8 \\
-Frontera: Valle Nuevo    & 0.421 & 9.69 & \textbf{0.373} & $\mathbf{-80.7}$ & 71.7 & \textbf{106.6} \\
-Frontera: San Cristóbal  & 0.706 & \textbf{12.95} & 0.304 & $-72.6$ & 90.2 & 159.1 \\
+País: El Salvador      & 0.677 & \textbf{12.08} & \textbf{0.197} & $\mathbf{-74.9}$ & 126.8 & \textbf{126.8} \\
+País: Guatemala        & 0.861 & 10.36 & 0.114 & $-70.2$ & \textit{0.0} & \textit{n/d} \\
+País: Estados Unidos   & \textbf{0.929} & 4.68 & 0.099 & $-73.7$ & 146.1 & 146.1 \\
 \midrule
-Región: América Del Centro & 0.805 & \textbf{9.83} & \textbf{0.122} & $\mathbf{-74.4}$ & 66.0 & 138.8 \\
-Región: América Del Norte  & \textbf{0.882} & 3.82 & 0.106 & $-74.1$ & 139.3 & 139.3 \\
-Región: Europa             & 0.880 & 2.23 & 0.110 & $-71.9$ & 125.8 & \textbf{125.8} \\
+Vía: Aérea             & \textbf{0.875} & 4.71 & 0.074 & $-72.3$ & 80.2 & 147.6 \\
+Vía: Terrestre         & 0.754 & \textbf{11.90} & 0.144 & $\mathbf{-73.6}$ & 78.1 & 122.4 \\
+Vía: Marítima          & 0.240 & 3.39 & \textbf{1.795} & $-67.9$ & \textbf{5.3} & \textbf{5.3} \\
 \bottomrule
 \end{tabular}
 \caption{Comparación entre series. En negrita el máximo (o mínimo, según corresponda) dentro de
 cada categoría. La columna \textbf{cruda} compara un 2019 que incluye residentes de Guatemala
 contra un 2025 que no; la \textbf{homogénea} los excluye de ambos años y es la única
-interpretable. En América del Norte y Europa ambas coinciden porque esas regiones nunca
-contuvieron residentes guatemaltecos.}
+interpretable. En El Salvador, Estados Unidos y Marítima ambas coinciden porque no contienen
+residentes guatemaltecos. Guatemala no admite comparación homogénea: excluirla de su propia
+serie la deja vacía.}
 \end{table}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig/30_comparativo.png}
-\caption{Comparación visual de los cuatro criterios. Azul: fronteras; verde: regiones;
-gris: total.}
+\caption{Comparación visual de los cuatro criterios. Azul: países; verde: vías; gris: total.}
 \end{figure}
 
 \subseccion{Respuestas por categoría}
 
-\textbf{Categoría 1 --- Fronteras}
+\textbf{Categoría i --- Países de residencia}
 
 \begin{enumerate}[label=\roman*.,leftmargin=1.8em,itemsep=4pt]
-  \item \textbf{Mayor estacionalidad: La Aurora} ($F_S = 0.874$). El aeropuerto tiene el patrón
-  anual más marcado y regular, coherente con un flujo dominado por vacaciones planificadas y
-  visita de la diáspora en diciembre. Valle Nuevo, en cambio, es la menos estacional
-  ($F_S = 0.421$): el tránsito terrestre con El Salvador tiene un componente cotidiano y
-  comercial que no depende de la temporada.
-  \item \textbf{Mayor tendencia de crecimiento: San Cristóbal} (TCAC $= 12.95\%$ anual
-  2009--2019). Casi triplica el ritmo de La Aurora (4.74\%). Es el corredor con Honduras y el de
-  mayor dinamismo estructural del período.
-  \item \textbf{Mayor volatilidad: Valle Nuevo} (sd de la tasa interanual $= 0.373$), cinco
-  veces la de La Aurora (0.074). El flujo aéreo es el más estable y predecible; el terrestre con
-  El Salvador, el más errático.
-  \item \textbf{Más afectada por la pandemia: Valle Nuevo}, con una caída del \textbf{80.7\%} en
-  2020 frente a 2019 ---la única que superó el 80\%--- y además la \textbf{peor recuperada}: a
-  definición homogénea está en el \textbf{106.6\%} de 2019, apenas por encima del nivel
-  prepandemia, mientras La Aurora alcanza el 147.8\% y San Cristóbal el 159.1\%. El orden de las
-  tres fronteras es el mismo con la comparación cruda (71.7\%, 80.3\% y 90.2\%), de modo que
-  \textbf{esta respuesta no depende del criterio}: cambia la magnitud, no el diagnóstico. Las
-  tres tocaron un piso cercano al $-100\%$ en el peor mes; lo que las distingue es la velocidad
-  de recuperación.
+  \item \textbf{Mayor estacionalidad: Estados Unidos} ($F_S = 0.929$), la serie más estacional
+  de todo el estudio. Es coherente con un mercado de larga distancia cuyo viaje se planifica con
+  antelación y se concentra en temporadas bien definidas (verano boreal, Navidad, Semana Santa).
+  El Salvador es el menos estacional de los tres ($F_S = 0.677$): el flujo con el país vecino
+  tiene un componente cotidiano y comercial que no depende de la temporada.
+  \item \textbf{Mayor tendencia de crecimiento: El Salvador} (TCAC $= 12.08\%$ anual
+  2009--2019), más del doble que Estados Unidos (4.68\%). Guatemala queda en medio (10.36\%).
+  \textbf{El crecimiento del turismo receptor fue regional, no de larga distancia.}
+  \item \textbf{Mayor volatilidad: El Salvador} (sd de la tasa interanual $= 0.197$), el doble
+  que Estados Unidos (0.099) y casi el doble que Guatemala (0.114). El mercado que más crece es
+  también el más inestable: la contrapartida de un flujo fronterizo, frecuente y sensible a
+  condiciones locales.
+  \item \textbf{Más afectada por la pandemia: El Salvador}, con una caída del \textbf{74.9\%} en
+  2020 frente a 2019, seguida de Estados Unidos ($-73.7\%$) y Guatemala ($-70.2\%$). Las tres
+  son parecidas: el cierre de fronteras fue indiscriminado. En \textbf{recuperación}, tanto
+  El Salvador (126.8\% de 2019) como Estados Unidos (146.1\%) superan holgadamente el nivel
+  prepandemia, de modo que \textbf{El Salvador es a la vez la más golpeada y la que menos ha
+  recuperado} de las dos comparables.
 \end{enumerate}
 
-\textbf{Categoría 2 --- Regiones geográficas}
+\textbf{El caso de Guatemala requiere una respuesta aparte.} Su cifra de recuperación es
+\textbf{0.0\%}, que a primera vista la señalaría como la más afectada de largo. \textbf{Sería un
+error reportarlo así.} Guatemala no perdió a sus viajeros: \textbf{dejó de contabilizarlos}. La
+serie termina en diciembre de 2022 y es idénticamente cero desde entonces. Tampoco admite la
+corrección homogénea que se aplica al resto, porque excluir a los residentes de Guatemala de la
+serie de Guatemala la deja vacía. La lectura correcta es que \textbf{esta serie no permite
+responder la pregunta iv}, y presentar su 0\% como impacto de la pandemia sería confundir un
+cambio administrativo con un fenómeno económico.
+
+\textbf{Categoría iii --- Vías de ingreso}
 
 \begin{enumerate}[label=\roman*.,leftmargin=1.8em,itemsep=4pt]
-  \item \textbf{Mayor estacionalidad: América del Norte} ($F_S = 0.882$), seguida muy de cerca
-  por Europa (0.880). Ambos son mercados de larga distancia con temporadas bien definidas
-  (verano boreal e invierno). América Central es la menos estacional (0.805), por su componente
-  de viaje regional frecuente.
-  \item \textbf{Mayor tendencia de crecimiento: América Central} (TCAC $= 9.83\%$), muy por
-  encima de América del Norte (3.82\%) y Europa (2.23\%). Confirma el hallazgo del exploratorio:
-  \textbf{el crecimiento del turismo guatemalteco fue regional, no de larga distancia}.
-  \item \textbf{Mayor volatilidad: América Central} (0.122), aunque las tres regiones son
-  notablemente parecidas (0.106--0.122). A nivel regional los flujos se promedian entre muchos
-  puntos de entrada y la volatilidad se diluye; es a nivel de frontera individual donde aparecen
-  las diferencias grandes.
-  \item \textbf{Más afectada en 2020: América Central}, con una caída del \textbf{74.4\%},
-  seguida muy de cerca por América del Norte ($-74.1\%$) y Europa ($-71.9\%$). Las tres son
-  prácticamente indistinguibles: el cierre de fronteras fue indiscriminado. \textbf{Peor
-  recuperada: Europa}, con un \textbf{125.8\%} del nivel de 2019, frente a 138.8\% de América
-  Central y 139.3\% de América del Norte. Las tres superan su nivel prepandemia.
+  \item \textbf{Mayor estacionalidad: Aérea} ($F_S = 0.875$), frente a 0.754 de la Terrestre y
+  apenas 0.240 de la Marítima. El transporte aéreo concentra el viaje vacacional planificado;
+  el terrestre mezcla turismo con movilidad fronteriza rutinaria, que diluye el patrón anual.
+  \item \textbf{Mayor tendencia de crecimiento: Terrestre} (TCAC $= 11.90\%$), dos veces y media
+  la Aérea (4.71\%) y más de tres veces la Marítima (3.39\%). Es la misma conclusión que
+  arrojaron los países, vista desde el otro ángulo: \textbf{el crecimiento entró por tierra}.
+  \item \textbf{Mayor volatilidad: Marítima} (1.795), un valor \textbf{doce veces} superior al
+  de la Terrestre (0.144) y \textbf{veinticuatro veces} el de la Aérea (0.074). No es una
+  diferencia de grado sino de naturaleza: la Marítima depende de la programación discreta e
+  irregular de unos pocos cruceros, de modo que un barco más o menos cambia el mes entero.
+  \item \textbf{Más afectada por la pandemia: la Terrestre en 2020} ($-73.6\%$, frente a
+  $-72.3\%$ de la Aérea y $-67.9\%$ de la Marítima), pero las tres caídas son casi idénticas y
+  la diferencia no es significativa. \textbf{La respuesta relevante está en la recuperación, y
+  ahí no hay ninguna ambigüedad: la Marítima quedó en el 5.3\% de su nivel de 2019.} No se
+  recuperó en absoluto. La Aérea, en cambio, alcanza el 147.6\% y la Terrestre el 122.4\% a
+  definición homogénea. \textbf{La vía marítima es, con enorme diferencia, la más afectada del
+  estudio.}
 \end{enumerate}
 
-\textbf{Advertencia imprescindible: en esta categoría la respuesta cambia según el criterio.}
-Con la comparación \textbf{cruda}, América Central aparece como la peor recuperada con un
-66.0\%, y era la respuesta que arrojaba un primer análisis. \textbf{Es falsa.} América Central
-es precisamente la región donde estaban clasificados los residentes de Guatemala, que
-representaban el \textbf{52.5\% de la región en 2019} y desaparecen del conteo desde 2023. Al
-comparar un 2019 que los incluye contra un 2025 que no, se mide el cambio de definición y no la
-demanda:
+\textbf{Sobre el 5.3\% de la vía Marítima.} A diferencia del 0\% de Guatemala, \textbf{esta
+cifra sí es real, aunque con un matiz}. Dos efectos se superponen: el colapso genuino del
+turismo de cruceros tras 2020, que fue mundial y del que el Caribe centroamericano se ha
+recuperado solo parcialmente, y el hecho de que desde 2023 la categoría \texttt{Cruceristas}
+deja de alimentarse en esta fuente. No es posible separar ambos efectos con los datos
+disponibles, así que la magnitud exacta del desplome debe tomarse como una cota: la caída es
+\textbf{real y severa}, pero parte de ese 94.7\% de pérdida es también pérdida de cobertura
+estadística.
 
-\begin{table}[H]
-\centering
-\small
-\begin{tabular}{lrrr}
-\toprule
-\textbf{América Central} & \textbf{Total} & \textbf{Residentes de Guatemala} & \textbf{Sin Guatemala} \\
-\midrule
-2019 & 3{,}247{,}484 & 1{,}703{,}434 (52.5\%) & 1{,}544{,}050 \\
-2025 & 2{,}143{,}511 & 0 (0\%) & 2{,}143{,}511 \\
-\midrule
-2025 / 2019 & \textit{66.0\% (engañoso)} & --- & \textbf{138.8\%} \\
-\bottomrule
-\end{tabular}
-\caption{El ``desplome'' de América Central es enteramente un artefacto de definición: a
-definición constante la región creció un 38.8\% sobre 2019.}
-\end{table}
-
-En cambio, las cifras de \textbf{América del Norte y Europa no requieren corrección}: ninguna
-de las dos contuvo nunca residentes guatemaltecos, y su composición interna se mantiene
-comparable ---América del Norte conserva las mismas tres categorías (Estados Unidos, México,
-Canadá) en 2019 y en 2025, y en Europa la agregación de mercados de 2023 reagrupó países
-\textit{dentro} de la misma región, sin trasvasar volumen a otras. Sus crecimientos del 39\% y
-26\% sobre 2019 son \textbf{reales}.
-
-La lección general es que \textbf{ninguna comparación con años anteriores a 2023 es válida sin
-homogeneizar antes la definición}, y que hacerlo puede invertir por completo la conclusión.
+La lección general de esta sección es que \textbf{ninguna comparación que cruce el año 2023 es
+válida sin homogeneizar antes la definición}, y que en dos de las siete series (Guatemala y
+Marítima) el quiebre es tan profundo que la pregunta directamente no se puede responder con los
+datos disponibles. Reconocerlo es preferible a reportar un número que parece una respuesta.
 
 %======================= 7. CONCLUSIONES =======================
 \seccion{Hallazgos útiles para el INGUAT (punto 5.b)}
 
 \begin{enumerate}[leftmargin=1.6em,itemsep=6pt]
 
-\item \textbf{Las estadísticas oficiales tienen dos rupturas de serie que invalidan cualquier
-comparación directa 2022 vs. 2023.} El total agregado aparenta caer 25\%, pero se debe a un
-cambio de definición y a la salida de los residentes guatemaltecos del conteo, no a una pérdida
-de demanda turística. \textbf{Recomendación operativa:} publicar la serie
-\textit{Turista + Excursionista} como indicador oficial de continuidad y documentar el quiebre.
-Si no se hace, cualquier informe de gestión que compare esos años estará reportando una caída
-que no ocurrió.
+\item \textbf{Las estadísticas oficiales tienen rupturas de serie que invalidan cualquier
+comparación directa 2022 vs. 2023.} El total agregado aparenta caer, pero se debe a un cambio de
+definición y a la salida de los residentes guatemaltecos del conteo, no a una pérdida de demanda
+turística. \textbf{Recomendación operativa:} documentar el quiebre y publicar una serie
+retropolada con definición constante. Si no se hace, cualquier informe de gestión que compare
+esos años estará reportando una caída que no ocurrió.
 
-\item \textbf{El turismo extranjero sí se recuperó, y con holgura: la ``caída del 19\%'' no
+\item \textbf{El turismo extranjero sí se recuperó, y con holgura: la ``caída del 23\%'' no
 existe.} Es el hallazgo más importante del informe porque contradice la lectura directa de los
-datos. La cifra de que 2025 está en el 81\% del nivel de 2019 compara un 2019 que incluye a
-1.7 millones de residentes guatemaltecos retornantes contra un 2025 que ya no los cuenta. A
-definición homogénea, \textbf{2025 está en el 138\% de 2019} (+38\%, un 5.5\% anual compuesto).
+datos. La cifra de que 2025 está en el 76.7\% del nivel de 2019 compara un 2019 que incluye a
+\textbf{1{,}791{,}156 residentes guatemaltecos} retornantes (el 38.2\% del total) contra un 2025
+que ya no los cuenta. A definición homogénea, \textbf{2025 está en el 124\% de 2019}.
 \textbf{Recomendación:} el INGUAT no debe reportar caídas ni diseñar planes de reactivación
-sobre esa comparación. Lo que cayó es la cobertura del indicador, no la demanda. El único dato
-de desaceleración genuino ---y homogéneo, porque compara dos años posteriores al quiebre--- es
-que el primer semestre de 2026 va \textbf{3\% por debajo} del mismo semestre de 2025; eso sí
-merece seguimiento.
+sobre esa comparación. Lo que cayó es la cobertura del indicador, no la demanda.
 
-\item \textbf{Tres puestos fronterizos concentran el 71\% del flujo.} La Aurora (40.7\%), Valle
-Nuevo (21.7\%) y San Cristóbal (9.0\%). Un plan de capacidad, señalización, migración o
-promoción concentrado en esos tres puntos cubre casi tres cuartas partes del movimiento del
-país con una fracción del presupuesto de una intervención nacional.
+\item \textbf{El crecimiento entró por tierra y desde el vecindario.} La vía Terrestre creció al
+11.90\% anual entre 2009 y 2019 frente al 4.71\% de la Aérea, y El Salvador al 12.08\% frente al
+4.68\% de Estados Unidos. Las dos categorías analizadas apuntan al mismo hecho desde ángulos
+distintos. \textbf{Implicación de política:} el presupuesto de promoción internacional debería
+reflejar esta asimetría. El mercado que sostiene el volumen es el vecino, es el que más rápido
+crece y es además el más barato de captar.
 
-\item \textbf{El crecimiento es regional y terrestre, no de larga distancia.} América Central
-creció al 9.83\% anual entre 2009 y 2019, frente al 3.82\% de América del Norte y el 2.23\% de
-Europa. \textbf{Implicación de política:} el presupuesto de promoción internacional debería
-reflejar esta asimetría. El mercado que sostiene el volumen es el vecino, y es además el más
-barato de captar.
+\item \textbf{Pero el mercado que más crece es también el más inestable.} El Salvador tiene la
+mayor tendencia \textbf{y} la mayor volatilidad de los tres países (0.197, el doble que Estados
+Unidos), y fue el más golpeado en 2020 ($-74.9\%$). Estados Unidos crece menos pero de forma
+mucho más predecible y con la estacionalidad más marcada del estudio ($F_S = 0.929$).
+\textbf{Son dos mercados que requieren estrategias distintas:} el regional, de volumen y
+sensible a condiciones coyunturales; el estadounidense, de menor volumen pero planificable con
+meses de antelación.
 
-\item \textbf{Valle Nuevo es el punto que exige atención prioritaria.} Es simultáneamente la
-frontera \textbf{más afectada} por la pandemia ($-80.7\%$ en 2020), la \textbf{peor recuperada}
-(106.6\% del nivel de 2019 a definición homogénea, cuando las otras dos superan el 147\%) y la
-\textbf{más volátil} (cinco veces La Aurora). Concentra el problema y la incertidumbre a la vez,
-y su diagnóstico es robusto: sale peor con cualquiera de los dos criterios de comparación.
-
-\item \textbf{San Cristóbal es la oportunidad de crecimiento.} Mayor tendencia de todas
-(12.95\% anual 2009--2019) y mejor recuperación (159.1\% de 2019 a definición homogénea). Es el
-corredor con Honduras y el de mayor dinamismo estructural del país; conviene acompañar ese
-crecimiento con inversión en capacidad antes de que se sature.
+\item \textbf{El turismo de cruceros no se recuperó: está en el 5.3\% de su nivel de 2019.} Es
+el desplome más severo de todo el estudio, muy por encima de cualquier otra serie. Aunque parte
+de esa caída es pérdida de cobertura estadística desde 2023, la magnitud es tal que no admite
+otra lectura. \textbf{Decisión que habilita:} o se invierte deliberadamente en recuperar el
+segmento de cruceros ---infraestructura portuaria, acuerdos con navieras--- o se asume su pérdida
+y se reasignan los recursos de promoción asociados. Lo que no es defendible es seguir
+planificando como si el segmento existiera al nivel prepandemia.
 
 \item \textbf{La estacionalidad sobrevivió intacta a la pandemia; el nivel no.} El patrón anual
 ---máximo en diciembre (índice 134), mínimos en febrero (81) y septiembre (83), amplitud de 53
@@ -1040,20 +1124,22 @@ capacidad hotelera por temporada sigue siendo válida con el calendario históri
 cambió es el volumen base.
 
 \item \textbf{Estas series son altamente predecibles sobre datos homogéneos.} La partición de
-control demuestra un \textbf{MAPE de 6--14\% a 18 meses vista}, un margen perfectamente
-utilizable para presupuestar y dimensionar operaciones. El error del 36--82\% de la partición
+control demuestra un \textbf{MAPE de 6.3--11.6\% a 18 meses vista}, un margen perfectamente
+utilizable para presupuestar y dimensionar operaciones. El error del 36--100\% de la partición
 oficial mide el choque pandémico, no la calidad de los modelos.
 
 \item \textbf{Los modelos más simples con estructura estacional son suficientes.} En el control
 post-pandemia, el \textbf{seasonal naive} ---predecir el mismo mes del año anterior--- gana en
-cuatro de las siete series. \textbf{Implicación práctica:} el INGUAT no necesita infraestructura
-analítica sofisticada para obtener pronósticos útiles; necesita series limpias y sin rupturas de
-definición. El cuello de botella es la calidad del dato, no el algoritmo.
+tres de las seis series evaluables, y en las demás ganan modelos igualmente accesibles (un SARIMA
+de dos parámetros, Prophet con configuración por defecto). \textbf{Implicación práctica:} el
+INGUAT no necesita infraestructura analítica sofisticada para obtener pronósticos útiles;
+necesita series limpias y sin rupturas de definición. El cuello de botella es la calidad del
+dato, no el algoritmo.
 
 \item \textbf{Recomendación de medición.} Los meses de frontera cerrada deberían registrarse
-como \textit{no medidos}, no como cero. Tal como están, distorsionan el modelado de América del
-Norte y Europa hasta el punto de que ningún SARIMA lineal logra residuos de ruido blanco. Es una
-corrección de bajo costo y alto impacto para el uso analítico futuro de la base.
+como \textit{no medidos}, no como cero. Tal como están, distorsionan el modelado de Estados
+Unidos y de la vía Marítima hasta el punto de que ningún SARIMA lineal logra residuos de ruido
+blanco. Es una corrección de bajo costo y alto impacto para el uso analítico futuro de la base.
 
 \end{enumerate}
 
@@ -1063,11 +1149,19 @@ corrección de bajo costo y alto impacto para el uso analítico futuro de la bas
   \item La partición 70/30 que exige el enunciado corta \textbf{dentro del hueco pandémico}, lo
   que hace que las métricas de error de la sección 5.1 no sean informativas sobre la calidad de
   los modelos. Se mitigó con la partición de control, pero es una limitación de diseño.
-  \item Los modelos de \textbf{América del Norte y Europa} dejan autocorrelación residual
-  significativa por los cinco meses en cero de 2020. Requerirían un ARIMAX con variables de
+  \item Los modelos de \textbf{Estados Unidos y de la vía Marítima} dejan autocorrelación
+  residual significativa por los meses en cero de 2020. Requerirían un ARIMAX con variables de
   intervención, fuera del alcance de este laboratorio.
+  \item \textbf{Dos de las siete series están estructuralmente truncadas.} La de
+  \textbf{Guatemala} termina en diciembre de 2022 y es cero en 42 de los 63 meses de prueba, por
+  lo que sus métricas de error y su cifra de recuperación no son interpretables. La de
+  \textbf{Marítima} mezcla un colapso real de los cruceros con la pérdida de cobertura de la
+  categoría \texttt{Cruceristas} desde 2023, y ambos efectos no son separables con los datos
+  disponibles. Se conservan porque el enunciado pide el Top 3 de países y las tres vías, pero
+  sus resultados se reportan como no concluyentes.
   \item La \textbf{Semana Santa} es una fiesta móvil entre marzo y abril y ningún modelo
-  estacional de período fijo 12 la captura; explica parte del residuo de las series de frontera.
+  estacional de período fijo 12 la captura; explica parte del residuo de El Salvador y de la
+  vía Terrestre.
   \item Toda comparación que cruce el año \textbf{2023} exige homogeneizar la definición antes
   de interpretarla. En este informe se hizo excluyendo a los residentes de Guatemala de ambos
   extremos; es la corrección de primer orden y explica la práctica totalidad de la discrepancia,
