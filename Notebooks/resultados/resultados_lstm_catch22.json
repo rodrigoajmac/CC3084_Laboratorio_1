@@ -1,0 +1,541 @@
+{
+ "top2_por_serie": [
+  {
+   "Serie": "Total de viajeros",
+   "Modelo": "LSTM-1",
+   "Configuración": "1 capa(s) · 32 unid. · 100 épocas · lote 8",
+   "MAE": 42018,
+   "RMSE": 54528,
+   "MAPE %": 16.1
+  },
+  {
+   "Serie": "Total de viajeros",
+   "Modelo": "LSTM-2",
+   "Configuración": "1 capa(s) · 64 unid. · 50 épocas · lote 8",
+   "MAE": 43996,
+   "RMSE": 57604,
+   "MAPE %": 17.3
+  },
+  {
+   "Serie": "País: El Salvador",
+   "Modelo": "LSTM-1",
+   "Configuración": "1 capa(s) · 32 unid. · 50 épocas · lote 8",
+   "MAE": 20516,
+   "RMSE": 27581,
+   "MAPE %": 23.9
+  },
+  {
+   "Serie": "País: El Salvador",
+   "Modelo": "LSTM-2",
+   "Configuración": "1 capa(s) · 32 unid. · 100 épocas · lote 8",
+   "MAE": 20093,
+   "RMSE": 28130,
+   "MAPE %": 18.3
+  },
+  {
+   "Serie": "País: Guatemala",
+   "Modelo": "LSTM-1",
+   "Configuración": "1 capa(s) · 32 unid. · 100 épocas · lote 8",
+   "MAE": 11108,
+   "RMSE": 27571,
+   "MAPE %": 17.0
+  },
+  {
+   "Serie": "País: Guatemala",
+   "Modelo": "LSTM-2",
+   "Configuración": "2 capa(s) · 64 unid. · 50 épocas · lote 8",
+   "MAE": 11503,
+   "RMSE": 28260,
+   "MAPE %": 18.4
+  },
+  {
+   "Serie": "País: Estados Unidos de América",
+   "Modelo": "LSTM-1",
+   "Configuración": "2 capa(s) · 64 unid. · 100 épocas · lote 8",
+   "MAE": 7666,
+   "RMSE": 9879,
+   "MAPE %": 17.5
+  },
+  {
+   "Serie": "País: Estados Unidos de América",
+   "Modelo": "LSTM-2",
+   "Configuración": "1 capa(s) · 64 unid. · 100 épocas · lote 8",
+   "MAE": 8161,
+   "RMSE": 10612,
+   "MAPE %": 21.5
+  },
+  {
+   "Serie": "Vía: Aérea",
+   "Modelo": "LSTM-1",
+   "Configuración": "1 capa(s) · 64 unid. · 100 épocas · lote 8",
+   "MAE": 13335,
+   "RMSE": 17710,
+   "MAPE %": 15.3
+  },
+  {
+   "Serie": "Vía: Aérea",
+   "Modelo": "LSTM-2",
+   "Configuración": "2 capa(s) · 64 unid. · 100 épocas · lote 8",
+   "MAE": 13402,
+   "RMSE": 18316,
+   "MAPE %": 16.8
+  },
+  {
+   "Serie": "Vía: Terrestre",
+   "Modelo": "LSTM-1",
+   "Configuración": "1 capa(s) · 32 unid. · 100 épocas · lote 8",
+   "MAE": 33122,
+   "RMSE": 41913,
+   "MAPE %": 20.3
+  },
+  {
+   "Serie": "Vía: Terrestre",
+   "Modelo": "LSTM-2",
+   "Configuración": "1 capa(s) · 64 unid. · 100 épocas · lote 8",
+   "MAE": 33823,
+   "RMSE": 42976,
+   "MAPE %": 20.4
+  },
+  {
+   "Serie": "Vía: Marítima",
+   "Modelo": "LSTM-1",
+   "Configuración": "1 capa(s) · 32 unid. · 100 épocas · lote 16",
+   "MAE": 831,
+   "RMSE": 1571,
+   "MAPE %": 105.7
+  },
+  {
+   "Serie": "Vía: Marítima",
+   "Modelo": "LSTM-2",
+   "Configuración": "1 capa(s) · 64 unid. · 100 épocas · lote 16",
+   "MAE": 919,
+   "RMSE": 1631,
+   "MAPE %": 118.0
+  }
+ ],
+ "brecha_top1_top2": [
+  {
+   "Serie": "Total de viajeros",
+   "LSTM-1": 54528,
+   "LSTM-2": 57604,
+   "Δ RMSE %": 5.6
+  },
+  {
+   "Serie": "País: El Salvador",
+   "LSTM-1": 27581,
+   "LSTM-2": 28130,
+   "Δ RMSE %": 2.0
+  },
+  {
+   "Serie": "País: Guatemala",
+   "LSTM-1": 27571,
+   "LSTM-2": 28260,
+   "Δ RMSE %": 2.5
+  },
+  {
+   "Serie": "País: Estados Unidos de América",
+   "LSTM-1": 9879,
+   "LSTM-2": 10612,
+   "Δ RMSE %": 7.4
+  },
+  {
+   "Serie": "Vía: Aérea",
+   "LSTM-1": 17710,
+   "LSTM-2": 18316,
+   "Δ RMSE %": 3.4
+  },
+  {
+   "Serie": "Vía: Terrestre",
+   "LSTM-1": 41913,
+   "LSTM-2": 42976,
+   "Δ RMSE %": 2.5
+  },
+  {
+   "Serie": "Vía: Marítima",
+   "LSTM-1": 1571,
+   "LSTM-2": 1631,
+   "Δ RMSE %": 3.8
+  }
+ ],
+ "regimenes": [
+  {
+   "Serie": "Total de viajeros",
+   "RMSE 1 paso": 54528,
+   "MAE 1 paso": 42018,
+   "MAPE 1 paso %": 16.1,
+   "RMSE recursivo": 86387,
+   "MAE recursivo": 60111,
+   "MAPE recursivo %": 21.7,
+   "Deterioro RMSE %": 58.4
+  },
+  {
+   "Serie": "País: El Salvador",
+   "RMSE 1 paso": 27581,
+   "MAE 1 paso": 20516,
+   "MAPE 1 paso %": 23.9,
+   "RMSE recursivo": 61879,
+   "MAE recursivo": 55366,
+   "MAPE recursivo %": 54.9,
+   "Deterioro RMSE %": 124.3
+  },
+  {
+   "Serie": "País: Guatemala",
+   "RMSE 1 paso": 27571,
+   "MAE 1 paso": 11108,
+   "MAPE 1 paso %": 17.0,
+   "RMSE recursivo": 91918,
+   "MAE recursivo": 84375,
+   "MAPE recursivo %": 39.5,
+   "Deterioro RMSE %": 233.4
+  },
+  {
+   "Serie": "País: Estados Unidos de América",
+   "RMSE 1 paso": 9879,
+   "MAE 1 paso": 7666,
+   "MAPE 1 paso %": 17.5,
+   "RMSE recursivo": 29140,
+   "MAE recursivo": 25141,
+   "MAPE recursivo %": 50.1,
+   "Deterioro RMSE %": 195.0
+  },
+  {
+   "Serie": "Vía: Aérea",
+   "RMSE 1 paso": 17710,
+   "MAE 1 paso": 13335,
+   "MAPE 1 paso %": 15.3,
+   "RMSE recursivo": 33390,
+   "MAE recursivo": 27875,
+   "MAPE recursivo %": 27.4,
+   "Deterioro RMSE %": 88.5
+  },
+  {
+   "Serie": "Vía: Terrestre",
+   "RMSE 1 paso": 41913,
+   "MAE 1 paso": 33122,
+   "MAPE 1 paso %": 20.3,
+   "RMSE recursivo": 192395,
+   "MAE recursivo": 174958,
+   "MAPE recursivo %": 88.1,
+   "Deterioro RMSE %": 359.0
+  },
+  {
+   "Serie": "Vía: Marítima",
+   "RMSE 1 paso": 1571,
+   "MAE 1 paso": 831,
+   "MAPE 1 paso %": 105.7,
+   "RMSE recursivo": 1732,
+   "MAE recursivo": 858,
+   "MAPE recursivo %": 100.0,
+   "Deterioro RMSE %": 10.2
+  }
+ ],
+ "comparativo_lab1": [
+  {
+   "Serie": "Total de viajeros",
+   "Mejor modelo lab. 1": "Suav. exponencial simple",
+   "RMSE lab. 1": 194772,
+   "MAPE lab. 1 %": 58.1,
+   "RMSE naive estacional": 253159,
+   "RMSE LSTM recursiva": 86387,
+   "MAPE LSTM recursiva %": 21.7,
+   "Mejora recursiva %": 55.6,
+   "RMSE LSTM 1 paso": 54528,
+   "Mejora 1 paso %": 72.0
+  },
+  {
+   "Serie": "País: El Salvador",
+   "Mejor modelo lab. 1": "Suav. exponencial simple",
+   "RMSE lab. 1": 104524,
+   "MAPE lab. 1 %": 74.3,
+   "RMSE naive estacional": 117627,
+   "RMSE LSTM recursiva": 61879,
+   "MAPE LSTM recursiva %": 54.9,
+   "Mejora recursiva %": 40.8,
+   "RMSE LSTM 1 paso": 27581,
+   "Mejora 1 paso %": 73.6
+  },
+  {
+   "Serie": "País: Guatemala",
+   "Mejor modelo lab. 1": "SARIMA(1,1,1)(1,0,1,12)",
+   "RMSE lab. 1": 52947,
+   "MAPE lab. 1 %": 54.7,
+   "RMSE naive estacional": 58177,
+   "RMSE LSTM recursiva": 91918,
+   "MAPE LSTM recursiva %": 39.5,
+   "Mejora recursiva %": -73.6,
+   "RMSE LSTM 1 paso": 27571,
+   "Mejora 1 paso %": 47.9
+  },
+  {
+   "Serie": "País: Estados Unidos de América",
+   "Mejor modelo lab. 1": "Suav. exponencial simple",
+   "RMSE lab. 1": 28946,
+   "MAPE lab. 1 %": 49.9,
+   "RMSE naive estacional": 44189,
+   "RMSE LSTM recursiva": 29140,
+   "MAPE LSTM recursiva %": 50.1,
+   "Mejora recursiva %": -0.7,
+   "RMSE LSTM 1 paso": 9879,
+   "Mejora 1 paso %": 65.9
+  },
+  {
+   "Serie": "Vía: Aérea",
+   "Mejor modelo lab. 1": "Suav. exponencial simple",
+   "RMSE lab. 1": 41379,
+   "MAPE lab. 1 %": 35.6,
+   "RMSE naive estacional": 79081,
+   "RMSE LSTM recursiva": 33390,
+   "MAPE LSTM recursiva %": 27.4,
+   "Mejora recursiva %": 19.3,
+   "RMSE LSTM 1 paso": 17710,
+   "Mejora 1 paso %": 57.2
+  },
+  {
+   "Serie": "Vía: Terrestre",
+   "Mejor modelo lab. 1": "Suav. exponencial simple",
+   "RMSE lab. 1": 156275,
+   "MAPE lab. 1 %": 71.8,
+   "RMSE naive estacional": 176605,
+   "RMSE LSTM recursiva": 192395,
+   "MAPE LSTM recursiva %": 88.1,
+   "Mejora recursiva %": -23.1,
+   "RMSE LSTM 1 paso": 41913,
+   "Mejora 1 paso %": 73.2
+  },
+  {
+   "Serie": "Vía: Marítima",
+   "Mejor modelo lab. 1": "Suav. exponencial simple",
+   "RMSE lab. 1": 1732,
+   "MAPE lab. 1 %": 100.0,
+   "RMSE naive estacional": 1732,
+   "RMSE LSTM recursiva": 1732,
+   "MAPE LSTM recursiva %": 100.0,
+   "Mejora recursiva %": 0.0,
+   "RMSE LSTM 1 paso": 1571,
+   "Mejora 1 paso %": 9.3
+  }
+ ],
+ "pca_var": [
+  37.78,
+  25.73,
+  20.12,
+  7.71,
+  6.41,
+  2.25
+ ],
+ "clusters": {
+  "Total de viajeros": {
+   "Ward k=2": 1,
+   "Ward k=3": 2,
+   "Ward k=4": 3,
+   "K-means k=3": 1
+  },
+  "País: El Salvador": {
+   "Ward k=2": 1,
+   "Ward k=3": 1,
+   "Ward k=4": 1,
+   "K-means k=3": 2
+  },
+  "País: Guatemala": {
+   "Ward k=2": 2,
+   "Ward k=3": 3,
+   "Ward k=4": 4,
+   "K-means k=3": 3
+  },
+  "País: Estados Unidos de América": {
+   "Ward k=2": 1,
+   "Ward k=3": 1,
+   "Ward k=4": 1,
+   "K-means k=3": 2
+  },
+  "Vía: Aérea": {
+   "Ward k=2": 1,
+   "Ward k=3": 1,
+   "Ward k=4": 1,
+   "K-means k=3": 2
+  },
+  "Vía: Terrestre": {
+   "Ward k=2": 1,
+   "Ward k=3": 1,
+   "Ward k=4": 1,
+   "K-means k=3": 1
+  },
+  "Vía: Marítima": {
+   "Ward k=2": 1,
+   "Ward k=3": 1,
+   "Ward k=4": 2,
+   "K-means k=3": 2
+  }
+ },
+ "features_discriminantes": [
+  {
+   "index": "FC_LocalSimple_mean3_stderr",
+   "rango z": 3.11,
+   "carga |PC1|": 0.226,
+   "carga |PC2|": 0.312,
+   "|PC1|+|PC2|": 0.538
+  },
+  {
+   "index": "DN_HistogramMode_5",
+   "rango z": 3.28,
+   "carga |PC1|": 0.202,
+   "carga |PC2|": 0.331,
+   "|PC1|+|PC2|": 0.533
+  },
+  {
+   "index": "SP_Summaries_welch_rect_area_5_1",
+   "rango z": 2.98,
+   "carga |PC1|": 0.22,
+   "carga |PC2|": 0.305,
+   "|PC1|+|PC2|": 0.524
+  },
+  {
+   "index": "PD_PeriodicityWang_th0_01",
+   "rango z": 3.0,
+   "carga |PC1|": 0.188,
+   "carga |PC2|": 0.331,
+   "|PC1|+|PC2|": 0.519
+  },
+  {
+   "index": "DN_OutlierInclude_n_001_mdrmd",
+   "rango z": 2.96,
+   "carga |PC1|": 0.201,
+   "carga |PC2|": 0.316,
+   "|PC1|+|PC2|": 0.517
+  },
+  {
+   "index": "DN_HistogramMode_10",
+   "rango z": 3.12,
+   "carga |PC1|": 0.129,
+   "carga |PC2|": 0.381,
+   "|PC1|+|PC2|": 0.51
+  },
+  {
+   "index": "CO_trev_1_num",
+   "rango z": 2.98,
+   "carga |PC1|": 0.224,
+   "carga |PC2|": 0.271,
+   "|PC1|+|PC2|": 0.494
+  },
+  {
+   "index": "MD_hrv_classic_pnn40",
+   "rango z": 2.84,
+   "carga |PC1|": 0.134,
+   "carga |PC2|": 0.348,
+   "|PC1|+|PC2|": 0.481
+  },
+  {
+   "index": "SB_TransitionMatrix_3ac_sumdiagcov",
+   "rango z": 3.19,
+   "carga |PC1|": 0.191,
+   "carga |PC2|": 0.279,
+   "|PC1|+|PC2|": 0.47
+  },
+  {
+   "index": "SB_BinaryStats_mean_longstretch1",
+   "rango z": 3.01,
+   "carga |PC1|": 0.275,
+   "carga |PC2|": 0.135,
+   "|PC1|+|PC2|": 0.41
+  }
+ ],
+ "distancias": {
+  "Total de viajeros": {
+   "Total de viajeros": 0.0,
+   "País: El Salvador": 7.138,
+   "País: Guatemala": 8.526,
+   "País: Estados Unidos de América": 8.995,
+   "Vía: Aérea": 6.367,
+   "Vía: Terrestre": 4.716,
+   "Vía: Marítima": 9.128
+  },
+  "País: El Salvador": {
+   "Total de viajeros": 7.138,
+   "País: El Salvador": 0.0,
+   "País: Guatemala": 7.513,
+   "País: Estados Unidos de América": 5.409,
+   "Vía: Aérea": 5.223,
+   "Vía: Terrestre": 4.105,
+   "Vía: Marítima": 7.13
+  },
+  "País: Guatemala": {
+   "Total de viajeros": 8.526,
+   "País: El Salvador": 7.513,
+   "País: Guatemala": 0.0,
+   "País: Estados Unidos de América": 9.767,
+   "Vía: Aérea": 7.746,
+   "Vía: Terrestre": 7.78,
+   "Vía: Marítima": 9.632
+  },
+  "País: Estados Unidos de América": {
+   "Total de viajeros": 8.995,
+   "País: El Salvador": 5.409,
+   "País: Guatemala": 9.767,
+   "País: Estados Unidos de América": 0.0,
+   "Vía: Aérea": 6.396,
+   "Vía: Terrestre": 6.34,
+   "Vía: Marítima": 7.326
+  },
+  "Vía: Aérea": {
+   "Total de viajeros": 6.367,
+   "País: El Salvador": 5.223,
+   "País: Guatemala": 7.746,
+   "País: Estados Unidos de América": 6.396,
+   "Vía: Aérea": 0.0,
+   "Vía: Terrestre": 4.992,
+   "Vía: Marítima": 5.641
+  },
+  "Vía: Terrestre": {
+   "Total de viajeros": 4.716,
+   "País: El Salvador": 4.105,
+   "País: Guatemala": 7.78,
+   "País: Estados Unidos de América": 6.34,
+   "Vía: Aérea": 4.992,
+   "Vía: Terrestre": 0.0,
+   "Vía: Marítima": 6.816
+  },
+  "Vía: Marítima": {
+   "Total de viajeros": 9.128,
+   "País: El Salvador": 7.13,
+   "País: Guatemala": 9.632,
+   "País: Estados Unidos de América": 7.326,
+   "Vía: Aérea": 5.641,
+   "Vía: Terrestre": 6.816,
+   "Vía: Marítima": 0.0
+  }
+ },
+ "lstm_catch22": [
+  {
+   "Modelo": "Mejor LSTM de la sección 3 (referencia)",
+   "Entradas": 1,
+   "MAE": 42018,
+   "RMSE": 54528,
+   "MAPE %": 16.1,
+   "Δ RMSE vs. referencia %": 0.0
+  },
+  {
+   "Modelo": "LSTM univariante (misma ventana de datos)",
+   "Entradas": 1,
+   "MAE": 43863,
+   "RMSE": 56682,
+   "MAPE %": 17.8,
+   "Δ RMSE vs. referencia %": 4.0
+  },
+  {
+   "Modelo": "LSTM + 6 características catch22",
+   "Entradas": 7,
+   "MAE": 61030,
+   "RMSE": 80478,
+   "MAPE %": 21.2,
+   "Δ RMSE vs. referencia %": 47.6
+  },
+  {
+   "Modelo": "LSTM + 22 características catch22",
+   "Entradas": 23,
+   "MAE": 84493,
+   "RMSE": 106835,
+   "MAPE %": 31.2,
+   "Δ RMSE vs. referencia %": 95.9
+  }
+ ]
+}
