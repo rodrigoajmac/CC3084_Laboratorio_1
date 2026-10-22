@@ -165,21 +165,17 @@
     }
    ],
    "d": 0,
-   "D": 0,
-   "auto_arima": {
-    "order": [
-     2,
-     0,
-     0
-    ],
-    "seasonal_order": [
-     1,
-     0,
-     1,
-     12
-    ]
-   },
+   "D": 1,
    "comparacion": {
+    "SARIMA(0,0,1)(0,1,1,12)": {
+     "AIC": 209.306,
+     "BIC": 218.021,
+     "n_efec": 135.0,
+     "MAE": 101407.841,
+     "RMSE": 112600.809,
+     "MAPE": 42.018,
+     "LjungBox_p": 0.0
+    },
     "Suav. exponencial simple": {
      "AIC": -324.837,
      "BIC": -318.856,
@@ -189,23 +185,32 @@
      "MAPE": 58.121,
      "LjungBox_p": NaN
     },
+    "SARIMA(1,0,1)(1,1,1,12)": {
+     "AIC": 72.847,
+     "BIC": 87.373,
+     "n_efec": 135.0,
+     "MAE": 176305.032,
+     "RMSE": 198569.303,
+     "MAPE": 59.037,
+     "LjungBox_p": 0.0
+    },
     "Holt-Winters": {
      "AIC": -348.018,
      "BIC": -300.171,
      "n_efec": 147.0,
-     "MAE": 196928.505,
-     "RMSE": 216429.452,
+     "MAE": 196928.787,
+     "RMSE": 216429.741,
      "MAPE": 65.314,
      "LjungBox_p": NaN
     },
-    "SARIMA(2,0,0)(1,0,0,12)": {
-     "AIC": 89.704,
-     "BIC": 101.666,
-     "n_efec": 147.0,
-     "MAE": 228238.206,
-     "RMSE": 245678.044,
-     "MAPE": 79.394,
-     "LjungBox_p": 0.533
+    "SARIMA(2,0,0)(1,1,0,12)": {
+     "AIC": 72.462,
+     "BIC": 84.083,
+     "n_efec": 135.0,
+     "MAE": 212631.689,
+     "RMSE": 235615.008,
+     "MAPE": 71.788,
+     "LjungBox_p": 0.0
     },
     "Seasonal naive": {
      "AIC": NaN,
@@ -216,67 +221,31 @@
      "MAPE": 83.869,
      "LjungBox_p": NaN
     },
-    "SARIMA(1,0,1)(1,0,1,12)": {
-     "AIC": 81.135,
-     "BIC": 96.087,
-     "n_efec": 147.0,
-     "MAE": 233788.89,
-     "RMSE": 253929.741,
-     "MAPE": 79.025,
-     "LjungBox_p": 0.37
-    },
-    "SARIMA(2, 0, 0)(1, 0, 1, 12) (auto_arima)": {
-     "AIC": 81.038,
-     "BIC": 95.99,
-     "n_efec": 147.0,
-     "MAE": 233997.745,
-     "RMSE": 254158.447,
-     "MAPE": 79.094,
-     "LjungBox_p": 0.392
-    },
     "SARIMA(1,1,1)(0,1,1,12)": {
      "AIC": 76.36,
      "BIC": 87.951,
      "n_efec": 134.0,
-     "MAE": 241764.779,
-     "RMSE": 260701.695,
-     "MAPE": 83.28,
+     "MAE": 241765.532,
+     "RMSE": 260702.422,
+     "MAPE": 83.281,
      "LjungBox_p": 0.997
     },
     "SARIMA(0,1,1)(0,1,1,12) (aerolínea)": {
      "AIC": 74.622,
      "BIC": 83.316,
      "n_efec": 134.0,
-     "MAE": 242883.053,
-     "RMSE": 261746.196,
+     "MAE": 242883.94,
+     "RMSE": 261747.035,
      "MAPE": 83.747,
      "LjungBox_p": 0.997
-    },
-    "Prophet": {
-     "AIC": NaN,
-     "BIC": NaN,
-     "n_efec": 147.0,
-     "MAE": 274299.255,
-     "RMSE": 291039.199,
-     "MAPE": 97.377,
-     "LjungBox_p": NaN
-    },
-    "SARIMA(0,0,1)(0,0,1,12)": {
-     "AIC": 800.081,
-     "BIC": 809.053,
-     "n_efec": 147.0,
-     "MAE": 276573.121,
-     "RMSE": 291586.243,
-     "MAPE": 99.957,
-     "LjungBox_p": 0.0
     }
    },
-   "mejor_rmse": "Suav. exponencial simple",
-   "mejor_aic": "SARIMA(2, 0, 0)(1, 0, 1, 12) (auto_arima)",
+   "mejor_rmse": "SARIMA(0,0,1)(0,1,1,12)",
+   "mejor_aic": "SARIMA(2,0,0)(1,1,0,12)",
    "residuos": {
-    "modelo": "SARIMA(2, 0, 0)(1, 0, 1, 12) (auto_arima)",
-    "ljungbox12_p": 0.3919,
-    "ljungbox24_p": 0.9497,
+    "modelo": "SARIMA(2,0,0)(1,1,0,12)",
+    "ljungbox12_p": 0.0,
+    "ljungbox24_p": 0.0,
     "jarquebera_p": 0.0
    }
   },
@@ -350,20 +319,7 @@
     }
    ],
    "d": 0,
-   "D": 0,
-   "auto_arima": {
-    "order": [
-     3,
-     0,
-     2
-    ],
-    "seasonal_order": [
-     0,
-     0,
-     0,
-     12
-    ]
-   },
+   "D": 1,
    "comparacion": {
     "Suav. exponencial simple": {
      "AIC": 66.514,
@@ -378,10 +334,37 @@
      "AIC": 86.034,
      "BIC": 133.881,
      "n_efec": 147.0,
-     "MAE": 101038.492,
-     "RMSE": 111520.582,
+     "MAE": 101038.978,
+     "RMSE": 111521.121,
      "MAPE": 81.05,
      "LjungBox_p": NaN
+    },
+    "SARIMA(0,0,1)(0,1,1,12)": {
+     "AIC": 534.309,
+     "BIC": 543.025,
+     "n_efec": 135.0,
+     "MAE": 103644.122,
+     "RMSE": 114251.638,
+     "MAPE": 86.866,
+     "LjungBox_p": 0.0
+    },
+    "SARIMA(1,0,1)(1,1,1,12)": {
+     "AIC": 459.27,
+     "BIC": 473.796,
+     "n_efec": 135.0,
+     "MAE": 105075.038,
+     "RMSE": 115563.83,
+     "MAPE": 88.404,
+     "LjungBox_p": 0.0
+    },
+    "SARIMA(2,0,0)(1,1,0,12)": {
+     "AIC": 457.143,
+     "BIC": 468.764,
+     "n_efec": 135.0,
+     "MAE": 105308.604,
+     "RMSE": 115799.306,
+     "MAPE": 88.572,
+     "LjungBox_p": 0.0
     },
     "Seasonal naive": {
      "AIC": NaN,
@@ -392,39 +375,12 @@
      "MAPE": 91.6,
      "LjungBox_p": NaN
     },
-    "SARIMA(1,0,1)(1,0,1,12)": {
-     "AIC": 494.105,
-     "BIC": 509.057,
-     "n_efec": 147.0,
-     "MAE": 107529.936,
-     "RMSE": 118229.236,
-     "MAPE": 89.626,
-     "LjungBox_p": 0.0
-    },
-    "SARIMA(2,0,0)(1,0,0,12)": {
-     "AIC": 492.291,
-     "BIC": 504.253,
-     "n_efec": 147.0,
-     "MAE": 110208.479,
-     "RMSE": 120075.345,
-     "MAPE": 97.206,
-     "LjungBox_p": 0.0
-    },
-    "SARIMA(3, 0, 2)(0, 0, 0, 12) (auto_arima)": {
-     "AIC": 472.227,
-     "BIC": 490.17,
-     "n_efec": 147.0,
-     "MAE": 111948.411,
-     "RMSE": 122273.674,
-     "MAPE": 93.785,
-     "LjungBox_p": 0.028
-    },
     "SARIMA(1,1,1)(0,1,1,12)": {
      "AIC": 465.391,
      "BIC": 476.983,
      "n_efec": 134.0,
-     "MAE": 112511.187,
-     "RMSE": 122519.926,
+     "MAE": 112511.151,
+     "RMSE": 122519.901,
      "MAPE": 96.798,
      "LjungBox_p": 0.0
     },
@@ -432,36 +388,18 @@
      "AIC": 463.392,
      "BIC": 472.085,
      "n_efec": 134.0,
-     "MAE": 112511.365,
-     "RMSE": 122520.067,
+     "MAE": 112511.371,
+     "RMSE": 122520.071,
      "MAPE": 96.798,
-     "LjungBox_p": 0.0
-    },
-    "Prophet": {
-     "AIC": NaN,
-     "BIC": NaN,
-     "n_efec": 147.0,
-     "MAE": 113406.235,
-     "RMSE": 123307.497,
-     "MAPE": 97.198,
-     "LjungBox_p": NaN
-    },
-    "SARIMA(0,0,1)(0,0,1,12)": {
-     "AIC": 814.304,
-     "BIC": 823.275,
-     "n_efec": 147.0,
-     "MAE": 113845.173,
-     "RMSE": 123344.71,
-     "MAPE": 99.982,
      "LjungBox_p": 0.0
     }
    },
    "mejor_rmse": "Suav. exponencial simple",
-   "mejor_aic": "SARIMA(3, 0, 2)(0, 0, 0, 12) (auto_arima)",
+   "mejor_aic": "SARIMA(2,0,0)(1,1,0,12)",
    "residuos": {
-    "modelo": "SARIMA(3, 0, 2)(0, 0, 0, 12) (auto_arima)",
-    "ljungbox12_p": 0.0284,
-    "ljungbox24_p": 0.4417,
+    "modelo": "SARIMA(2,0,0)(1,1,0,12)",
+    "ljungbox12_p": 0.0,
+    "ljungbox24_p": 0.0,
     "jarquebera_p": 0.0
    }
   },
@@ -535,65 +473,52 @@
     }
    ],
    "d": 1,
-   "D": 0,
-   "auto_arima": {
-    "order": [
-     1,
-     1,
-     2
-    ],
-    "seasonal_order": [
-     2,
-     0,
-     1,
-     12
-    ]
-   },
+   "D": 1,
    "comparacion": {
-    "SARIMA(1,1,1)(1,0,1,12)": {
-     "AIC": -8.11,
-     "BIC": 6.809,
-     "n_efec": 146.0,
-     "MAE": 34766.585,
-     "RMSE": 52947.192,
-     "MAPE": 54.665,
-     "LjungBox_p": 0.368
-    },
     "SARIMA(1,1,1)(0,1,1,12)": {
      "AIC": -3.728,
      "BIC": 7.863,
      "n_efec": 134.0,
-     "MAE": 32076.703,
-     "RMSE": 53763.425,
-     "MAPE": 60.57,
+     "MAE": 32073.633,
+     "RMSE": 53765.784,
+     "MAPE": 60.581,
+     "LjungBox_p": 0.997
+    },
+    "SARIMA(0,1,1)(0,1,1,12)": {
+     "AIC": -5.66,
+     "BIC": 3.034,
+     "n_efec": 134.0,
+     "MAE": 31986.964,
+     "RMSE": 53844.482,
+     "MAPE": 60.981,
      "LjungBox_p": 0.997
     },
     "SARIMA(0,1,1)(0,1,1,12) (aerolínea)": {
      "AIC": -5.66,
      "BIC": 3.034,
      "n_efec": 134.0,
-     "MAE": 31986.269,
-     "RMSE": 53845.017,
-     "MAPE": 60.983,
+     "MAE": 31986.964,
+     "RMSE": 53844.482,
+     "MAPE": 60.981,
      "LjungBox_p": 0.997
     },
     "Holt-Winters": {
      "AIC": -430.699,
      "BIC": -382.852,
      "n_efec": 147.0,
-     "MAE": 44224.679,
-     "RMSE": 54637.032,
+     "MAE": 44224.687,
+     "RMSE": 54637.037,
      "MAPE": 43.863,
      "LjungBox_p": NaN
     },
-    "SARIMA(0,1,1)(0,0,1,12)": {
-     "AIC": 23.385,
-     "BIC": 32.335,
-     "n_efec": 146.0,
-     "MAE": 46224.901,
-     "RMSE": 55467.473,
-     "MAPE": 56.533,
-     "LjungBox_p": 0.193
+    "SARIMA(1,1,1)(1,1,1,12)": {
+     "AIC": -6.043,
+     "BIC": 8.446,
+     "n_efec": 134.0,
+     "MAE": 28939.388,
+     "RMSE": 55179.034,
+     "MAPE": 54.362,
+     "LjungBox_p": 0.997
     },
     "Suav. exponencial simple": {
      "AIC": -377.246,
@@ -604,14 +529,14 @@
      "MAPE": 46.971,
      "LjungBox_p": NaN
     },
-    "SARIMA(2,1,0)(1,0,0,12)": {
-     "AIC": 8.248,
-     "BIC": 20.182,
-     "n_efec": 146.0,
-     "MAE": 39167.095,
-     "RMSE": 56053.197,
-     "MAPE": 69.808,
-     "LjungBox_p": 0.469
+    "SARIMA(2,1,0)(1,1,0,12)": {
+     "AIC": -5.007,
+     "BIC": 6.584,
+     "n_efec": 134.0,
+     "MAE": 28653.061,
+     "RMSE": 57201.184,
+     "MAPE": 62.973,
+     "LjungBox_p": 0.998
     },
     "Seasonal naive": {
      "AIC": NaN,
@@ -621,32 +546,14 @@
      "RMSE": 58176.718,
      "MAPE": 70.43,
      "LjungBox_p": NaN
-    },
-    "SARIMA(1, 1, 2)(2, 0, 1, 12) (auto_arima)": {
-     "AIC": -13.934,
-     "BIC": 6.951,
-     "n_efec": 146.0,
-     "MAE": 51573.034,
-     "RMSE": 60279.134,
-     "MAPE": 51.842,
-     "LjungBox_p": 0.522
-    },
-    "Prophet": {
-     "AIC": NaN,
-     "BIC": NaN,
-     "n_efec": 147.0,
-     "MAE": 30341.18,
-     "RMSE": 62800.758,
-     "MAPE": 86.888,
-     "LjungBox_p": NaN
     }
    },
-   "mejor_rmse": "SARIMA(1,1,1)(1,0,1,12)",
-   "mejor_aic": "SARIMA(1, 1, 2)(2, 0, 1, 12) (auto_arima)",
+   "mejor_rmse": "SARIMA(1,1,1)(0,1,1,12)",
+   "mejor_aic": "SARIMA(1,1,1)(1,1,1,12)",
    "residuos": {
-    "modelo": "SARIMA(1, 1, 2)(2, 0, 1, 12) (auto_arima)",
-    "ljungbox12_p": 0.5222,
-    "ljungbox24_p": 0.9309,
+    "modelo": "SARIMA(1,1,1)(1,1,1,12)",
+    "ljungbox12_p": 0.9969,
+    "ljungbox24_p": 1.0,
     "jarquebera_p": 0.0
    }
   },
@@ -721,19 +628,6 @@
    ],
    "d": 0,
    "D": 1,
-   "auto_arima": {
-    "order": [
-     3,
-     0,
-     2
-    ],
-    "seasonal_order": [
-     0,
-     1,
-     0,
-     12
-    ]
-   },
    "comparacion": {
     "Suav. exponencial simple": {
      "AIC": 20.072,
@@ -748,26 +642,26 @@
      "AIC": 25.238,
      "BIC": 73.085,
      "n_efec": 147.0,
-     "MAE": 34185.286,
-     "RMSE": 37630.6,
-     "MAPE": 69.367,
+     "MAE": 34186.883,
+     "RMSE": 37632.323,
+     "MAPE": 69.37,
      "LjungBox_p": NaN
     },
     "SARIMA(1,1,1)(0,1,1,12)": {
      "AIC": 407.82,
      "BIC": 419.412,
      "n_efec": 134.0,
-     "MAE": 32870.908,
-     "RMSE": 37757.511,
-     "MAPE": 71.226,
+     "MAE": 32870.745,
+     "RMSE": 37757.42,
+     "MAPE": 71.225,
      "LjungBox_p": 0.002
     },
     "SARIMA(0,1,1)(0,1,1,12) (aerolínea)": {
      "AIC": 406.337,
      "BIC": 415.03,
      "n_efec": 134.0,
-     "MAE": 36107.857,
-     "RMSE": 39927.449,
+     "MAE": 36107.747,
+     "RMSE": 39927.362,
      "MAPE": 77.417,
      "LjungBox_p": 0.002
     },
@@ -775,8 +669,8 @@
      "AIC": 398.899,
      "BIC": 410.52,
      "n_efec": 135.0,
-     "MAE": 39322.82,
-     "RMSE": 42727.302,
+     "MAE": 39322.816,
+     "RMSE": 42727.299,
      "MAPE": 83.313,
      "LjungBox_p": 0.0
     },
@@ -784,8 +678,8 @@
      "AIC": 402.253,
      "BIC": 416.779,
      "n_efec": 135.0,
-     "MAE": 39573.411,
-     "RMSE": 42918.943,
+     "MAE": 39573.364,
+     "RMSE": 42918.903,
      "MAPE": 83.964,
      "LjungBox_p": 0.0
     },
@@ -793,18 +687,9 @@
      "AIC": 491.305,
      "BIC": 500.021,
      "n_efec": 135.0,
-     "MAE": 39911.696,
-     "RMSE": 43136.655,
+     "MAE": 39911.727,
+     "RMSE": 43136.681,
      "MAPE": 85.082,
-     "LjungBox_p": 0.0
-    },
-    "SARIMA(3, 0, 2)(0, 1, 0, 12) (auto_arima)": {
-     "AIC": 382.057,
-     "BIC": 399.489,
-     "n_efec": 135.0,
-     "MAE": 40215.364,
-     "RMSE": 43361.26,
-     "MAPE": 86.099,
      "LjungBox_p": 0.0
     },
     "Seasonal naive": {
@@ -815,21 +700,12 @@
      "RMSE": 44189.442,
      "MAPE": 88.193,
      "LjungBox_p": NaN
-    },
-    "Prophet": {
-     "AIC": NaN,
-     "BIC": NaN,
-     "n_efec": 147.0,
-     "MAE": 46357.239,
-     "RMSE": 49349.36,
-     "MAPE": 98.583,
-     "LjungBox_p": NaN
     }
    },
    "mejor_rmse": "Suav. exponencial simple",
-   "mejor_aic": "SARIMA(3, 0, 2)(0, 1, 0, 12) (auto_arima)",
+   "mejor_aic": "SARIMA(2,0,0)(1,1,0,12)",
    "residuos": {
-    "modelo": "SARIMA(3, 0, 2)(0, 1, 0, 12) (auto_arima)",
+    "modelo": "SARIMA(2,0,0)(1,1,0,12)",
     "ljungbox12_p": 0.0,
     "ljungbox24_p": 0.0,
     "jarquebera_p": 0.0
@@ -905,20 +781,7 @@
     }
    ],
    "d": 0,
-   "D": 0,
-   "auto_arima": {
-    "order": [
-     1,
-     0,
-     1
-    ],
-    "seasonal_order": [
-     1,
-     0,
-     1,
-     12
-    ]
-   },
+   "D": 1,
    "comparacion": {
     "Suav. exponencial simple": {
      "AIC": -216.176,
@@ -933,54 +796,54 @@
      "AIC": -221.851,
      "BIC": -174.004,
      "n_efec": 147.0,
-     "MAE": 48059.658,
-     "RMSE": 52244.81,
+     "MAE": 48059.66,
+     "RMSE": 52244.812,
      "MAPE": 48.527,
      "LjungBox_p": NaN
     },
-    "SARIMA(2,0,0)(1,0,0,12)": {
-     "AIC": 206.103,
-     "BIC": 218.065,
-     "n_efec": 147.0,
-     "MAE": 64013.165,
-     "RMSE": 68051.317,
-     "MAPE": 66.128,
-     "LjungBox_p": 0.107
+    "SARIMA(0,0,1)(0,1,1,12)": {
+     "AIC": 280.608,
+     "BIC": 289.324,
+     "n_efec": 135.0,
+     "MAE": 56473.197,
+     "RMSE": 63845.462,
+     "MAPE": 59.966,
+     "LjungBox_p": 0.0
+    },
+    "SARIMA(1,0,1)(1,1,1,12)": {
+     "AIC": 180.356,
+     "BIC": 194.882,
+     "n_efec": 135.0,
+     "MAE": 58079.08,
+     "RMSE": 66119.102,
+     "MAPE": 60.731,
+     "LjungBox_p": 0.0
     },
     "SARIMA(0,1,1)(0,1,1,12) (aerolínea)": {
      "AIC": 185.699,
      "BIC": 194.392,
      "n_efec": 134.0,
-     "MAE": 64529.36,
-     "RMSE": 69693.267,
+     "MAE": 64529.55,
+     "RMSE": 69693.311,
      "MAPE": 68.17,
      "LjungBox_p": 0.966
     },
-    "SARIMA(1, 0, 1)(1, 0, 1, 12) (auto_arima)": {
-     "AIC": 200.463,
-     "BIC": 215.415,
-     "n_efec": 147.0,
-     "MAE": 69001.163,
-     "RMSE": 74088.713,
-     "MAPE": 70.088,
-     "LjungBox_p": 0.084
-    },
-    "SARIMA(1,0,1)(1,0,1,12)": {
-     "AIC": 200.463,
-     "BIC": 215.415,
-     "n_efec": 147.0,
-     "MAE": 69001.163,
-     "RMSE": 74088.713,
-     "MAPE": 70.088,
-     "LjungBox_p": 0.084
+    "SARIMA(2,0,0)(1,1,0,12)": {
+     "AIC": 179.111,
+     "BIC": 190.732,
+     "n_efec": 135.0,
+     "MAE": 63300.608,
+     "RMSE": 70333.291,
+     "MAPE": 66.759,
+     "LjungBox_p": 0.0
     },
     "SARIMA(1,1,1)(0,1,1,12)": {
      "AIC": 189.965,
-     "BIC": 201.556,
+     "BIC": 201.557,
      "n_efec": 134.0,
-     "MAE": 73812.232,
-     "RMSE": 77759.89,
-     "MAPE": 77.822,
+     "MAE": 73805.479,
+     "RMSE": 77753.664,
+     "MAPE": 77.816,
      "LjungBox_p": 0.944
     },
     "Seasonal naive": {
@@ -991,32 +854,14 @@
      "RMSE": 79080.714,
      "MAPE": 80.585,
      "LjungBox_p": NaN
-    },
-    "Prophet": {
-     "AIC": NaN,
-     "BIC": NaN,
-     "n_efec": 147.0,
-     "MAE": 93241.007,
-     "RMSE": 96642.166,
-     "MAPE": 97.407,
-     "LjungBox_p": NaN
-    },
-    "SARIMA(0,0,1)(0,0,1,12)": {
-     "AIC": 780.139,
-     "BIC": 789.11,
-     "n_efec": 147.0,
-     "MAE": 94575.672,
-     "RMSE": 97315.728,
-     "MAPE": 99.955,
-     "LjungBox_p": 0.0
     }
    },
    "mejor_rmse": "Suav. exponencial simple",
-   "mejor_aic": "SARIMA(1, 0, 1)(1, 0, 1, 12) (auto_arima)",
+   "mejor_aic": "SARIMA(2,0,0)(1,1,0,12)",
    "residuos": {
-    "modelo": "SARIMA(1, 0, 1)(1, 0, 1, 12) (auto_arima)",
-    "ljungbox12_p": 0.0838,
-    "ljungbox24_p": 0.7174,
+    "modelo": "SARIMA(2,0,0)(1,1,0,12)",
+    "ljungbox12_p": 0.0,
+    "ljungbox24_p": 0.0,
     "jarquebera_p": 0.0
    }
   },
@@ -1090,21 +935,17 @@
     }
    ],
    "d": 0,
-   "D": 0,
-   "auto_arima": {
-    "order": [
-     2,
-     0,
-     0
-    ],
-    "seasonal_order": [
-     1,
-     0,
-     0,
-     12
-    ]
-   },
+   "D": 1,
    "comparacion": {
+    "SARIMA(0,0,1)(0,1,1,12)": {
+     "AIC": 241.011,
+     "BIC": 249.727,
+     "n_efec": 135.0,
+     "MAE": 89911.432,
+     "RMSE": 99524.146,
+     "MAPE": 68.088,
+     "LjungBox_p": 0.0
+    },
     "Suav. exponencial simple": {
      "AIC": -281.805,
      "BIC": -275.825,
@@ -1118,10 +959,19 @@
      "AIC": -279.093,
      "BIC": -231.246,
      "n_efec": 147.0,
-     "MAE": 147976.592,
-     "RMSE": 164203.032,
-     "MAPE": 73.915,
+     "MAE": 147977.068,
+     "RMSE": 164203.506,
+     "MAPE": 73.916,
      "LjungBox_p": NaN
+    },
+    "SARIMA(1,0,1)(1,1,1,12)": {
+     "AIC": 130.773,
+     "BIC": 145.299,
+     "n_efec": 135.0,
+     "MAE": 153149.133,
+     "RMSE": 170471.08,
+     "MAPE": 77.189,
+     "LjungBox_p": 0.0
     },
     "Seasonal naive": {
      "AIC": NaN,
@@ -1132,39 +982,21 @@
      "MAPE": 83.478,
      "LjungBox_p": NaN
     },
-    "SARIMA(2, 0, 0)(1, 0, 0, 12) (auto_arima)": {
-     "AIC": 138.589,
-     "BIC": 150.55,
-     "n_efec": 147.0,
-     "MAE": 165108.691,
-     "RMSE": 180956.263,
-     "MAPE": 85.446,
-     "LjungBox_p": 0.01
-    },
-    "SARIMA(2,0,0)(1,0,0,12)": {
-     "AIC": 138.589,
-     "BIC": 150.55,
-     "n_efec": 147.0,
-     "MAE": 165108.691,
-     "RMSE": 180956.263,
-     "MAPE": 85.446,
-     "LjungBox_p": 0.01
-    },
-    "SARIMA(1,0,1)(1,0,1,12)": {
-     "AIC": 137.171,
-     "BIC": 152.123,
-     "n_efec": 147.0,
-     "MAE": 167469.084,
-     "RMSE": 184108.676,
-     "MAPE": 84.797,
-     "LjungBox_p": 0.017
+    "SARIMA(2,0,0)(1,1,0,12)": {
+     "AIC": 129.123,
+     "BIC": 140.744,
+     "n_efec": 135.0,
+     "MAE": 160447.874,
+     "RMSE": 177717.989,
+     "MAPE": 81.639,
+     "LjungBox_p": 0.0
     },
     "SARIMA(0,1,1)(0,1,1,12) (aerolínea)": {
      "AIC": 129.992,
      "BIC": 138.686,
      "n_efec": 134.0,
-     "MAE": 175128.604,
-     "RMSE": 191095.232,
+     "MAE": 175128.5,
+     "RMSE": 191095.144,
      "MAPE": 91.777,
      "LjungBox_p": 0.779
     },
@@ -1172,36 +1004,18 @@
      "AIC": 131.897,
      "BIC": 143.489,
      "n_efec": 134.0,
-     "MAE": 175603.936,
-     "RMSE": 191473.503,
-     "MAPE": 92.297,
+     "MAE": 175603.055,
+     "RMSE": 191472.787,
+     "MAPE": 92.296,
      "LjungBox_p": 0.805
-    },
-    "Prophet": {
-     "AIC": NaN,
-     "BIC": NaN,
-     "n_efec": 147.0,
-     "MAE": 180079.102,
-     "RMSE": 195274.606,
-     "MAPE": 96.624,
-     "LjungBox_p": NaN
-    },
-    "SARIMA(0,0,1)(0,0,1,12)": {
-     "AIC": 788.749,
-     "BIC": 797.72,
-     "n_efec": 147.0,
-     "MAE": 181097.872,
-     "RMSE": 195394.069,
-     "MAPE": 99.886,
-     "LjungBox_p": 0.0
     }
    },
-   "mejor_rmse": "Suav. exponencial simple",
-   "mejor_aic": "SARIMA(1,0,1)(1,0,1,12)",
+   "mejor_rmse": "SARIMA(0,0,1)(0,1,1,12)",
+   "mejor_aic": "SARIMA(2,0,0)(1,1,0,12)",
    "residuos": {
-    "modelo": "SARIMA(1,0,1)(1,0,1,12)",
-    "ljungbox12_p": 0.0167,
-    "ljungbox24_p": 0.3769,
+    "modelo": "SARIMA(2,0,0)(1,1,0,12)",
+    "ljungbox12_p": 0.0,
+    "ljungbox24_p": 0.0,
     "jarquebera_p": 0.0
    }
   },
@@ -1276,19 +1090,6 @@
    ],
    "d": 1,
    "D": 0,
-   "auto_arima": {
-    "order": [
-     0,
-     1,
-     1
-    ],
-    "seasonal_order": [
-     2,
-     0,
-     0,
-     12
-    ]
-   },
    "comparacion": {
     "Suav. exponencial simple": {
      "AIC": 212.155,
@@ -1299,9 +1100,9 @@
      "MAPE": 100.0,
      "LjungBox_p": NaN
     },
-    "SARIMA(0, 1, 1)(2, 0, 0, 12) (auto_arima)": {
-     "AIC": 601.575,
-     "BIC": 613.51,
+    "SARIMA(0,1,1)(0,0,1,12)": {
+     "AIC": 625.318,
+     "BIC": 634.269,
      "n_efec": 146.0,
      "MAE": 858.365,
      "RMSE": 1731.93,
@@ -1311,15 +1112,6 @@
     "SARIMA(1,1,1)(1,0,1,12)": {
      "AIC": 609.942,
      "BIC": 624.86,
-     "n_efec": 146.0,
-     "MAE": 858.365,
-     "RMSE": 1731.93,
-     "MAPE": 100.0,
-     "LjungBox_p": 0.0
-    },
-    "SARIMA(0,1,1)(0,0,1,12)": {
-     "AIC": 625.318,
-     "BIC": 634.269,
      "n_efec": 146.0,
      "MAE": 858.365,
      "RMSE": 1731.93,
@@ -1370,21 +1162,12 @@
      "RMSE": 1731.93,
      "MAPE": 100.0,
      "LjungBox_p": NaN
-    },
-    "Prophet": {
-     "AIC": NaN,
-     "BIC": NaN,
-     "n_efec": 147.0,
-     "MAE": 858.365,
-     "RMSE": 1731.93,
-     "MAPE": 100.0,
-     "LjungBox_p": NaN
     }
    },
    "mejor_rmse": "Suav. exponencial simple",
-   "mejor_aic": "SARIMA(0, 1, 1)(2, 0, 0, 12) (auto_arima)",
+   "mejor_aic": "SARIMA(1,1,1)(1,0,1,12)",
    "residuos": {
-    "modelo": "SARIMA(0, 1, 1)(2, 0, 0, 12) (auto_arima)",
+    "modelo": "SARIMA(1,1,1)(1,0,1,12)",
     "ljungbox12_p": 0.0001,
     "ljungbox24_p": 0.0,
     "jarquebera_p": 0.0
@@ -1541,10 +1324,10 @@
  "control_postcovid": {
   "Total de viajeros": {
    "mejor_postcovid": "SARIMA(1,0,1)(1,0,1,12)",
-   "RMSE_postcovid": 22901,
-   "MAPE_postcovid": 7.2,
-   "mejor_70_30": "Suav. exponencial simple",
-   "MAPE_70_30": 58.1
+   "RMSE_postcovid": 22553,
+   "MAPE_postcovid": 7.1,
+   "mejor_70_30": "SARIMA(0,0,1)(0,1,1,12)",
+   "MAPE_70_30": 42.0
   },
   "País: El Salvador": {
    "mejor_postcovid": "Seasonal naive",
@@ -1557,13 +1340,13 @@
    "mejor_postcovid": "Holt-Winters",
    "RMSE_postcovid": 0,
    "MAPE_postcovid": NaN,
-   "mejor_70_30": "SARIMA(1,1,1)(1,0,1,12)",
-   "MAPE_70_30": 54.7
+   "mejor_70_30": "SARIMA(1,1,1)(0,1,1,12)",
+   "MAPE_70_30": 60.6
   },
   "País: Estados Unidos de América": {
-   "mejor_postcovid": "Prophet",
-   "RMSE_postcovid": 4626,
-   "MAPE_postcovid": 6.3,
+   "mejor_postcovid": "Seasonal naive",
+   "RMSE_postcovid": 4809,
+   "MAPE_postcovid": 7.0,
    "mejor_70_30": "Suav. exponencial simple",
    "MAPE_70_30": 49.9
   },
@@ -1578,8 +1361,8 @@
    "mejor_postcovid": "Seasonal naive",
    "RMSE_postcovid": 27473,
    "MAPE_postcovid": 10.5,
-   "mejor_70_30": "Suav. exponencial simple",
-   "MAPE_70_30": 71.8
+   "mejor_70_30": "SARIMA(0,0,1)(0,1,1,12)",
+   "MAPE_70_30": 68.1
   },
   "Vía: Marítima": {
    "mejor_postcovid": "Seasonal naive",
@@ -1594,9 +1377,9 @@
    "SARIMA(1,0,1)(1,0,1,12)": {
     "AIC": 12.91,
     "BIC": 21.6,
-    "MAE": 20411.81,
-    "RMSE": 22901.33,
-    "MAPE": 7.23,
+    "MAE": 20163.33,
+    "RMSE": 22553.05,
+    "MAPE": 7.12,
     "LjungBox_p": 0.82,
     "n_efec": 42.0
    },
@@ -1612,8 +1395,8 @@
    "SARIMA(1,0,0)(1,0,0,12)": {
     "AIC": 10.15,
     "BIC": 15.37,
-    "MAE": 52136.03,
-    "RMSE": 57468.57,
+    "MAE": 52135.94,
+    "RMSE": 57468.48,
     "MAPE": 18.76,
     "LjungBox_p": 0.78,
     "n_efec": 42.0
@@ -1621,8 +1404,8 @@
    "Holt-Winters": {
     "AIC": -120.87,
     "BIC": -93.07,
-    "MAE": 67109.42,
-    "RMSE": 86560.28,
+    "MAE": 67109.37,
+    "RMSE": 86560.21,
     "MAPE": 23.41,
     "LjungBox_p": NaN,
     "n_efec": 42.0
@@ -1631,17 +1414,8 @@
     "AIC": -114.15,
     "BIC": -110.68,
     "MAE": 81770.73,
-    "RMSE": 87191.39,
+    "RMSE": 87191.4,
     "MAPE": 29.46,
-    "LjungBox_p": NaN,
-    "n_efec": 42.0
-   },
-   "Prophet": {
-    "AIC": NaN,
-    "BIC": NaN,
-    "MAE": 135249.61,
-    "RMSE": 141637.11,
-    "MAPE": 46.18,
     "LjungBox_p": NaN,
     "n_efec": 42.0
    },
@@ -1665,20 +1439,11 @@
     "LjungBox_p": NaN,
     "n_efec": 42.0
    },
-   "Prophet": {
-    "AIC": NaN,
-    "BIC": NaN,
-    "MAE": 24839.03,
-    "RMSE": 31931.41,
-    "MAPE": 19.93,
-    "LjungBox_p": NaN,
-    "n_efec": 42.0
-   },
    "SARIMA(1,0,0)(1,0,0,12)": {
     "AIC": 50.38,
     "BIC": 55.6,
-    "MAE": 39478.73,
-    "RMSE": 42776.82,
+    "MAE": 39478.75,
+    "RMSE": 42776.85,
     "MAPE": 31.69,
     "LjungBox_p": 0.14,
     "n_efec": 42.0
@@ -1687,7 +1452,7 @@
     "AIC": -85.0,
     "BIC": -81.52,
     "MAE": 45609.27,
-    "RMSE": 49568.81,
+    "RMSE": 49568.8,
     "MAPE": 36.83,
     "LjungBox_p": NaN,
     "n_efec": 42.0
@@ -1695,8 +1460,8 @@
    "SARIMA(1,0,1)(1,0,1,12)": {
     "AIC": 45.03,
     "BIC": 53.72,
-    "MAE": 50532.63,
-    "RMSE": 56431.37,
+    "MAE": 50530.46,
+    "RMSE": 56428.94,
     "MAPE": 40.79,
     "LjungBox_p": 0.8,
     "n_efec": 42.0
@@ -1713,8 +1478,8 @@
    "Holt-Winters": {
     "AIC": -83.04,
     "BIC": -55.24,
-    "MAE": 134781.24,
-    "RMSE": 163539.46,
+    "MAE": 134781.28,
+    "RMSE": 163539.52,
     "MAPE": 106.83,
     "LjungBox_p": NaN,
     "n_efec": 42.0
@@ -1731,15 +1496,6 @@
     "n_efec": 42.0
    },
    "Seasonal naive": {
-    "AIC": NaN,
-    "BIC": NaN,
-    "MAE": 0.0,
-    "RMSE": 0.0,
-    "MAPE": NaN,
-    "LjungBox_p": NaN,
-    "n_efec": 42.0
-   },
-   "Prophet": {
     "AIC": NaN,
     "BIC": NaN,
     "MAE": 0.0,
@@ -1786,15 +1542,6 @@
    }
   },
   "País: Estados Unidos de América": {
-   "Prophet": {
-    "AIC": NaN,
-    "BIC": NaN,
-    "MAE": 3727.67,
-    "RMSE": 4625.89,
-    "MAPE": 6.34,
-    "LjungBox_p": NaN,
-    "n_efec": 42.0
-   },
    "Seasonal naive": {
     "AIC": NaN,
     "BIC": NaN,
@@ -1807,8 +1554,8 @@
    "SARIMA(1,1,0)(1,0,0,12)": {
     "AIC": 0.05,
     "BIC": 5.19,
-    "MAE": 4961.79,
-    "RMSE": 6032.63,
+    "MAE": 4961.81,
+    "RMSE": 6032.64,
     "MAPE": 9.02,
     "LjungBox_p": 0.37,
     "n_efec": 41.0
@@ -1816,8 +1563,8 @@
    "SARIMA(0,1,1)(0,0,1,12)": {
     "AIC": 14.36,
     "BIC": 19.5,
-    "MAE": 7019.13,
-    "RMSE": 9376.38,
+    "MAE": 7019.14,
+    "RMSE": 9376.47,
     "MAPE": 12.72,
     "LjungBox_p": 0.58,
     "n_efec": 41.0
@@ -1825,8 +1572,8 @@
    "SARIMA(1,1,1)(1,0,1,12)": {
     "AIC": -3.71,
     "BIC": 4.86,
-    "MAE": 12214.37,
-    "RMSE": 14437.98,
+    "MAE": 12215.38,
+    "RMSE": 14439.27,
     "MAPE": 20.96,
     "LjungBox_p": 0.9,
     "n_efec": 41.0
@@ -1843,8 +1590,8 @@
    "Holt-Winters": {
     "AIC": -146.73,
     "BIC": -118.93,
-    "MAE": 15838.53,
-    "RMSE": 19952.48,
+    "MAE": 15838.52,
+    "RMSE": 19952.47,
     "MAPE": 26.4,
     "LjungBox_p": NaN,
     "n_efec": 42.0
@@ -1854,8 +1601,8 @@
    "SARIMA(1,0,0)(1,0,0,12)": {
     "AIC": -4.67,
     "BIC": 0.55,
-    "MAE": 8247.52,
-    "RMSE": 9704.74,
+    "MAE": 8247.6,
+    "RMSE": 9704.76,
     "MAPE": 8.3,
     "LjungBox_p": 0.73,
     "n_efec": 42.0
@@ -1872,8 +1619,8 @@
    "Holt-Winters": {
     "AIC": -148.36,
     "BIC": -120.55,
-    "MAE": 14099.23,
-    "RMSE": 16183.32,
+    "MAE": 14099.22,
+    "RMSE": 16183.31,
     "MAPE": 13.52,
     "LjungBox_p": NaN,
     "n_efec": 42.0
@@ -1887,21 +1634,12 @@
     "LjungBox_p": NaN,
     "n_efec": 42.0
    },
-   "Prophet": {
-    "AIC": NaN,
-    "BIC": NaN,
-    "MAE": 15260.0,
-    "RMSE": 18645.87,
-    "MAPE": 14.44,
-    "LjungBox_p": NaN,
-    "n_efec": 42.0
-   },
    "SARIMA(1,0,1)(1,0,1,12)": {
-    "AIC": -7.32,
-    "BIC": 1.37,
-    "MAE": 16941.68,
-    "RMSE": 19060.22,
-    "MAPE": 16.03,
+    "AIC": -7.37,
+    "BIC": 1.32,
+    "MAE": 17113.27,
+    "RMSE": 19226.82,
+    "MAPE": 16.2,
     "LjungBox_p": 0.73,
     "n_efec": 42.0
    },
@@ -1925,29 +1663,20 @@
     "LjungBox_p": NaN,
     "n_efec": 42.0
    },
-   "Prophet": {
-    "AIC": NaN,
-    "BIC": NaN,
-    "MAE": 26938.62,
-    "RMSE": 43266.2,
-    "MAPE": 13.57,
-    "LjungBox_p": NaN,
-    "n_efec": 42.0
-   },
    "SARIMA(1,0,1)(1,0,1,12)": {
     "AIC": 40.55,
     "BIC": 49.24,
-    "MAE": 48403.41,
-    "RMSE": 53652.2,
-    "MAPE": 27.47,
+    "MAE": 48419.23,
+    "RMSE": 53668.05,
+    "MAPE": 27.48,
     "LjungBox_p": 0.52,
     "n_efec": 42.0
    },
    "SARIMA(1,0,0)(1,0,0,12)": {
     "AIC": 39.42,
     "BIC": 44.63,
-    "MAE": 50007.43,
-    "RMSE": 54499.64,
+    "MAE": 50008.48,
+    "RMSE": 54500.82,
     "MAPE": 28.14,
     "LjungBox_p": 0.29,
     "n_efec": 42.0
@@ -1956,7 +1685,7 @@
     "AIC": -91.36,
     "BIC": -87.88,
     "MAE": 64314.0,
-    "RMSE": 69068.44,
+    "RMSE": 69068.45,
     "MAPE": 36.2,
     "LjungBox_p": NaN,
     "n_efec": 42.0
@@ -1964,8 +1693,8 @@
    "Holt-Winters": {
     "AIC": -85.26,
     "BIC": -57.46,
-    "MAE": 122036.54,
-    "RMSE": 148475.06,
+    "MAE": 122036.47,
+    "RMSE": 148474.99,
     "MAPE": 67.22,
     "LjungBox_p": NaN,
     "n_efec": 42.0
@@ -1973,8 +1702,8 @@
    "SARIMA(0,0,1)(0,0,1,12)": {
     "AIC": 249.01,
     "BIC": 254.22,
-    "MAE": 189865.4,
-    "RMSE": 191863.25,
+    "MAE": 189865.38,
+    "RMSE": 191863.23,
     "MAPE": 99.54,
     "LjungBox_p": 0.0,
     "n_efec": 42.0
@@ -2002,8 +1731,8 @@
    "Holt-Winters": {
     "AIC": 76.11,
     "BIC": 103.91,
-    "MAE": 418.75,
-    "RMSE": 446.05,
+    "MAE": 418.76,
+    "RMSE": 446.04,
     "MAPE": 71.24,
     "LjungBox_p": NaN,
     "n_efec": 42.0
@@ -2020,9 +1749,9 @@
    "SARIMA(1,0,1)(1,0,1,12)": {
     "AIC": 190.08,
     "BIC": 198.77,
-    "MAE": 548.22,
-    "RMSE": 564.87,
-    "MAPE": 90.49,
+    "MAE": 548.25,
+    "RMSE": 564.9,
+    "MAPE": 90.5,
     "LjungBox_p": 0.36,
     "n_efec": 42.0
    },
@@ -2034,48 +1763,39 @@
     "MAPE": 97.38,
     "LjungBox_p": 0.0,
     "n_efec": 42.0
-   },
-   "Prophet": {
-    "AIC": NaN,
-    "BIC": NaN,
-    "MAE": 596.74,
-    "RMSE": 610.42,
-    "MAPE": 98.36,
-    "LjungBox_p": NaN,
-    "n_efec": 42.0
    }
   }
  },
  "resumen_final": {
   "Total de viajeros": {
-   "mejor modelo (RMSE test)": "Suav. exponencial simple",
-   "MAPE %": 58.1,
-   "RMSE": 194772,
-   "mejor SARIMA (AIC)": "SARIMA(2, 0, 0)(1, 0, 1, 12) (auto_arima)",
+   "mejor modelo (RMSE test)": "SARIMA(0,0,1)(0,1,1,12)",
+   "MAPE %": 42.0,
+   "RMSE": 112601,
+   "mejor SARIMA (AIC)": "SARIMA(2,0,0)(1,1,0,12)",
    "d": 0,
-   "D": 0
+   "D": 1
   },
   "País: El Salvador": {
    "mejor modelo (RMSE test)": "Suav. exponencial simple",
    "MAPE %": 74.3,
    "RMSE": 104524,
-   "mejor SARIMA (AIC)": "SARIMA(3, 0, 2)(0, 0, 0, 12) (auto_arima)",
+   "mejor SARIMA (AIC)": "SARIMA(2,0,0)(1,1,0,12)",
    "d": 0,
-   "D": 0
+   "D": 1
   },
   "País: Guatemala": {
-   "mejor modelo (RMSE test)": "SARIMA(1,1,1)(1,0,1,12)",
-   "MAPE %": 54.7,
-   "RMSE": 52947,
-   "mejor SARIMA (AIC)": "SARIMA(1, 1, 2)(2, 0, 1, 12) (auto_arima)",
+   "mejor modelo (RMSE test)": "SARIMA(1,1,1)(0,1,1,12)",
+   "MAPE %": 60.6,
+   "RMSE": 53766,
+   "mejor SARIMA (AIC)": "SARIMA(1,1,1)(1,1,1,12)",
    "d": 1,
-   "D": 0
+   "D": 1
   },
   "País: Estados Unidos de América": {
    "mejor modelo (RMSE test)": "Suav. exponencial simple",
    "MAPE %": 49.9,
    "RMSE": 28946,
-   "mejor SARIMA (AIC)": "SARIMA(3, 0, 2)(0, 1, 0, 12) (auto_arima)",
+   "mejor SARIMA (AIC)": "SARIMA(2,0,0)(1,1,0,12)",
    "d": 0,
    "D": 1
   },
@@ -2083,23 +1803,23 @@
    "mejor modelo (RMSE test)": "Suav. exponencial simple",
    "MAPE %": 35.6,
    "RMSE": 41379,
-   "mejor SARIMA (AIC)": "SARIMA(1, 0, 1)(1, 0, 1, 12) (auto_arima)",
+   "mejor SARIMA (AIC)": "SARIMA(2,0,0)(1,1,0,12)",
    "d": 0,
-   "D": 0
+   "D": 1
   },
   "Vía: Terrestre": {
-   "mejor modelo (RMSE test)": "Suav. exponencial simple",
-   "MAPE %": 71.8,
-   "RMSE": 156275,
-   "mejor SARIMA (AIC)": "SARIMA(1,0,1)(1,0,1,12)",
+   "mejor modelo (RMSE test)": "SARIMA(0,0,1)(0,1,1,12)",
+   "MAPE %": 68.1,
+   "RMSE": 99524,
+   "mejor SARIMA (AIC)": "SARIMA(2,0,0)(1,1,0,12)",
    "d": 0,
-   "D": 0
+   "D": 1
   },
   "Vía: Marítima": {
    "mejor modelo (RMSE test)": "Suav. exponencial simple",
    "MAPE %": 100.0,
    "RMSE": 1732,
-   "mejor SARIMA (AIC)": "SARIMA(0, 1, 1)(2, 0, 0, 12) (auto_arima)",
+   "mejor SARIMA (AIC)": "SARIMA(1,1,1)(1,0,1,12)",
    "d": 1,
    "D": 0
   }
