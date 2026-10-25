@@ -214,8 +214,17 @@ with st.sidebar:
     anios = st.slider('Años a mostrar', 2009, 2026, (2009, 2026))
     nivel = st.radio('Nivel de detalle de la línea de tiempo', ['Mensual', 'Trimestral', 'Anual'], horizontal=True,
                      help='Más detalle = cada mes; menos detalle = totales por trimestre o por año.')
-    anio_det = st.selectbox('Año para ver en detalle', list(range(2026, 2008, -1)), key='anio',
+    opciones_anio = list(range(anios[1], anios[0] - 1, -1))
+    if ss['anio'] not in opciones_anio:
+        ss['anio'] = opciones_anio[0]
+    anio_det = st.selectbox('Año para ver en detalle', opciones_anio, key='anio',
                             help='También puede elegirlo haciendo clic en una barra anual.')
+
+contexto = (serie, medida, anios, nivel)
+if contexto != ss.get('_contexto_panorama'):
+    ss['rango_sel'] = None
+    ss['n_serie'] += 1
+ss['_contexto_panorama'] = contexto
 
 s_full = S['nores'] if (serie == 'total' and medida == 'nores') else S[serie]
 s = s_full.loc[f'{anios[0]}-01-01':f'{anios[1]}-12-31']
@@ -236,6 +245,13 @@ def agregar(x, nivel):
     return y, lab
 
 
+def rango_de_puntos(ps, nivel):
+    """Convierte puntos agregados en el rango completo de meses que representan."""
+    frecuencia = {'Mensual': 'M', 'Trimestral': 'Q', 'Anual': 'Y'}[nivel]
+    periodos = pd.to_datetime([p['x'] for p in ps]).to_period(frecuencia)
+    return periodos.min().start_time, periodos.max().end_time
+
+
 def nota_medicion():
     if serie == 'gt':
         aviso('<b>Atención:</b> a partir de 2023 la fuente dejó de registrar a los guatemaltecos que regresan al país. '
@@ -250,8 +266,8 @@ def nota_medicion():
 # ================================================================== PÁGINA 1 · PANORAMA
 if pagina.startswith('1'):
     st.title('¿Cómo ha evolucionado el turismo en Guatemala?')
-    st.markdown(f'Serie seleccionada: **{etq_serie}**, {anios[0]}–{anios[1]}. Haga clic o seleccione sobre las gráficas '
-                'para profundizar: todas están conectadas.')
+    st.markdown(f'Serie seleccionada: **{etq_serie}**, {anios[0]}–{anios[1]}. '
+                'Seleccione un periodo en V1, una serie en V2 o un año en V3 para ver más detalle.')
     nota_medicion()
 
     # V1 -------------------------------------------------------------------------------------------
@@ -279,11 +295,10 @@ if pagina.startswith('1'):
         base(fig, 380)
         st.plotly_chart(fig, key=f"g_serie{ss['n_serie']}", on_select='rerun', selection_mode=('box', 'points'), width='stretch')
         if nivel == 'Anual' and 2026 in y.index.year:
-            st.caption('2026 incluye solo enero–junio, por eso su barra/punto es menor.')
+            st.caption('El punto de 2026 incluye solo enero–junio; no representa un año completo.')
         ps = puntos(f"g_serie{ss['n_serie']}")
         if ps:
-            fechas = pd.to_datetime([p['x'] for p in ps])
-            ss['rango_sel'] = (fechas.min(), fechas.max())
+            ss['rango_sel'] = rango_de_puntos(ps, nivel)
         else:
             ss['rango_sel'] = None
     rs = ss.get('rango_sel')
@@ -298,9 +313,11 @@ if pagina.startswith('1'):
         c3.metric('Mes de mayor flujo', 'n/d')
     rec = CMP.get(clave_json, {}).get('rec_homog_%')
     c4.metric('Nivel 2025 vs. 2019', f'{rec:.0f} %' if rec is not None and np.isfinite(rec) else 'n/d',
-              help='Visitantes de 2025 sobre los de 2019 con la misma definición. 100 % = igual que antes de la pandemia.')
+              help='Indicador fijo de 2025 frente a 2019; no cambia con el periodo seleccionado. '
+                   'Usa la misma definición en ambos años. 100 % = igual que antes de la pandemia.')
     if rs:
-        st.caption(f'Periodo elegido en la línea de tiempo: **{per}**. Las tarjetas y el perfil mensual de la página 2 usan este periodo.')
+        st.caption(f'Periodo elegido en la línea de tiempo: **{per}**. Las tarjetas lo usan; '
+                   'el perfil mensual de la página 2 lo usa si abarca al menos dos años.')
         if st.button('Quitar periodo seleccionado'):
             ss['rango_sel'] = None
             ss['n_serie'] += 1          # nueva clave = la gráfica vuelve a empezar sin selección
@@ -352,8 +369,9 @@ if pagina.startswith('1'):
                'Total anual de viajeros de la serie activa.',
                'comparar años y fijar el año que quiere ver en detalle. <i>Haga clic en una barra.</i>')
         anual = s.resample('YS').sum()
+        anual = anual[anual.index.year < 2026]
         if anual.empty or anual.sum() == 0:
-            st.info('No hay datos anuales para esta selección.')
+            st.info('No hay años completos en esta selección. Use el detalle mensual para revisar 2026.')
         else:
             años = anual.index.year
             cols = [AZUL if a == anio_det else AZUL_C for a in años]
@@ -364,7 +382,10 @@ if pagina.startswith('1'):
             base(fig, 330)
             sin_atenuar(fig)
             st.plotly_chart(fig, key='g_anual', on_select='rerun', selection_mode=('points',), width='stretch')
-            st.caption(f'Azul oscuro = año en detalle ({anio_det}). 2026 solo incluye enero–junio.')
+            if anio_det == 2026:
+                st.caption('2026 se excluye porque solo incluye enero–junio; su detalle está abajo.')
+            else:
+                st.caption('Azul oscuro = año en detalle. 2026 se excluye porque solo incluye enero–junio.')
 
     # V4 -------------------------------------------------------------------------------------------
     titulo(f'¿Qué pasó mes a mes en {anio_det}?',
@@ -374,15 +395,19 @@ if pagina.startswith('1'):
     if ya.empty or ya.sum() == 0:
         st.info(f'No hay datos de {anio_det} para esta serie. Elija otro año o serie.')
     else:
+        if anio_det == 2026:
+            st.caption('2026 contiene solo enero–junio. Las referencias se muestran para esos mismos meses.')
         fig = go.Figure()
         fig.add_trace(go.Bar(x=[MESES[d.month - 1] for d in ya.index], y=ya.values / 1e3, name=str(anio_det),
                              marker_color=AZUL, hovertemplate='%{x}<br><b>%{y:,.0f} mil</b><extra></extra>'))
         prev = s_full[s_full.index.year == anio_det - 1]
+        prev = prev[prev.index.month.isin(ya.index.month)]
         if len(prev):
             fig.add_trace(go.Scatter(x=[MESES[d.month - 1] for d in prev.index], y=prev.values / 1e3, mode='lines+markers',
                                      name=str(anio_det - 1), line=dict(color=GRIS, width=2),
                                      hovertemplate='%{x}<br>%{y:,.0f} mil<extra></extra>'))
         r19 = s_full[s_full.index.year == 2019]
+        r19 = r19[r19.index.month.isin(ya.index.month)]
         if anio_det != 2019 and len(r19):
             fig.add_trace(go.Scatter(x=[MESES[d.month - 1] for d in r19.index], y=r19.values / 1e3, mode='lines',
                                      name='2019', line=dict(color=TEXTO_2, width=1.5, dash='dot'),
@@ -601,8 +626,11 @@ else:
                     '- **Volatilidad**: cuánto cambia una serie de un año al siguiente.')
     with g2:
         st.markdown('### Límites que conviene tener presentes')
-        st.markdown('- Desde **enero de 2023** la fuente dejó de contar a los guatemaltecos que regresan y a los cruceristas; '
-                    'por eso se ofrece la definición «no residentes».\n'
+        st.markdown('- Desde **enero de 2023** la fuente dejó de contar a los guatemaltecos que regresan. '
+                    'La opción «no residentes» los excluye también de los años anteriores para permitir esa comparación.\n'
+                    '- La cobertura de **cruceristas** también cambió desde 2023. La opción «no residentes» '
+                    'no corrige la serie marítima; su comparación entre 2019 y 2025 requiere cautela.\n'
+                    '- **2026 solo incluye enero–junio**; no se compara como año completo.\n'
                     '- La **pandemia** (mar 2020–jun 2021) es un choque que los modelos no podían prever.\n'
                     '- Los datos muestran **cuánto** y **cuándo**, no **por qué**: no se atribuyen causas.\n'
                     '- Los modelos son del Laboratorio 1 y se evaluaron sobre 18 meses; úselos como referencia, no como garantía.\n'
