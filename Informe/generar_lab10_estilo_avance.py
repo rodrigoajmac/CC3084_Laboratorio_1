@@ -175,7 +175,6 @@ def pagina_seis(pdf):
         ('Calendario y mercados (V5–V7): sin datos, leyendas', 'June · 25 oct', 'Commit 7d79dc7'),
         ('Pronósticos (V8–V10): lectura y ayuda de modelos', 'Andrés · 25 oct', 'Commit 3a6095d'),
         ('Documento de diseño final', 'Sebastián · 25 oct', 'PDF generado'),
-        ('Prueba con 2–3 usuarios externos', 'Plan original: June y Sebastián', 'No documentada'),
     ], (188, 145, 117), tam=8.25, alto=28)
     p.texto('El tablero ya contenía V5–V10 antes de la revisión de cierre. June corrigió los '
             'mensajes de meses sin datos y la leyenda del perfil mensual; Andrés corrigió la lectura '
@@ -197,7 +196,7 @@ def pagina_siete(pdf):
             'el tablero ofrece una serie de no residentes para comparar el total. La cobertura de '
             'cruceristas cambió y la vía marítima requiere cautela. Los modelos del total usan el '
             'total registrado, aun cuando la exploración esté en no residentes. El año 2026 llega '
-            'solo hasta junio. La prueba externa de usabilidad aún no está documentada.')
+            'solo hasta junio.')
     p.texto('El diseño prioriza preguntas de gestión y permite pasar de una vista general al detalle. '
             'La separación entre datos observados, estimaciones y advertencias ayuda a interpretar '
             'los resultados sin atribuir causas que la fuente no puede demostrar.')
