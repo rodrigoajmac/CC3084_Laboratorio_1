@@ -6,3 +6,9 @@ Informe/*.aux
 Informe/*.log
 Informe/*.out
 Informe/*.toc
+
+# Archivos locales de ejecución y vistas previas del PDF
+.venv/
+__pycache__/
+.tmp_test/
+tmp/pdfs/

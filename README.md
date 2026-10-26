@@ -2,6 +2,8 @@
 
 Tablero interactivo del Laboratorio 10 (CC3084). Permite explorar el flujo mensual de viajeros de 2009 a junio de 2026 y consultar los resultados de modelos desarrollados en el Laboratorio 1. Está dirigido a personas que toman decisiones en turismo; los datos son de uso académico.
 
+**Entrega final:** [documento de diseño en PDF](output/pdf/Lab10_Diseno_Final.pdf) y [repositorio del proyecto](https://github.com/rodrigoajmac/CC3084_Laboratorio_1).
+
 ## Ejecutar localmente
 
 Se necesita Python 3.10 o posterior. Desde la raíz del repositorio:

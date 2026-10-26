@@ -470,7 +470,7 @@ elif pagina.startswith('2'):
     # V7 recuperación ------------------------------------------------------------------------------
     with c_b:
         titulo('¿Quién ya superó el nivel de 2019?',
-               'Visitantes de 2025 como porcentaje de los de 2019, con la misma definición.',
+               'Visitantes de 2025 como porcentaje de los de 2019; algunas series tienen cambios de cobertura.',
                'identificar qué mercados y vías se recuperaron y cuáles no.')
         filas = [(CATALOGO[k][1], CMP.get(CATALOGO[k][2], {}).get('rec_homog_%')) for k in CATALOGO if k != 'total']
         filas = [(n, float(v)) for n, v in filas if v is not None and np.isfinite(v)]
@@ -487,13 +487,18 @@ elif pagina.startswith('2'):
             base(fig, 340)
             fig.update_layout(margin=dict(l=10, r=50, t=10, b=10))
             st.plotly_chart(fig, key='g_rec', width='stretch')
-            st.caption('Azul = igual o por encima de 2019; naranja = por debajo. Guatemala no se compara: dejó de medirse en 2023.')
+            st.caption('Azul = igual o por encima de 2019; naranja = por debajo. Guatemala no se compara: '
+                       'dejó de medirse en 2023. La cifra marítima también refleja pérdida de cobertura '
+                       'de cruceristas; no mide por sí sola la caída real.')
 
 # ================================================================== PÁGINA 3 · PRONÓSTICOS
 elif pagina.startswith('3'):
     st.title('¿Qué tan confiable es el pronóstico?')
-    st.markdown(f'Serie seleccionada: **{etq_serie}**. Aquí se comparan modelos ya entrenados en el Laboratorio 1; '
+    st.markdown(f'Serie modelada: **{CATALOGO[serie][0]}**. Aquí se comparan modelos ya entrenados en el Laboratorio 1; '
                 'las líneas naranja/violeta/verde son **estimaciones**, no datos observados.')
+    if serie == 'total' and medida == 'nores':
+        aviso('Los modelos disponibles para «Total de viajeros» se entrenaron y evaluaron con el total registrado. '
+              'La opción «no residentes» se aplica a la exploración, no a estos pronósticos.')
     if serie == 'gt':
         aviso('Guatemala (residentes) dejó de medirse en 2023: sus pronósticos no son interpretables como turismo.')
     det = R.get('control_postcovid_detalle', {}).get(clave_json, {})
@@ -603,7 +608,7 @@ elif pagina.startswith('3'):
         tt['RMSE (miles)'] = tt['RMSE (miles)'] / 1e3
         tt['MAE (miles)'] = tt['MAE (miles)'] / 1e3
         st.dataframe(tt.style.format({'MAPE (%)': '{:.1f}', 'RMSE (miles)': '{:,.1f}', 'MAE (miles)': '{:,.1f}'}),
-                     width='stretch')
+                     use_container_width=True)
 
 # ================================================================== PÁGINA 4 · GUÍA Y LÍMITES
 else:
