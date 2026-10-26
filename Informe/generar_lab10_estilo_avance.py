@@ -172,12 +172,14 @@ def pagina_seis(pdf):
         ('Panorama, guía y README', 'Sebastián · 25 oct', 'Commit 1ef0351'),
         ('V5–V10 y métricas: revisión técnica', 'Sebastián · 25 oct', 'Verificado'),
         ('Corrección de pronósticos y límites', 'Sebastián · 25 oct', 'Commit 3f9ed5a'),
+        ('Calendario y mercados (V5–V7): sin datos, leyendas', 'June · 25 oct', 'Commit 7d79dc7'),
+        ('Pronósticos (V8–V10): lectura y ayuda de modelos', 'Andrés · 25 oct', 'Commit 3a6095d'),
         ('Documento de diseño final', 'Sebastián · 25 oct', 'PDF generado'),
         ('Prueba con 2–3 usuarios externos', 'Plan original: June y Sebastián', 'No documentada'),
     ], (188, 145, 117), tam=8.25, alto=28)
-    p.texto('Las tareas originalmente previstas para Andrés y June no se atribuyen como aportes '
-            'finales sin una confirmación o un commit propio. El tablero ya contenía V5–V10 antes '
-            'de la revisión de cierre.', tam=10.3, ancho=90)
+    p.texto('El tablero ya contenía V5–V10 antes de la revisión de cierre. June corrigió los '
+            'mensajes de meses sin datos y la leyenda del perfil mensual; Andrés corrigió la lectura '
+            'de los pronósticos cuando el error post-pandemia no puede calcularse.', tam=10.3, ancho=90)
     p.guardar(pdf)
 
 
