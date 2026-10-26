@@ -439,6 +439,8 @@ elif pagina.startswith('2'):
         fig.update_yaxes(autorange='reversed', type='category', title=None)
         base(fig, 420)
         st.plotly_chart(fig, key='g_heat', width='stretch')
+        if z.isna().any().any():
+            st.caption('Celdas en blanco = meses sin datos (2026 llega solo hasta junio).')
 
     c_a, c_b = st.columns(2)
     # V6 perfil estacional -------------------------------------------------------------------------
@@ -464,7 +466,8 @@ elif pagina.startswith('2'):
             fig.update_yaxes(title='% frente al mes promedio', zeroline=False)
             base(fig, 340)
             st.plotly_chart(fig, key='g_perfil', width='stretch')
-            st.caption('Naranja = el mes pico; azul = meses altos; gris = temporada baja; azul claro = cercanos al promedio. '
+            pico = 'Naranja = el mes pico; ' if dev.max() > 15 else ''
+            st.caption(pico + 'azul = meses altos; gris = temporada baja; azul claro = cercanos al promedio. '
                        'Describe lo ocurrido; no explica por qué.')
 
     # V7 recuperación ------------------------------------------------------------------------------
