@@ -12,6 +12,8 @@ import textwrap
 
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
+from matplotlib.font_manager import FontProperties
+from matplotlib.textpath import TextPath
 from pypdf import PdfReader, PdfWriter
 
 
@@ -55,22 +57,43 @@ class Pagina:
     def tabla(self, columnas, filas, anchos, tam=8.7, alto=28):
         izquierda = 70.9
         derecha = izquierda + sum(anchos)
+        if derecha > 524:
+            raise ValueError('La tabla supera el margen derecho')
+
+        def ajustar(texto, ancho, negrita=False):
+            fuente = FontProperties(family='Times New Roman', size=tam,
+                                    weight='bold' if negrita else 'normal')
+            resultado = []
+            linea = ''
+            for palabra in texto.split():
+                candidata = f'{linea} {palabra}'.strip()
+                if linea and TextPath((0, 0), candidata, prop=fuente).get_extents().width > ancho - 12:
+                    resultado.append(linea)
+                    linea = palabra
+                else:
+                    linea = candidata
+            if linea:
+                resultado.append(linea)
+            return resultado
+
         self.ax.plot([izquierda, derecha], [self.y + 5, self.y + 5], color='black', lw=.8)
         x = izquierda + 4
-        for cab, w in zip(columnas, anchos):
-            self.ax.text(x, self.y - 3, cab, fontsize=tam, fontweight='bold', va='top')
+        cabeceras = [ajustar(cab, w, negrita=True) for cab, w in zip(columnas, anchos)]
+        for lineas, w in zip(cabeceras, anchos):
+            for j, linea in enumerate(lineas):
+                self.ax.text(x, self.y - 3 - j * 10.5, linea, fontsize=tam,
+                             fontweight='bold', va='top')
             x += w
-        self.y -= 20
+        self.y -= max(20, 10 + max(map(len, cabeceras)) * 10.5)
         self.ax.plot([izquierda, derecha], [self.y + 4, self.y + 4], color='black', lw=.45)
         for fila in filas:
             x = izquierda + 4
-            for valor, w in zip(fila, anchos):
-                lineas = textwrap.wrap(valor, width=max(10, int(w / (tam * .47))),
-                                       break_long_words=False, break_on_hyphens=False)
-                for j, linea in enumerate(lineas[:3]):
+            celdas = [ajustar(valor, w) for valor, w in zip(fila, anchos)]
+            for lineas, w in zip(celdas, anchos):
+                for j, linea in enumerate(lineas):
                     self.ax.text(x, self.y - j * 10.5, linea, fontsize=tam, va='top')
                 x += w
-            self.y -= alto
+            self.y -= max(alto, 8 + max(map(len, celdas)) * 10.5)
         self.ax.plot([izquierda, derecha], [self.y + 7, self.y + 7], color='black', lw=.8)
         self.y -= 10
 
@@ -176,6 +199,10 @@ def pagina_siete(pdf):
     p.texto('El diseño prioriza preguntas de gestión y permite pasar de una vista general al detalle. '
             'La separación entre datos observados, estimaciones y advertencias ayuda a interpretar '
             'los resultados sin atribuir causas que la fuente no puede demostrar.')
+    p.titulo('Repositorio del proyecto')
+    enlace = 'https://github.com/rodrigoajmac/CC3084_Laboratorio_1'
+    p.ax.text(70.9, p.y, enlace, fontsize=10.9, va='top', url=enlace)
+    p.y -= 21
     p.titulo('Referencias')
     for ref in [
         'Shneiderman, B. (1996). The eyes have it. IEEE Symposium on Visual Languages.',
