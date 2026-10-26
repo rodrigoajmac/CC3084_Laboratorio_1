@@ -160,7 +160,7 @@ def pagina_seis(pdf):
 
 def pagina_siete(pdf):
     p = Pagina(7)
-    p.titulo('Estado final y verificación')
+    p.titulo('Conclusiones y verificación del diseño')
     p.texto('El tablero contiene diez visualizaciones interactivas, tres enlaces entre gráficas y '
             'resultados de modelos previos. Las tarjetas, controles y tabla comparativa son elementos '
             'complementarios y no se cuentan entre las diez.')
@@ -173,10 +173,9 @@ def pagina_siete(pdf):
             'cruceristas cambió y la vía marítima requiere cautela. Los modelos del total usan el '
             'total registrado, aun cuando la exploración esté en no residentes. El año 2026 llega '
             'solo hasta junio. La prueba externa de usabilidad aún no está documentada.')
-    p.titulo('Material a entregar')
-    p.texto('Documento de diseño final (este PDF) y enlace del repositorio: '
-            'https://github.com/rodrigoajmac/CC3084_Laboratorio_1. El README explica cómo '
-            'instalar dependencias y ejecutar la aplicación localmente.')
+    p.texto('El diseño prioriza preguntas de gestión y permite pasar de una vista general al detalle. '
+            'La separación entre datos observados, estimaciones y advertencias ayuda a interpretar '
+            'los resultados sin atribuir causas que la fuente no puede demostrar.')
     p.titulo('Referencias')
     for ref in [
         'Shneiderman, B. (1996). The eyes have it. IEEE Symposium on Visual Languages.',
