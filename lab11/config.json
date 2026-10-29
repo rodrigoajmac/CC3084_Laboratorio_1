@@ -1,0 +1,13 @@
+{
+  "source": "../Datos_Crudos/Base_Migracion_2009-2026jun.xlsx",
+  "sheet": "Datos",
+  "first_month": "2009-01",
+  "last_observed_month": "2026-06",
+  "forecast_month": "2026-07",
+  "validation_start": "2025-01",
+  "validation_end": "2025-06",
+  "method": "seasonal_naive_12",
+  "random_seed": 42,
+  "missing_optional_warning_rate": 0.05,
+  "output_dir": "runs"
+}
