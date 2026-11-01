@@ -4,6 +4,8 @@ Tablero interactivo del Laboratorio 10 (CC3084). Permite explorar el flujo mensu
 
 **Entrega final:** [documento de diseño en PDF](output/pdf/Lab10_Diseno_Final.pdf) y [repositorio del proyecto](https://github.com/rodrigoajmac/CC3084_Laboratorio_1).
 
+**Laboratorio 11 (MLOps):** pipeline reproducible, MLflow, versión aprobada en el tablero y Docker Compose. Instrucciones en [lab11/README.md](lab11/README.md) e informe técnico en [lab11/informe/informe_lab11.pdf](lab11/informe/informe_lab11.pdf). Inicio rápido: `docker compose up -d --build` y `docker compose run --rm pipeline`.
+
 ## Ejecutar localmente
 
 Se necesita Python 3.10 o posterior. Desde la raíz del repositorio:

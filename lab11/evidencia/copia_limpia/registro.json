@@ -1,0 +1,31 @@
+{
+  "inicio_utc": "2026-11-01T21:03:35+00:00",
+  "fin_utc": "2026-11-01T21:04:09+00:00",
+  "run_id": "cfd889356a4d4defa49784d92a265ae1",
+  "etapas_completadas": [
+    "lectura",
+    "validacion",
+    "preparacion",
+    "evaluacion",
+    "ajuste",
+    "estimacion",
+    "almacenamiento",
+    "monitoreo",
+    "aceptacion",
+    "publicacion"
+  ],
+  "advertencias": [
+    "fechas_y_cobertura: Fechas inválidas: 0; meses sin registros: []; meses del período de ajuste sin la variable: [] | Advertencia: meses sin la variable antes del período de ajuste, se dejan ausentes: ['2020-04', '2020-05', '2020-06', '2020-07', '2020-08']"
+  ],
+  "errores": [],
+  "estado": "publicada",
+  "publicacion": {
+    "resultado": "publicada",
+    "motivo": "aprobada",
+    "vigente_antes": "e528864e11e44070bb8f440901a60084",
+    "vigente_despues": "cfd889356a4d4defa49784d92a265ae1"
+  },
+  "git_commit": "70ad231998e36833dd09993fd3e98ecddc75d844",
+  "codigo_modificado_sin_commit": "false",
+  "fuente": "Base_Migracion_2009-2026jun.xlsx"
+}

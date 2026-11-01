@@ -1,2 +1,6 @@
 runs/
 __pycache__/
+informe/*.aux
+informe/*.log
+informe/*.toc
+informe/*.out
