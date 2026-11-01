@@ -46,10 +46,9 @@ services:
       LAB11_FUENTE: /datos/Base_Migracion_2009-2026jun.xlsx
     volumes:
       - ${LAB11_DATOS:-./Datos_Crudos}:/datos:ro
-      - ./lab11/publicado:/app/lab11/publicado
-      - ./lab11/registros:/app/lab11/registros
-      - ./lab11/runs:/app/lab11/runs
-      - ./lab11/evidencia:/app/lab11/evidencia
+      # Código, config.json y salidas (publicado/, registros/, runs/, evidencia/) del repositorio: así el
+      # pipeline siempre corre el commit actual y no una copia vieja dentro de la imagen.
+      - ./lab11:/app/lab11
       - ./.git:/app/.git:ro                      # solo para leer el commit de la ejecución
     depends_on:
       mlflow:
