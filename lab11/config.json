@@ -14,8 +14,8 @@
   "horizon": 6,
   "validation_origins": ["2025-06", "2025-12"],
 
-  "method": "holt_winters_amortiguado",
-  "procedure_version": "1.0",
+  "method": "ingenuo_estacional_12",
+  "procedure_version": "2.0",
   "model": {"trend": "add", "damped_trend": true, "seasonal": "add", "seasonal_periods": 12},
   "reference": "ingenuo_estacional_12",
   "random_seed": 42,
