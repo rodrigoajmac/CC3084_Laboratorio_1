@@ -660,6 +660,8 @@ elif pagina.startswith('4'):
         c2.metric('Error de validación', f"{mp['wape'] * 100:.1f} %",
                   help='Error absoluto total dividido entre el total observado de los meses evaluados (WAPE).')
         c3.metric('Error medio por mes', fmt_miles(mp['mae']), help='Error absoluto medio (MAE), en viajeros por mes.')
+        st.caption(f"Versión aprobada vigente: {meta['run_id'][:8]} · procedimiento {meta['version_procedimiento']} "
+                   f"· {meta['metodo'].replace('_', ' ')}")
         st.markdown(f"<p class='que'><b>Cómo se validó:</b> se ocultaron los meses de {MESES[ini.month - 1]} {ini.year} "
                     f"a {MESES[fin.month - 1]} {fin.year} y se estimaron solo con datos anteriores. En promedio, la estimación "
                     f"se apartó {mp['wape'] * 100:.1f} % ({fmt_miles(mp['mae'])} viajeros por mes) de lo que después se observó.</p>",
