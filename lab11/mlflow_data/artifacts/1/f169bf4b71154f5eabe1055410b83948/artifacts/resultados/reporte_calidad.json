@@ -1,0 +1,38 @@
+{
+  "run_id": "f169bf4b71154f5eabe1055410b83948",
+  "fuente": "Base_Migracion_2009-2026jun.xlsx",
+  "hoja": "Datos",
+  "controles": [
+    {
+      "control": "columnas_y_tipos",
+      "estado": "ok",
+      "detalle": "Columnas y tipos válidos"
+    },
+    {
+      "control": "fechas_y_cobertura",
+      "estado": "advertencia",
+      "detalle": "Fechas inválidas: 0; meses sin registros: []; meses del período de ajuste sin la variable: [] | Advertencia: meses sin la variable antes del período de ajuste, se dejan ausentes: ['2020-04', '2020-05', '2020-06', '2020-07', '2020-08']"
+    },
+    {
+      "control": "unicidad",
+      "estado": "ok",
+      "detalle": "Claves duplicadas: 0"
+    },
+    {
+      "control": "valores_faltantes",
+      "estado": "ok",
+      "detalle": "Filas con faltantes indispensables: 0; tasa opcional (['Mes']): 0.00%"
+    },
+    {
+      "control": "valores_y_denominadores",
+      "estado": "ok",
+      "detalle": "Conteos negativos o no finitos: 0; denominador del WAPE: 3,539,789"
+    },
+    {
+      "control": "regla_metodologica",
+      "estado": "ok",
+      "detalle": "Hoja 'Datos' con Año/Mes cod; columnas diarias: []; último mes con residentes: 2022-12; residentes excluidos en todo el período: True"
+    }
+  ],
+  "sha256_fuente": "cdaba77918ae889c847ba8459503f9cce2441efac41b3d3aa0f05ac9ab283846"
+}

@@ -1,0 +1,32 @@
+{
+  "inicio_utc": "2026-11-01T18:50:33+00:00",
+  "fin_utc": "2026-11-01T18:51:06+00:00",
+  "run_id": "0a6b921089c34db58a35037274d0f71d",
+  "etapas_completadas": [
+    "lectura",
+    "validacion",
+    "preparacion",
+    "evaluacion",
+    "ajuste",
+    "estimacion",
+    "almacenamiento",
+    "monitoreo",
+    "aceptacion",
+    "publicacion"
+  ],
+  "advertencias": [
+    "fechas_y_cobertura: Fechas inválidas: 0; meses sin registros: []; meses del período de ajuste sin la variable: [] | Advertencia: meses sin la variable antes del período de ajuste, se dejan ausentes: ['2020-04', '2020-05', '2020-06', '2020-07', '2020-08']",
+    "ConvergenceWarning: Optimization failed to converge. Check mle_retvals."
+  ],
+  "errores": [],
+  "estado": "rechazada",
+  "publicacion": {
+    "resultado": "no_publicada",
+    "motivo": "rechazada por la regla de aceptación: ['mae_no_mayor_que_ratio_x_referencia']; se conserva la versión vigente",
+    "vigente_antes": null,
+    "vigente_despues": null
+  },
+  "git_commit": "78bf214668c7548ee101b2af052dab9668d5d728",
+  "codigo_modificado_sin_commit": "true",
+  "fuente": "Base_Migracion_2009-2026jun.xlsx"
+}

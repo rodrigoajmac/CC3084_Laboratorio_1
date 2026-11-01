@@ -1,0 +1,14 @@
+{
+  "reglas": {
+    "controles_calidad_sin_errores": true,
+    "salidas_integras": true,
+    "monitoreo_sin_errores": true,
+    "wape_menor_o_igual_umbral": true,
+    "mae_no_mayor_que_ratio_x_referencia": false
+  },
+  "problemas_integridad": [],
+  "umbrales": {
+    "max_wape": 0.1,
+    "max_mae_ratio_vs_reference": 1.25
+  }
+}

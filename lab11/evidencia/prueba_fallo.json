@@ -1,0 +1,56 @@
+[
+  {
+    "caso": "clave_duplicada",
+    "codigo_salida": 1,
+    "codigo_esperado": 1,
+    "run_id": "9b08a79e4bf9483d813622d84cc7130c",
+    "estado": "fallido",
+    "errores": [
+      "[validacion] Controles críticos fallidos: ['unicidad']. No se evalúa ni se publica."
+    ],
+    "alertas": [],
+    "vigente_antes": "eef1c71ef3dd43368dd5b0f5832c7b7c",
+    "vigente_despues": "eef1c71ef3dd43368dd5b0f5832c7b7c",
+    "resultado_esperado": true
+  },
+  {
+    "caso": "columna_ausente",
+    "codigo_salida": 1,
+    "codigo_esperado": 1,
+    "run_id": "a15ea0ac255a4ef68e437a53ce4b25d7",
+    "estado": "fallido",
+    "errores": [
+      "[validacion] Controles críticos fallidos: ['columnas_y_tipos']. No se evalúa ni se publica."
+    ],
+    "alertas": [],
+    "vigente_antes": "eef1c71ef3dd43368dd5b0f5832c7b7c",
+    "vigente_despues": "eef1c71ef3dd43368dd5b0f5832c7b7c",
+    "resultado_esperado": true
+  },
+  {
+    "caso": "variacion_elevada",
+    "codigo_salida": 3,
+    "codigo_esperado": 3,
+    "run_id": "3141c3ed17e34920a462dcf227b834df",
+    "estado": "rechazada",
+    "errores": [],
+    "alertas": [
+      "monitoreo resultados (alerta): 2026-07: +40% frente a la versión vigente; 2026-08: +40% frente a la versión vigente; 2026-09: +40% frente a la versión vigente; 2026-10: +40% frente a la versión vigente; 2026-11: +40% frente a la versión vigente; 2026-12: +40% frente a la versión vigente"
+    ],
+    "vigente_antes": "eef1c71ef3dd43368dd5b0f5832c7b7c",
+    "vigente_despues": "eef1c71ef3dd43368dd5b0f5832c7b7c",
+    "resultado_esperado": true
+  },
+  {
+    "caso": "copia_corregida",
+    "codigo_salida": 0,
+    "codigo_esperado": 0,
+    "run_id": "50752886ff524ccf8a67ff1739fbf54b",
+    "estado": "publicada",
+    "errores": [],
+    "alertas": [],
+    "vigente_antes": "eef1c71ef3dd43368dd5b0f5832c7b7c",
+    "vigente_despues": "50752886ff524ccf8a67ff1739fbf54b",
+    "resultado_esperado": true
+  }
+]

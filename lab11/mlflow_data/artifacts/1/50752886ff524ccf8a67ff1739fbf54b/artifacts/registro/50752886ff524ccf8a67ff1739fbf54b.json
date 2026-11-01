@@ -1,0 +1,31 @@
+{
+  "inicio_utc": "2026-11-01T18:57:11+00:00",
+  "fin_utc": "2026-11-01T18:57:39+00:00",
+  "run_id": "50752886ff524ccf8a67ff1739fbf54b",
+  "etapas_completadas": [
+    "lectura",
+    "validacion",
+    "preparacion",
+    "evaluacion",
+    "ajuste",
+    "estimacion",
+    "almacenamiento",
+    "monitoreo",
+    "aceptacion",
+    "publicacion"
+  ],
+  "advertencias": [
+    "fechas_y_cobertura: Fechas inválidas: 0; meses sin registros: []; meses del período de ajuste sin la variable: [] | Advertencia: meses sin la variable antes del período de ajuste, se dejan ausentes: ['2020-04', '2020-05', '2020-06', '2020-07', '2020-08']"
+  ],
+  "errores": [],
+  "estado": "publicada",
+  "publicacion": {
+    "resultado": "publicada",
+    "motivo": "aprobada",
+    "vigente_antes": "eef1c71ef3dd43368dd5b0f5832c7b7c",
+    "vigente_despues": "50752886ff524ccf8a67ff1739fbf54b"
+  },
+  "git_commit": "7f2f5316ae54958ba5646791895a4b7899b651d4",
+  "codigo_modificado_sin_commit": "false",
+  "fuente": "copia_corregida.xlsx"
+}

@@ -1,0 +1,7 @@
+destino,periodo_estimado,valor,unidad,tipo,run_id,fecha_generacion_utc,version_procedimiento,metodo
+Guatemala,2026-07,294821.93882783304,viajeros/mes,estimación,0a6b921089c34db58a35037274d0f71d,2026-11-01T18:50:33+00:00,1.0+78bf214,holt_winters_amortiguado
+Guatemala,2026-08,308522.9032738414,viajeros/mes,estimación,0a6b921089c34db58a35037274d0f71d,2026-11-01T18:50:33+00:00,1.0+78bf214,holt_winters_amortiguado
+Guatemala,2026-09,251882.92374405402,viajeros/mes,estimación,0a6b921089c34db58a35037274d0f71d,2026-11-01T18:50:33+00:00,1.0+78bf214,holt_winters_amortiguado
+Guatemala,2026-10,257622.08428657794,viajeros/mes,estimación,0a6b921089c34db58a35037274d0f71d,2026-11-01T18:50:33+00:00,1.0+78bf214,holt_winters_amortiguado
+Guatemala,2026-11,317160.6974732194,viajeros/mes,estimación,0a6b921089c34db58a35037274d0f71d,2026-11-01T18:50:33+00:00,1.0+78bf214,holt_winters_amortiguado
+Guatemala,2026-12,379111.00807106216,viajeros/mes,estimación,0a6b921089c34db58a35037274d0f71d,2026-11-01T18:50:33+00:00,1.0+78bf214,holt_winters_amortiguado

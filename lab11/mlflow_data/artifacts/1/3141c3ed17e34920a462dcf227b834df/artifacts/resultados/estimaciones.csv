@@ -1,0 +1,7 @@
+destino,periodo_estimado,valor,unidad,tipo,run_id,fecha_generacion_utc,version_procedimiento,metodo
+Guatemala,2026-07,430207.40000000014,viajeros/mes,estimación,3141c3ed17e34920a462dcf227b834df,2026-11-01T18:56:11+00:00,2.0+7f2f531,ingenuo_estacional_12
+Guatemala,2026-08,441800.8000000001,viajeros/mes,estimación,3141c3ed17e34920a462dcf227b834df,2026-11-01T18:56:11+00:00,2.0+7f2f531,ingenuo_estacional_12
+Guatemala,2026-09,331062.1999999999,viajeros/mes,estimación,3141c3ed17e34920a462dcf227b834df,2026-11-01T18:56:11+00:00,2.0+7f2f531,ingenuo_estacional_12
+Guatemala,2026-10,388218.6000000001,viajeros/mes,estimación,3141c3ed17e34920a462dcf227b834df,2026-11-01T18:56:11+00:00,2.0+7f2f531,ingenuo_estacional_12
+Guatemala,2026-11,459803.3999999998,viajeros/mes,estimación,3141c3ed17e34920a462dcf227b834df,2026-11-01T18:56:11+00:00,2.0+7f2f531,ingenuo_estacional_12
+Guatemala,2026-12,548921.7999999995,viajeros/mes,estimación,3141c3ed17e34920a462dcf227b834df,2026-11-01T18:56:11+00:00,2.0+7f2f531,ingenuo_estacional_12

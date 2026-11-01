@@ -1,0 +1,17 @@
+[
+  {
+    "verificacion": "actualizacion",
+    "estado": "ok",
+    "detalle": "Último mes de la fuente: 2026-06; esperado: 2026-06; primera estimación: 2026-07 (esperada 2026-07)"
+  },
+  {
+    "verificacion": "calidad",
+    "estado": "ok",
+    "detalle": "Sin cambios relevantes frente a eef1c71ef3dd43368dd5b0f5832c7b7c"
+  },
+  {
+    "verificacion": "resultados",
+    "estado": "alerta",
+    "detalle": "2026-07: +40% frente a la versión vigente; 2026-08: +40% frente a la versión vigente; 2026-09: +40% frente a la versión vigente; 2026-10: +40% frente a la versión vigente; 2026-11: +40% frente a la versión vigente; 2026-12: +40% frente a la versión vigente"
+  }
+]

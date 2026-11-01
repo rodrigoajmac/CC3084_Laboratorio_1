@@ -1,0 +1,43 @@
+{
+  "destino": "Guatemala",
+  "variable": "visitantes_no_residentes",
+  "unidad": "viajeros/mes",
+  "source": "../Datos_Crudos/Base_Migracion_2009-2026jun.xlsx",
+  "sheet": "Datos",
+  "excluir_residentes": true,
+  "pais_residentes": "Guatemala",
+  "factor_reparto": 1.0,
+
+  "first_month": "2009-01",
+  "last_observed_month": "2026-06",
+  "fit_start": "2022-01",
+  "horizon": 6,
+  "validation_origins": ["2025-06", "2025-12"],
+
+  "method": "ingenuo_estacional_12",
+  "procedure_version": "2.0",
+  "model": {"trend": "add", "damped_trend": true, "seasonal": "add", "seasonal_periods": 12},
+  "reference": "ingenuo_estacional_12",
+  "random_seed": 42,
+
+  "acceptance": {
+    "max_wape": 0.10,
+    "max_mae_ratio_vs_reference": 1.25
+  },
+  "quality": {
+    "missing_optional_warning_rate": 0.05
+  },
+  "monitoring": {
+    "max_change_vs_last_year": 0.25,
+    "max_change_vs_previous_version": 0.15,
+    "max_row_change_rate": 0.10,
+    "max_missing_rate_change": 0.01
+  },
+  "reproducibility_rel_tolerance": 1e-6,
+
+  "mlflow_experiment": "observatorio-guatemala-no-residentes",
+  "mlflow_tracking_uri": "http://localhost:5000",
+  "output_dir": "runs",
+  "published_dir": "publicado",
+  "log_dir": "registros"
+}

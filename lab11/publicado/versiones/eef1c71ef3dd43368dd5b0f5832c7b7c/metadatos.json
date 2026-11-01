@@ -1,0 +1,84 @@
+{
+  "run_id": "eef1c71ef3dd43368dd5b0f5832c7b7c",
+  "destino": "Guatemala",
+  "variable": "visitantes_no_residentes",
+  "unidad": "viajeros/mes",
+  "metodo": "ingenuo_estacional_12",
+  "version_procedimiento": "2.0+7f2f531",
+  "git_commit": "7f2f5316ae54958ba5646791895a4b7899b651d4",
+  "fecha_generacion_utc": "2026-11-01T18:52:25+00:00",
+  "fuente_archivo": "Base_Migracion_2009-2026jun.xlsx",
+  "fuente_sha256": "cdaba77918ae889c847ba8459503f9cce2441efac41b3d3aa0f05ac9ab283846",
+  "config_sha256": "304c33ba22be4e6c85c391069ff591bfd5bf47df3b97c7161db602db05dcae1c",
+  "periodo_ajuste": [
+    "2022-01",
+    "2026-06"
+  ],
+  "periodos_evaluados": [
+    "2025-07",
+    "2026-06"
+  ],
+  "meses_evaluados": 12,
+  "metricas_procedimiento": {
+    "mae": 12237.416666666677,
+    "rmse": 15762.400560088176,
+    "mape": 4.265080039359873,
+    "wape": 0.04148524106945361,
+    "meses_mape_excluidos": 0
+  },
+  "metricas_referencia": {
+    "mae": 12237.416666666677,
+    "rmse": 15762.400560088176,
+    "mape": 4.265080039359873,
+    "wape": 0.04148524106945361,
+    "meses_mape_excluidos": 0
+  },
+  "metricas_contexto": {
+    "ctx_ultimo_valor_mae": 79899.08333333318,
+    "ctx_ultimo_valor_wape": 0.2708604947922032,
+    "ctx_promedio_12_mae": 34456.52777777779,
+    "ctx_promedio_12_wape": 0.11680875140674585
+  },
+  "parametros_procedimiento": {
+    "formula": "y_hat(t) = y(t - 12)",
+    "valores_base": {
+      "2025-07": 307291.00000000006,
+      "2025-08": 315572.0000000001,
+      "2025-09": 236472.99999999994,
+      "2025-10": 277299.0000000001,
+      "2025-11": 328430.9999999998,
+      "2025-12": 392086.99999999965
+    }
+  },
+  "reglas_aceptacion": {
+    "controles_calidad_sin_errores": true,
+    "salidas_integras": true,
+    "monitoreo_sin_errores": true,
+    "wape_menor_o_igual_umbral": true,
+    "mae_no_mayor_que_ratio_x_referencia": true
+  },
+  "calidad": {
+    "filas": 161036,
+    "duplicados": 0,
+    "tasa_faltantes_opcional": 0.0,
+    "meses_cubiertos": 210
+  },
+  "monitoreo": [
+    {
+      "verificacion": "actualizacion",
+      "estado": "ok",
+      "detalle": "Último mes de la fuente: 2026-06; esperado: 2026-06; primera estimación: 2026-07 (esperada 2026-07)"
+    },
+    {
+      "verificacion": "calidad",
+      "estado": "ok",
+      "detalle": "Sin cambios relevantes frente a eb8c3bf08e4547b885415f37f9defad2"
+    },
+    {
+      "verificacion": "resultados",
+      "estado": "ok",
+      "detalle": "Estimaciones finitas, no negativas y dentro de los umbrales"
+    }
+  ],
+  "dif_rel_max_vs_vigente_anterior": 1.1102230246251565e-16
+}

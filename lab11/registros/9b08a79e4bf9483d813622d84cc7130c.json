@@ -1,0 +1,24 @@
+{
+  "inicio_utc": "2026-11-01T18:54:16+00:00",
+  "fin_utc": "2026-11-01T18:54:45+00:00",
+  "run_id": "9b08a79e4bf9483d813622d84cc7130c",
+  "etapas_completadas": [
+    "lectura"
+  ],
+  "advertencias": [
+    "fechas_y_cobertura: Fechas inválidas: 0; meses sin registros: []; meses del período de ajuste sin la variable: [] | Advertencia: meses sin la variable antes del período de ajuste, se dejan ausentes: ['2020-04', '2020-05', '2020-06', '2020-07', '2020-08']"
+  ],
+  "errores": [
+    "[validacion] Controles críticos fallidos: ['unicidad']. No se evalúa ni se publica."
+  ],
+  "estado": "fallido",
+  "publicacion": {
+    "resultado": "no_publicada",
+    "motivo": "falló la etapa validacion; se conserva la versión vigente",
+    "vigente_antes": "eef1c71ef3dd43368dd5b0f5832c7b7c",
+    "vigente_despues": "eef1c71ef3dd43368dd5b0f5832c7b7c"
+  },
+  "git_commit": "7f2f5316ae54958ba5646791895a4b7899b651d4",
+  "codigo_modificado_sin_commit": "false",
+  "fuente": "clave_duplicada.xlsx"
+}
