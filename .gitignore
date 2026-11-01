@@ -12,3 +12,4 @@ Informe/*.toc
 __pycache__/
 .tmp_test/
 tmp/pdfs/
+.venv-lab11/
