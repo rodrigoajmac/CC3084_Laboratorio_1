@@ -439,6 +439,8 @@ elif pagina.startswith('2'):
         fig.update_yaxes(autorange='reversed', type='category', title=None)
         base(fig, 420)
         st.plotly_chart(fig, key='g_heat', width='stretch')
+        if z.isna().any().any():
+            st.caption('Celdas en blanco = meses sin datos (2026 llega solo hasta junio).')
 
     c_a, c_b = st.columns(2)
     # V6 perfil estacional -------------------------------------------------------------------------
@@ -464,7 +466,8 @@ elif pagina.startswith('2'):
             fig.update_yaxes(title='% frente al mes promedio', zeroline=False)
             base(fig, 340)
             st.plotly_chart(fig, key='g_perfil', width='stretch')
-            st.caption('Naranja = el mes pico; azul = meses altos; gris = temporada baja; azul claro = cercanos al promedio. '
+            pico = 'Naranja = el mes pico; ' if dev.max() > 15 else ''
+            st.caption(pico + 'azul = meses altos; gris = temporada baja; azul claro = cercanos al promedio. '
                        'Describe lo ocurrido; no explica por qué.')
 
     # V7 recuperación ------------------------------------------------------------------------------
@@ -530,10 +533,14 @@ elif pagina.startswith('3'):
     base(fig, 330)
     st.plotly_chart(fig, key='g_dumb', width='stretch')
     mej = tabla.index[0]
+    if np.isfinite(tabla.loc[mej, 'mape_ctrl']):
+        post = (f'Después de la pandemia, el modelo con menor RMSE es <b>{nombre_modelo(mej)}</b> '
+                f'(MAPE {tabla.loc[mej, "mape_ctrl"]:.1f} %). ')
+    else:
+        post = 'La prueba post-pandemia no es interpretable: la serie vale cero desde 2023 y el MAPE no se puede calcular. '
     aviso(f'<b>Lectura:</b> en la prueba que incluye la pandemia todos los modelos fallan ({tabla["mape_7030"].min():.0f}–'
           f'{tabla["mape_7030"].max():.0f} %) porque se entrenaron antes de una caída que no podían anticipar. '
-          f'Después de la pandemia, el modelo con menor RMSE es <b>{nombre_modelo(mej)}</b> (MAPE {tabla.loc[mej, "mape_ctrl"]:.1f} %). '
-          'Es una estimación sobre 18 meses de prueba: no garantiza el desempeño futuro.')
+          + post + 'Es una estimación sobre 18 meses de prueba: no garantiza el desempeño futuro.')
 
     # controles de modelo ---------------------------------------------------------------------------
     st.markdown('#### Compare modelos en detalle')
@@ -551,7 +558,7 @@ elif pagina.startswith('3'):
     por_defecto = list(metr.index[:3])
     elegidos = cc2.multiselect('Modelos (hasta 3)', list(metr.index), default=por_defecto, max_selections=3,
                                format_func=nombre_modelo,
-                               help='Pase el cursor sobre un modelo en la guía para ver qué hace.')
+                               help='Consulte «4 · Guía y límites» para ver qué hace cada modelo.')
     if not elegidos:
         st.info('Seleccione al menos un modelo para ver sus pronósticos.')
     else:
@@ -608,7 +615,7 @@ elif pagina.startswith('3'):
         tt['RMSE (miles)'] = tt['RMSE (miles)'] / 1e3
         tt['MAE (miles)'] = tt['MAE (miles)'] / 1e3
         st.dataframe(tt.style.format({'MAPE (%)': '{:.1f}', 'RMSE (miles)': '{:,.1f}', 'MAE (miles)': '{:,.1f}'}),
-                     use_container_width=True)
+                     width='stretch')
 
 # ================================================================== PÁGINA 4 · GUÍA Y LÍMITES
 else:
