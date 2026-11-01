@@ -50,6 +50,11 @@ def sha256(path):
     return digest.hexdigest()
 
 
+def huella_config(cfg):
+    """Huella del contenido de la configuración, independiente de espacios y finales de línea (LF/CRLF)."""
+    return hashlib.sha256(json.dumps(cfg, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
 def check(name, failed, warning="", detail=""):
     return {"control": name, "estado": "error" if failed else "advertencia" if warning else "ok",
             "detalle": detail + (f" | Advertencia: {warning}" if warning else "")}
@@ -351,6 +356,7 @@ def main(argv=None):
 
     config_path = args.config.resolve()
     cfg = json.loads(config_path.read_text(encoding="utf-8"))
+    config_sha = huella_config(cfg)
     base = config_path.parent
     source = (args.source or (Path(os.environ["LAB11_FUENTE"]) if os.environ.get("LAB11_FUENTE") else base / cfg["source"])).resolve()
     pub_dir, log_dir = base / cfg["published_dir"], base / cfg["log_dir"]
@@ -390,7 +396,7 @@ def main(argv=None):
     try:
         mlflow.set_tags({"git_commit": commit, "codigo_modificado_sin_commit": dirty, "destino": cfg["destino"],
                          "variable": cfg["variable"], "fuente_archivo": source.name,
-                         "config_sha256": sha256(config_path), "version_procedimiento": cfg["procedure_version"]})
+                         "config_sha256": config_sha, "version_procedimiento": cfg["procedure_version"]})
         mlflow.log_params({"metodo": cfg["method"], "referencia": cfg["reference"], "fit_start": cfg["fit_start"],
                            "first_month": cfg["first_month"], "last_observed_month": cfg["last_observed_month"],
                            "horizon": cfg["horizon"], "validation_origins": ",".join(cfg["validation_origins"]),
@@ -482,7 +488,7 @@ def main(argv=None):
                 log["advertencias"].append(f"monitoreo {m['verificacion']} ({m['estado']}): {m['detalle']}")
         repro = None
         if vigente_antes and vigente_antes["meta"].get("fuente_sha256") == fuente_sha and \
-                vigente_antes["meta"].get("config_sha256") == sha256(config_path):
+                vigente_antes["meta"].get("config_sha256") == config_sha:
             prev = vigente_antes["estimaciones"].set_index("periodo_estimado")["valor"]
             repro = float((est.set_index("periodo_estimado")["valor"] / prev - 1).abs().max())
             mlflow.log_metric("dif_rel_max_vs_vigente", repro)
@@ -508,7 +514,7 @@ def main(argv=None):
             meta = {"run_id": run_id, "destino": cfg["destino"], "variable": cfg["variable"], "unidad": cfg["unidad"],
                     "metodo": cfg["method"], "version_procedimiento": est["version_procedimiento"].iloc[0],
                     "git_commit": commit, "fecha_generacion_utc": log["inicio_utc"], "fuente_archivo": source.name,
-                    "fuente_sha256": fuente_sha, "config_sha256": sha256(config_path),
+                    "fuente_sha256": fuente_sha, "config_sha256": config_sha,
                     "periodo_ajuste": [cfg["fit_start"], cfg["last_observed_month"]],
                     "periodos_evaluados": [ev["periodo"].iloc[0], ev["periodo"].iloc[-1]], "meses_evaluados": len(ev),
                     "metricas_procedimiento": m_proc, "metricas_referencia": m_ref, "metricas_contexto": m_ctx,
