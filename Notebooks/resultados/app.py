@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Observatorio de turismo · Guatemala — tablero interactivo (CC3084, Laboratorio 10)
+Observatorio de turismo · Guatemala — tablero interactivo (CC3084, Laboratorios 10 y 11)
 
 Reutiliza los datos y modelos del Laboratorio 1 (no entrena modelos nuevos):
   series_mensuales.csv  -> 7 series mensuales (total, 3 países, 3 vías)
@@ -10,6 +10,7 @@ Reutiliza los datos y modelos del Laboratorio 1 (no entrena modelos nuevos):
 Ejecutar:   streamlit run app.py
 """
 import json
+import os
 import re
 import unicodedata
 from pathlib import Path
@@ -119,6 +120,30 @@ def cargar():
 S, R, P = cargar()
 CMP = R.get('comparativo', {})
 
+# Versión aprobada del pipeline del Laboratorio 11. El tablero solo la lee: nunca ajusta modelos.
+PUBLICADO = Path(os.environ.get('LAB11_PUBLICADO', AQUI.parents[1] / 'lab11' / 'publicado'))
+
+
+def mtime_vigente():
+    p = PUBLICADO / 'vigente.json'
+    return p.stat().st_mtime if p.is_file() else None
+
+
+@st.cache_data(show_spinner=False)
+def cargar_vigente(ruta, mtime):
+    """(metadatos, estimaciones, observados) de la versión vigente, o None si aún no hay una aprobada.
+    `mtime` invalida la caché cuando se publica o restaura otra versión."""
+    if mtime is None:
+        return None
+    pub = Path(ruta)
+    vdir = pub / json.loads((pub / 'vigente.json').read_text(encoding='utf-8'))['version_dir']
+    meta = json.loads((vdir / 'metadatos.json').read_text(encoding='utf-8'))
+    est = pd.read_csv(vdir / 'estimaciones.csv')
+    obs = pd.read_csv(vdir / 'observados.csv')
+    est['periodo_estimado'] = pd.PeriodIndex(est['periodo_estimado'], freq='M').to_timestamp()
+    obs['periodo'] = pd.PeriodIndex(obs['periodo'], freq='M').to_timestamp()
+    return meta, est, obs
+
 
 def fmt_miles(v):
     return f'{v / 1e3:,.0f} mil'
@@ -198,7 +223,8 @@ ss['_firma_anual'] = firma
 with st.sidebar:
     st.markdown('## 🧭 Observatorio de turismo')
     st.caption('Flujo de viajeros a Guatemala · INGUAT/IGM · 2009 – jun 2026')
-    pagina = st.radio('Ir a', ['1 · Panorama', '2 · Calendario y mercados', '3 · Pronósticos', '4 · Guía y límites'],
+    pagina = st.radio('Ir a', ['1 · Panorama', '2 · Calendario y mercados', '3 · Pronósticos', '4 · Estimación vigente',
+                               '5 · Guía y límites'],
                       label_visibility='collapsed')
     st.divider()
     st.markdown('**Qué serie quiere mirar**')
@@ -558,7 +584,7 @@ elif pagina.startswith('3'):
     por_defecto = list(metr.index[:3])
     elegidos = cc2.multiselect('Modelos (hasta 3)', list(metr.index), default=por_defecto, max_selections=3,
                                format_func=nombre_modelo,
-                               help='Consulte «4 · Guía y límites» para ver qué hace cada modelo.')
+                               help='Consulte «5 · Guía y límites» para ver qué hace cada modelo.')
     if not elegidos:
         st.info('Seleccione al menos un modelo para ver sus pronósticos.')
     else:
@@ -617,7 +643,57 @@ elif pagina.startswith('3'):
         st.dataframe(tt.style.format({'MAPE (%)': '{:.1f}', 'RMSE (miles)': '{:,.1f}', 'MAE (miles)': '{:,.1f}'}),
                      width='stretch')
 
-# ================================================================== PÁGINA 4 · GUÍA Y LÍMITES
+# ================================================================== PÁGINA 4 · ESTIMACIÓN VIGENTE (Laboratorio 11)
+elif pagina.startswith('4'):
+    st.title('¿Cuántos visitantes no residentes se esperan en los próximos meses?')
+    vig = cargar_vigente(str(PUBLICADO), mtime_vigente())
+    if vig is None:
+        st.info('Las estimaciones no están disponibles: todavía no existe una versión aprobada. '
+                'Los datos observados de las páginas 1 a 3 siguen disponibles.')
+    else:
+        meta, est, obs = vig
+        mp = meta['metricas_procedimiento']
+        ini, fin = (pd.Period(p, 'M') for p in meta['periodos_evaluados'])
+        c1, c2, c3 = st.columns(3)
+        c1.metric('Actualizado', pd.Timestamp(meta['fecha_generacion_utc']).strftime('%d/%m/%Y'),
+                  help=f"Versión aprobada {meta['run_id'][:8]} · procedimiento {meta['version_procedimiento']}")
+        c2.metric('Error de validación', f"{mp['wape'] * 100:.1f} %",
+                  help='Error absoluto total dividido entre el total observado de los meses evaluados (WAPE).')
+        c3.metric('Error medio por mes', fmt_miles(mp['mae']), help='Error absoluto medio (MAE), en viajeros por mes.')
+        st.markdown(f"<p class='que'><b>Cómo se validó:</b> se ocultaron los meses de {MESES[ini.month - 1]} {ini.year} "
+                    f"a {MESES[fin.month - 1]} {fin.year} y se estimaron solo con datos anteriores. En promedio, la estimación "
+                    f"se apartó {mp['wape'] * 100:.1f} % ({fmt_miles(mp['mae'])} viajeros por mes) de lo que después se observó.</p>",
+                    unsafe_allow_html=True)
+
+        titulo('Observado y estimado',
+               'Visitantes no residentes por mes: últimos tres años observados y los meses estimados.',
+               'anticipar la demanda de los próximos meses y planificar capacidad.', 'mix')
+        o = obs.tail(36)
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=o['periodo'], y=o['valor'] / 1e3, mode='lines+markers', name='● Observado',
+                                 line=dict(color=AZUL, width=2), marker=dict(size=5, color=AZUL),
+                                 hovertemplate='%{x|%b %Y}<br>Observado: <b>%{y:,.0f} mil</b><extra></extra>'))
+        puente = pd.concat([o.tail(1)[['periodo', 'valor']], est.rename(columns={'periodo_estimado': 'periodo'})[['periodo', 'valor']]])
+        fig.add_trace(go.Scatter(x=puente['periodo'], y=puente['valor'] / 1e3, mode='lines+markers', name='◆ Estimación',
+                                 line=dict(color=NARANJA, width=2, dash='dash'),
+                                 marker=dict(symbol=['circle'] + ['diamond'] * len(est), size=[0] + [9] * len(est), color=NARANJA),
+                                 hovertemplate='%{x|%b %Y}<br>Estimación: <b>%{y:,.0f} mil</b><extra></extra>'))
+        fig.add_shape(forma_linea(str(o['periodo'].iloc[-1]), TEXTO_2, 'dot'))
+        fig.update_yaxes(title='miles de visitantes por mes', rangemode='tozero')
+        base(fig, 380)
+        st.plotly_chart(fig, key='g_vigente', width='stretch')
+
+        tabla = est[['periodo_estimado', 'valor']].assign(
+            periodo_estimado=lambda d: [f"{MESES[p.month - 1]} {p.year}" for p in d['periodo_estimado']],
+            valor=lambda d: (d['valor'] / 1e3).round(0))
+        tabla.columns = ['Mes estimado', 'Visitantes estimados (miles)']
+        st.dataframe(tabla, hide_index=True, width='stretch')
+        aviso('<b>Limitaciones:</b> la estimación repite lo ocurrido en el mismo mes del año anterior; no anticipa cambios '
+              'de tendencia ni eventos nuevos. Excluye a los guatemaltecos que regresan, porque la fuente dejó de '
+              'registrarlos en 2023, y la cobertura de cruceristas también cambió ese año. Son estimaciones, no datos observados.')
+        st.caption('Los detalles técnicos de cada ejecución (datos, código, parámetros y controles) están en MLflow y en lab11/README.md.')
+
+# ================================================================== PÁGINA 5 · GUÍA Y LÍMITES
 else:
     st.title('Guía de lectura y límites')
     g1, g2 = st.columns(2)
