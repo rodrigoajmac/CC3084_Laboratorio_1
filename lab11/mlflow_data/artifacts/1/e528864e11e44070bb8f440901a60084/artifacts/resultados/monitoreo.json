@@ -1,0 +1,17 @@
+[
+  {
+    "verificacion": "actualizacion",
+    "estado": "ok",
+    "detalle": "Último mes de la fuente: 2026-06; esperado: 2026-06; primera estimación: 2026-07 (esperada 2026-07)"
+  },
+  {
+    "verificacion": "calidad",
+    "estado": "ok",
+    "detalle": "Sin cambios relevantes frente a c5332d00355341c394d88f74390b1258"
+  },
+  {
+    "verificacion": "resultados",
+    "estado": "ok",
+    "detalle": "Estimaciones finitas, no negativas y dentro de los umbrales"
+  }
+]
