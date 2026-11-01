@@ -1,0 +1,12 @@
+# Lista blanca: solo código, configuración y resultados agregados del tablero.
+# Los datos institucionales (Excel) nunca entran a la imagen; se montan como volumen.
+*
+!lab11/*.py
+!lab11/config.json
+!lab11/requirements.txt
+!lab11/tests/*.py
+!Notebooks/resultados/app.py
+!Notebooks/resultados/series_mensuales.csv
+!Notebooks/resultados/resultados.json
+!Notebooks/resultados/predicciones.csv
+!Notebooks/resultados/.streamlit/config.toml

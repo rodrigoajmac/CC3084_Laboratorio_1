@@ -1,0 +1,56 @@
+# Laboratorio 11: MLflow + tablero como servicios; el pipeline se ejecuta bajo demanda.
+#   docker compose up -d --build            # MLflow (5000) y tablero (8501)
+#   docker compose run --rm pipeline        # una ejecución completa del pipeline
+# Los datos se montan desde LAB11_DATOS (por omisión ./Datos_Crudos) y no se copian a la imagen.
+name: observatorio-lab11
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: lab11/Dockerfile
+  image: observatorio-lab11:1.0
+
+services:
+  mlflow:
+    <<: *app
+    command: >
+      mlflow server --host 0.0.0.0 --port 5000
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --artifacts-destination /mlflow/artifacts --serve-artifacts
+    ports: ["5000:5000"]
+    volumes:
+      - ./lab11/mlflow_data:/mlflow            # persiste al eliminar y recrear contenedores
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  tablero:
+    <<: *app
+    command: >
+      streamlit run Notebooks/resultados/app.py
+      --server.address=0.0.0.0 --server.port=8501 --server.headless=true
+    ports: ["8501:8501"]
+    environment:
+      LAB11_PUBLICADO: /app/lab11/publicado
+    volumes:
+      - ./lab11/publicado:/app/lab11/publicado:ro   # solo lee la versión aprobada vigente
+
+  pipeline:
+    <<: *app
+    profiles: ["pipeline"]
+    command: python lab11/pipeline.py
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      LAB11_FUENTE: /datos/Base_Migracion_2009-2026jun.xlsx
+    volumes:
+      - ${LAB11_DATOS:-./Datos_Crudos}:/datos:ro
+      - ./lab11/publicado:/app/lab11/publicado
+      - ./lab11/registros:/app/lab11/registros
+      - ./lab11/runs:/app/lab11/runs
+      - ./lab11/evidencia:/app/lab11/evidencia
+      - ./.git:/app/.git:ro                      # solo para leer el commit de la ejecución
+    depends_on:
+      mlflow:
+        condition: service_healthy
